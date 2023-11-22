@@ -1,6 +1,6 @@
 class Character extends MovableObject {
-  width = 300;
-  height = 250;
+  width = 180;
+  height = 150;
   speed = 10;
 
   IMAGES_SWIMMING = [
@@ -57,6 +57,5 @@ class Character extends MovableObject {
       }
     }, 50);
   }
-
   jump() {}
 }
