@@ -17,7 +17,7 @@ const level1 = new Level(
     new JellyFishYellow(1850, 370),
     new JellyFishYellow(1930, 330),
     new JellyFishYellow(2010, 290),
-    new RedFish(),
+    new RedFish(this.world),
     new Endboss(),
   ],
   [

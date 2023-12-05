@@ -10,6 +10,7 @@ class MovableObject {
   speedY = 0.15;
   otherDirection = false;
 
+
   loadeImage(path) {
     this.img = new Image();
     this.img.src = path;
@@ -31,26 +32,37 @@ class MovableObject {
   }
 
   moveRight() {
+    this.x += this.speed;
 
   }
 
   moveLeft() {
-    setInterval(() => {
-      this.x -= this.speed;
-    }, 1000 / 60);
+    this.x -= this.speed;
   }
 
+  moveUp() {
+    this.y -= this.speed;
+  }
+
+  moveDown() {
+    this.y += this.speed;
+  }
+
+
   moveUpDown() {
-    let direction = 1; // 1 for moving up, -1 for moving down
-
+    let direction = 1;
     setInterval(() => {
-      // Update y position based on direction
       this.y += direction * this.speedY;
-
-      // Check if y reaches upper or lower bound, change direction accordingly
       if (this.y <= 20 || this.y >= 380) {
         direction *= -1; // Reverse the direction
       }
     }, 1000 / 60);
   }
+
+  traceCharacter() {
+
+  }
 }
+
+
+
