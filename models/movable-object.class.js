@@ -10,6 +10,7 @@ class MovableObject {
   speedY = 0.15;
   otherDirection = false;
   hp = 100;
+  lastHit = 0;
 
 
   loadeImage(path) {
@@ -36,6 +37,24 @@ class MovableObject {
     return (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) &&
       (this.y + this.height) >= mo.y &&
       (this.y) <= (mo.y + mo.height);
+  }
+
+  hit() {
+    this.hp -= 5;
+    if (this.hp < 0) {
+      this.hp = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+
+  isHurt() {
+    let timepassed = new Date().getTime() - this.lastHit;
+    return timepassed < 2000;
+  }
+
+  isDead() {
+    return this.hp == 0;
   }
 
   loadImages(arr) {
