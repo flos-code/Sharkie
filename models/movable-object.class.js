@@ -7,6 +7,7 @@ class MovableObject {
   imageCache = {};
   currenImage = 0;
   speed = 0.15;
+  speedY = 0.15;
   otherDirection = false;
 
   loadeImage(path) {
@@ -30,12 +31,26 @@ class MovableObject {
   }
 
   moveRight() {
-    console.log("Moving right");
+
   }
 
   moveLeft() {
     setInterval(() => {
       this.x -= this.speed;
+    }, 1000 / 60);
+  }
+
+  moveUpDown() {
+    let direction = 1; // 1 for moving up, -1 for moving down
+
+    setInterval(() => {
+      // Update y position based on direction
+      this.y += direction * this.speedY;
+
+      // Check if y reaches upper or lower bound, change direction accordingly
+      if (this.y <= 20 || this.y >= 380) {
+        direction *= -1; // Reverse the direction
+      }
     }, 1000 / 60);
   }
 }

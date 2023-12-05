@@ -11,7 +11,12 @@ const level1 = new Level(
     new GreenFish(1360, 170, "normal"),
     new GreenFish(1440, 290, "normal"),
     new GreenFish(1440, 130, "normal"),
-    new OrangeFish(),
+    new JellyFishYellow(1600, 200),
+    new JellyFishYellow(1680, 160),
+    new JellyFishYellow(1760, 120),
+    new JellyFishYellow(1850, 370),
+    new JellyFishYellow(1930, 330),
+    new JellyFishYellow(2010, 290),
     new RedFish(),
     new Endboss(),
   ],
@@ -69,6 +74,30 @@ const level1 = new Level(
     ),
     new BackgroundObject("./img/3. Background/Layers/2. Floor/L2.png", 3 * 720),
     new BackgroundObject("./img/3. Background/Layers/1. Light/2.png", 3 * 720),
+
+    new BackgroundObject("./img/3. Background/Layers/5. Water/L1.png", 4 * 720),
+    new BackgroundObject(
+      "./img/3. Background/Layers/4.Fondo 2/L1.png",
+      4 * 720
+    ),
+    new BackgroundObject(
+      "./img/3. Background/Layers/3.Fondo 1/L1.png",
+      4 * 720
+    ),
+    new BackgroundObject("./img/3. Background/Layers/2. Floor/L1.png", 4 * 720),
+    new BackgroundObject("./img/3. Background/Layers/1. Light/1.png", 4 * 720),
+
+    new BackgroundObject("./img/3. Background/Layers/5. Water/L2.png", 5 * 720),
+    new BackgroundObject(
+      "./img/3. Background/Layers/4.Fondo 2/L2.png",
+      5 * 720
+    ),
+    new BackgroundObject(
+      "./img/3. Background/Layers/3.Fondo 1/L2.png",
+      5 * 720
+    ),
+    new BackgroundObject("./img/3. Background/Layers/2. Floor/L2.png", 5 * 720),
+    new BackgroundObject("./img/3. Background/Layers/1. Light/2.png", 5 * 720),
   ],
   [new Coin(), new Poison()]
 );
