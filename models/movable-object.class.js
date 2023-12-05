@@ -9,6 +9,7 @@ class MovableObject {
   speed = 0.15;
   speedY = 0.15;
   otherDirection = false;
+  hp = 100;
 
 
   loadeImage(path) {
