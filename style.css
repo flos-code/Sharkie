@@ -1,9 +1,69 @@
 body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  font-family: "luckiestguy";
+  background-image: url("img/3. Background/Legacy/Dark/1.png");
+  backdrop-filter: blur(5px);
+  background-position: center;
+  background-size: cover;
+  color: white;
+  font-size: 48px;
 }
 
 canvas {
   background-color: black;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(100, 228, 254, 0.5);
+}
+
+@font-face {
+  font-family: "luckiestguy";
+  src: url("img/5.Font/Luckiest_Guy/LuckiestGuy-Regular.ttf") format("truetype");
+}
+
+h1 {
+  margin-block: unset;
+  font-size: 60px;
+}
+
+.keyInstruction {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr); /* 3 rows with equal height */
+  grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+
+  margin-top: 16px;
+  place-items: center;
+}
+
+.imgMovement {
+  height: 100px;
+}
+
+.imgRange {
+  height: 50px;
+}
+
+.imgMelee {
+  height: 50px;
+}
+
+@media only screen and (max-width: 720px) {
+  canvas {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  canvas {
+    height: 100vh;
+    border-radius: unset;
+  }
+  h1 {
+    display: none;
+  }
 }

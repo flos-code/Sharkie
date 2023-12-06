@@ -38,10 +38,10 @@ class DrawableObject {
 
   drawText(ctx, stat, x) {
     if (this instanceof StatusBar) {
-      ctx.font = "30px Comic Sans MS";
+      ctx.font = "48px luckiestguy";
       ctx.fillStyle = "white";
       // ctx.textAlign = "center";
-      ctx.fillText(stat, x, 60);
+      ctx.fillText(stat, x, 65);
     }
   }
 

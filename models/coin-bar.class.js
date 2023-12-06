@@ -7,7 +7,7 @@ class CoinBar extends StatusBar {
     constructor() {
         super()
         this.loadeImage(this.COIN_IMAGE);
-        this.x = 210;
+        this.x = 215;
         this.y = 8;
     }
 
