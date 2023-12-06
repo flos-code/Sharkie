@@ -51,15 +51,17 @@ class World {
 
     this.addObjectsToMap(this.level.backgroundObjects);
 
-    this.ctx.translate(-this.camera_x, 0);
-    // --- Fixed Objects ---
-    this.addObjectsToMap(this.level.statusbars);
-    this.ctx.translate(this.camera_x, 0);
+
 
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.collectibles);
     this.addObjectsToMap(this.shootableObjects);
     this.addToMap(this.character);
+
+    this.ctx.translate(-this.camera_x, 0);
+    // --- Fixed Objects ---
+    this.addObjectsToMap(this.level.statusbars);
+    this.ctx.translate(this.camera_x, 0);
 
     this.ctx.translate(-this.camera_x, 0);
 
