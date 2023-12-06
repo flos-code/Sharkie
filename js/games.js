@@ -23,7 +23,10 @@ window.addEventListener("keydown", (event) => {
     keyboard.LEFT = true;
   }
   if (event.keyCode == 68) {
-    keyboard.ATTACK = true;
+    keyboard.D = true;
+  }
+  if (event.keyCode == 32) {
+    keyboard.SPACE = true;
   }
 });
 
@@ -41,9 +44,9 @@ window.addEventListener("keyup", (event) => {
     keyboard.LEFT = false;
   }
   if (event.keyCode == 68) {
-    keyboard.ATTACK1 = false;
+    keyboard.D = false;
   }
-  if (event.keyCode == 82) {
-    keyboard.ATTACK2 = false;
+  if (event.keyCode == 32) {
+    keyboard.SPACE = false;
   }
 });

@@ -5,6 +5,7 @@ class World {
   keyboard;
   ctx;
   camera_x = 0;
+  shootableObjects = [];
 
 
   constructor(canvas, keyboard) {
@@ -13,22 +14,34 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollisions();
+    this.run();
   }
 
   setWorld() {
     this.character.world = this;
   }
 
-  checkCollisions() {
+  run() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy)) {
-          this.character.hit();
-          // this.statusBar.setPrecentage(this.character.hp)
-        };
-      });
+      this.checkCollisions();
+      this.checkShootObjects();
     }, 200);
+  }
+
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit();
+        // this.statusBar.setPrecentage(this.character.hp)
+      };
+    });
+  }
+
+  checkShootObjects() {
+    if (this.keyboard.D) {
+      let bubble = new ShootableObject(this.character.x + 100, this.character.y + 50);
+      this.shootableObjects.push(bubble)
+    }
   }
 
   draw() {
@@ -45,6 +58,7 @@ class World {
 
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.collectibles);
+    this.addObjectsToMap(this.shootableObjects);
     this.addToMap(this.character);
 
     this.ctx.translate(-this.camera_x, 0);

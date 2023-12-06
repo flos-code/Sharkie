@@ -2,10 +2,11 @@ class MovableObject extends DrawableObject {
 
   speed = 0.15;
   speedY = 0.15;
+  buoyancy = 0.05;
   otherDirection = false;
   hp = 10;
-  coins = 10;
-  posions = 3;
+  coins = 0;
+  posions = 0;
   lastHit = 0;
 
 
@@ -69,8 +70,17 @@ class MovableObject extends DrawableObject {
     }, 1000 / 60);
   }
 
-  traceCharacter() {
+  applyBuoyancy() {
+    setInterval(() => {
+      if (this.isUnderWater() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY += this.buoyancy;
+      }
+    }, 1000 / 25);
+  }
 
+  isUnderWater() {
+    return this.y > -200;
   }
 }
 
