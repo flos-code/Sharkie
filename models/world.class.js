@@ -38,8 +38,12 @@ class World {
   }
 
   checkShootObjects() {
+    let bubblePosition = 0
+    if (!this.character.otherDirection) {
+      bubblePosition = 120
+    }
     if (this.keyboard.D) {
-      let bubble = new ShootableObject(this.character.x + 100, this.character.y + 50);
+      let bubble = new ShootableObject(this.character.x + bubblePosition, this.character.y + 50);
       this.shootableObjects.push(bubble)
     }
   }

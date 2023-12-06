@@ -12,10 +12,15 @@ class ShootableObject extends MovableObject {
 
     shoot() {
         this.speedY = 0;
-
-        setInterval(() => {
-            this.x += 20;
-        }, 1000 / 25);
+        if (!world.character.otherDirection) {
+            setInterval(() => {
+                this.x += 20;
+            }, 1000 / 25);
+        } else {
+            setInterval(() => {
+                this.x -= 20;
+            }, 1000 / 25);
+        }
         setTimeout(() => {
             this.speedY = 10;
             this.applyBuoyancy();
