@@ -1,37 +1,13 @@
-class MovableObject {
-  x = 120;
-  y = 250;
-  img;
-  height = 150;
-  width = 100;
-  imageCache = {};
-  currenImage = 0;
+class MovableObject extends DrawableObject {
+
   speed = 0.15;
   speedY = 0.15;
   otherDirection = false;
-  hp = 100;
+  hp = 10;
+  coins = 10;
+  posions = 3;
   lastHit = 0;
 
-
-  loadeImage(path) {
-    this.img = new Image();
-    this.img.src = path;
-  }
-
-  draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
-
-  drawHitbox(ctx) {
-
-    if (this instanceof Character || this instanceof GreenFish || this instanceof JellyFishYellow) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
 
   isColliding(mo) {
     return (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) &&
@@ -40,7 +16,7 @@ class MovableObject {
   }
 
   hit() {
-    this.hp -= 5;
+    this.hp -= 1;
     if (this.hp < 0) {
       this.hp = 0;
     } else {
@@ -57,13 +33,6 @@ class MovableObject {
     return this.hp == 0;
   }
 
-  loadImages(arr) {
-    arr.forEach((path) => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
-  }
 
   playAnimation(images) {
     let i = this.currenImage % images.length;

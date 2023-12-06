@@ -99,5 +99,6 @@ const level1 = new Level(
     new BackgroundObject("./img/3. Background/Layers/2. Floor/L2.png", 5 * 720),
     new BackgroundObject("./img/3. Background/Layers/1. Light/2.png", 5 * 720),
   ],
-  [new Coin(), new Poison()]
+  [new Coin(), new Poison()],
+  [new PosionBar(), new HpBar(), new CoinBar()]
 );
