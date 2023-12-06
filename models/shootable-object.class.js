@@ -6,7 +6,15 @@ class ShootableObject extends MovableObject {
         this.y = y;
         this.height = 60;
         this.width = 60;
-        this.loadeImage("img/1.Sharkie/4.Attack/Bubble trap/Bubble.png")
+
+        if (this.hasPosion()) {
+            this.loadeImage("img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png");
+            world.character.posions--;
+            console.log(world.character.posions, this.posions)
+        } else {
+            this.loadeImage("img/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
+        }
+
         this.shoot()
     }
 

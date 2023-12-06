@@ -6,8 +6,9 @@ class MovableObject extends DrawableObject {
   otherDirection = false;
   hp = 10;
   coins = 0;
-  posions = 0;
+  posions = 10;
   lastHit = 0;
+  lastMove = new Date().getTime();
 
 
   isColliding(mo) {
@@ -32,6 +33,15 @@ class MovableObject extends DrawableObject {
 
   isDead() {
     return this.hp == 0;
+  }
+
+  isIdle() {
+    let timepassed = new Date().getTime() - this.lastMove;
+    return timepassed > 5000;
+  }
+
+  hasPosion() {
+    return world.character.posions > 0;
   }
 
 

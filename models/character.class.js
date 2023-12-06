@@ -48,9 +48,9 @@ class Character extends MovableObject {
   ];
 
   IMAGES_HURT_SHOCK = [
-    ":/img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
-    ":/img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
-    ":/img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
+    "./img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
+    "./img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
+    "./img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
   ];
 
   IMAGES_RANGE_ATTACK_POISON = [
@@ -118,7 +118,7 @@ class Character extends MovableObject {
     "./img/1.Sharkie/2.Long_IDLE/I8.png",
     "./img/1.Sharkie/2.Long_IDLE/I9.png",
     "./img/1.Sharkie/2.Long_IDLE/I10.png",
-    "./img/1.Sharkie/2.Long_IDLE/11.png",
+    "./img/1.Sharkie/2.Long_IDLE/I11.png",
     "./img/1.Sharkie/2.Long_IDLE/I12.png",
     "./img/1.Sharkie/2.Long_IDLE/I13.png",
     "./img/1.Sharkie/2.Long_IDLE/I14.png"
@@ -149,27 +149,33 @@ class Character extends MovableObject {
         this.moveRight();
         this.otherDirection = false;
         this.swimming_sound.play();
+        this.lastMove = new Date().getTime();
       }
 
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
         this.swimming_sound.play();
+        this.lastMove = new Date().getTime();
       }
       if (this.world.keyboard.UP && this.y > -50) {
         this.moveUp();
         this.swimming_sound.play();
+        this.lastMove = new Date().getTime();
       }
 
       if (this.world.keyboard.DOWN && this.y < 480 - 130) {
         this.moveDown();
         this.swimming_sound.play();
+        this.lastMove = new Date().getTime();
       }
       if (this.world.keyboard.SPACE) {
         this.playAnimation(this.IMAGES_MELEE_ATTACK);
+        this.lastMove = new Date().getTime();
       }
       if (this.world.keyboard.D) {
         this.playAnimation(this.IMAGES_RANGE_ATTACK);
+        this.lastMove = new Date().getTime();
       }
 
 
@@ -177,10 +183,13 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.DOWN) {
+      if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.isHurt() && !this.isDead() && !this.isIdle()) {
         this.playAnimation(this.IMAGES_IDLE);
       }
-    }, 1000 / 25);
+      if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.isHurt() && !this.isDead() && this.isIdle()) {
+        this.playAnimation(this.IMAGES_IDLE_LONG);
+      }
+    }, 1000 / 10);
 
     setInterval(() => {
       if (this.isDead()) {
