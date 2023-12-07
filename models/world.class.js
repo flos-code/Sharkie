@@ -6,6 +6,7 @@ class World {
   ctx;
   camera_x = 0;
   shootableObjects = [];
+  meleeAttack = new MeleeAttack(this.character);
 
 
   constructor(canvas, keyboard) {
@@ -19,6 +20,7 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    this.meleeAttack.world = this;
   }
 
   run() {
@@ -49,6 +51,14 @@ class World {
       return true; // Keep non-collided collectibles in the array
     });
 
+    this.level.enemies = this.level.enemies.filter((enemy) => {
+      if (this.meleeAttack.isColliding(enemy)) {
+        console.log("hit")
+        return false;
+      }
+      return true;;
+    });
+
   }
 
   checkShootObjects() {
@@ -75,6 +85,7 @@ class World {
 
     this.addObjectsToMap(this.shootableObjects);
     this.addToMap(this.character);
+    this.addToMap(this.meleeAttack);
 
     this.ctx.translate(-this.camera_x, 0);
     // --- Fixed Objects ---

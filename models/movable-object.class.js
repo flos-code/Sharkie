@@ -16,10 +16,25 @@ class MovableObject extends DrawableObject {
   item_pickup = new Audio("./audio/item_pickup.mp3");
 
 
+
   isColliding(mo) {
-    return (this.x + 25 + this.width - 50) >= mo.x && this.x + 25 <= (mo.x + mo.width) &&
-      (this.y + 65 + this.height - 90) >= mo.y &&
-      (this.y + 65) <= (mo.y + mo.height);
+    if (this instanceof Character) {
+      // Apply adjustments for character collision
+      return (
+        (this.x + 25 + this.width - 50) >= mo.x &&
+        this.x + 25 <= (mo.x + mo.width) &&
+        (this.y + 65 + this.height - 90) >= mo.y &&
+        (this.y + 65) <= (mo.y + mo.height)
+      );
+    } else {
+      // Normal collision detection without adjustments
+      return (
+        this.x + this.width >= mo.x &&
+        this.x <= mo.x + mo.width &&
+        this.y + this.height >= mo.y &&
+        this.y <= mo.y + mo.height
+      );
+    }
   }
 
   addCoin() {
@@ -124,6 +139,13 @@ class MovableObject extends DrawableObject {
 
   isUnderWater() {
     return this.y > -200;
+  }
+
+
+  meleeAttack() {
+
+
+
   }
 }
 

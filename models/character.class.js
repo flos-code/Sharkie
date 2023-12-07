@@ -165,7 +165,7 @@ class Character extends MovableObject {
         this.swimming_sound.play();
       }
       if (this.world.keyboard.SPACE && !this.attackCooldown()) {
-        this.animateMeleeAttack();
+        this.meleeAttack();
 
       }
       if (this.world.keyboard.D && !this.attackCooldown()) {
@@ -176,8 +176,7 @@ class Character extends MovableObject {
         }
 
 
-        this.lastAttack = new Date().getTime();
-        this.lastMove = new Date().getTime();
+
       }
 
 
@@ -211,15 +210,19 @@ class Character extends MovableObject {
       }
 
       else if (this.world.keyboard.SPACE && !this.attackCooldown()) {
+        this.animateMeleeAttack();
+
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
       }
 
       else if (this.world.keyboard.D && !this.attackCooldown()) {
-
+        this.animateRangeAttack();
+        this.lastAttack = new Date().getTime();
+        this.lastMove = new Date().getTime();
       }
 
-    }, 50);
+    }, 80);
 
 
   }
@@ -236,6 +239,26 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE); // or any other idle animation
       }
     }, 1000 / 20);
+  }
+
+  animateRangeAttack() {
+    let frameCount = 0;
+
+    let rangeAttackInterval = setInterval(() => {
+      if (this.posions > 0) {
+        this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
+        frameCount++;
+      } else {
+        this.playAnimation(this.IMAGES_RANGE_ATTACK);
+        frameCount++;
+      }
+
+
+      if (frameCount >= 8) {
+        clearInterval(rangeAttackInterval);
+        this.playAnimation(this.IMAGES_IDLE); // or any other idle animation
+      }
+    }, 100);
   }
 
 
