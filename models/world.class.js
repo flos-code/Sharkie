@@ -56,9 +56,9 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
 
 
-
-    this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.collectibles);
+    this.addObjectsToMap(this.level.enemies);
+
     this.addObjectsToMap(this.shootableObjects);
     this.addToMap(this.character);
 
