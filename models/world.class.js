@@ -52,11 +52,26 @@ class World {
     });
 
     this.level.enemies = this.level.enemies.filter((enemy) => {
-      if (this.meleeAttack.isColliding(enemy)) {
-        console.log("hit")
-        return false;
+      if (this.meleeAttack.isColliding(enemy) && this.keyboard.SPACE && !this.character.attackCooldown()) {
+        //nur wenn kein attack cooldown
+        if (enemy instanceof GreenFish || enemy instanceof RedFish) {
+          console.log("hit");
+          return false; // Filter out GreenFish and RedFish
+        }
       }
       return true;;
+    });
+
+    this.level.enemies = this.level.enemies.filter((enemy) => {
+      for (let bubble of this.shootableObjects) {
+        if (bubble.isColliding(enemy)) {
+          if (enemy instanceof JellyFishYellow || enemy instanceof Endboss) {
+            console.log("hit");
+            return false; // Filter out JellyFishYellow and Endboss
+          }
+        }
+      }
+      return true;
     });
 
   }

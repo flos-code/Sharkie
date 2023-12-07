@@ -47,14 +47,12 @@ class MeleeAttack extends MovableObject {
 
             }
 
-            // this.x = this.world.character.x + 150;
+
             this.y = this.world.character.y + 50;
             if (this.world.character.otherDirection) {
-                this.x = this.world.character.x - 30;
-
+                this.x = this.world.character.x - 40;
             } else {
                 this.x = this.world.character.x + 150;
-
             }
 
 
