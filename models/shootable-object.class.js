@@ -16,9 +16,12 @@ class ShootableObject extends MovableObject {
         }
 
         this.shoot()
+
+
     }
 
     shoot() {
+
         this.speedY = 0;
         if (!world.character.otherDirection) {
             setInterval(() => {

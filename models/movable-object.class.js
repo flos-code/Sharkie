@@ -6,29 +6,57 @@ class MovableObject extends DrawableObject {
   otherDirection = false;
   hp = 10;
   coins = 0;
-  posions = 10;
+  posions = 0;
   lastHit = 0;
+  lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
+
+  coin_sound = new Audio("./audio/coin_sound.mp3");
+  level_up = new Audio("./audio/level_up.mp3");
+  item_pickup = new Audio("./audio/item_pickup.mp3");
 
 
   isColliding(mo) {
-    return (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) &&
-      (this.y + this.height) >= mo.y &&
-      (this.y) <= (mo.y + mo.height);
+    return (this.x + 25 + this.width - 50) >= mo.x && this.x + 25 <= (mo.x + mo.width) &&
+      (this.y + 65 + this.height - 90) >= mo.y &&
+      (this.y + 65) <= (mo.y + mo.height);
+  }
+
+  addCoin() {
+    if (!this.coin_sound.currentTime == 0) {
+
+      this.coin_sound.currentTime = 0; // Set currentTime to 0 for restarting
+    }
+
+    this.coins++
+    this.coin_sound.play();
+    if (this.coins == 10) {
+      this.coins = 0;
+      this.hp++;
+      this.level_up.play();
+    }
+  }
+
+  addPoison() {
+    this.posions++
+    this.item_pickup.play();
   }
 
   hit() {
-    this.hp -= 1;
-    if (this.hp < 0) {
-      this.hp = 0;
-    } else {
-      this.lastHit = new Date().getTime();
+    if (!this.isHurt()) {
+      this.hp -= 1;
+      if (this.hp < 0) {
+        this.hp = 0;
+      } else {
+        this.lastHit = new Date().getTime();
+      }
     }
+
   }
 
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
-    return timepassed < 2000;
+    return timepassed < 1300;
   }
 
   isDead() {
@@ -38,6 +66,11 @@ class MovableObject extends DrawableObject {
   isIdle() {
     let timepassed = new Date().getTime() - this.lastMove;
     return timepassed > 5000;
+  }
+
+  attackCooldown() {
+    let timepassed = new Date().getTime() - this.lastAttack;
+    return timepassed < 800;
   }
 
   hasPosion() {

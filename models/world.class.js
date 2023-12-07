@@ -32,9 +32,23 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        // this.statusBar.setPrecentage(this.character.hp)
+
       };
     });
+
+    this.level.collectibles = this.level.collectibles.filter((collectible) => {
+      if (this.character.isColliding(collectible)) {
+        if (collectible instanceof Poison) {
+          this.character.addPoison();
+        }
+        if (collectible instanceof Coin) {
+          this.character.addCoin();
+        }
+        return false; // Exclude the collided collectible
+      }
+      return true; // Keep non-collided collectibles in the array
+    });
+
   }
 
   checkShootObjects() {

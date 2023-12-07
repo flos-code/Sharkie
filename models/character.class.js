@@ -149,32 +149,34 @@ class Character extends MovableObject {
         this.moveRight();
         this.otherDirection = false;
         this.swimming_sound.play();
-        this.lastMove = new Date().getTime();
       }
-
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
         this.swimming_sound.play();
-        this.lastMove = new Date().getTime();
       }
       if (this.world.keyboard.UP && this.y > -50) {
         this.moveUp();
         this.swimming_sound.play();
-        this.lastMove = new Date().getTime();
       }
 
       if (this.world.keyboard.DOWN && this.y < 480 - 130) {
         this.moveDown();
         this.swimming_sound.play();
-        this.lastMove = new Date().getTime();
       }
-      if (this.world.keyboard.SPACE) {
-        this.playAnimation(this.IMAGES_MELEE_ATTACK);
-        this.lastMove = new Date().getTime();
+      if (this.world.keyboard.SPACE && !this.attackCooldown()) {
+        this.animateMeleeAttack();
+
       }
-      if (this.world.keyboard.D) {
-        this.playAnimation(this.IMAGES_RANGE_ATTACK);
+      if (this.world.keyboard.D && !this.attackCooldown()) {
+        if (this.posions > 0) {
+          this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
+        } else {
+          this.playAnimation(this.IMAGES_RANGE_ATTACK);
+        }
+
+
+        this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
       }
 
@@ -189,7 +191,7 @@ class Character extends MovableObject {
       if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.isHurt() && !this.isDead() && this.isIdle()) {
         this.playAnimation(this.IMAGES_IDLE_LONG);
       }
-    }, 1000 / 10);
+    }, 1000 / 8);
 
     setInterval(() => {
       if (this.isDead()) {
@@ -205,11 +207,36 @@ class Character extends MovableObject {
         this.world.keyboard.DOWN
       ) {
         this.playAnimation(this.IMAGES_SWIMMING);
+        this.lastMove = new Date().getTime();
       }
+
+      else if (this.world.keyboard.SPACE && !this.attackCooldown()) {
+        this.lastAttack = new Date().getTime();
+        this.lastMove = new Date().getTime();
+      }
+
+      else if (this.world.keyboard.D && !this.attackCooldown()) {
+
+      }
+
     }, 50);
+
+
   }
 
+  animateMeleeAttack() {
+    let frameCount = 0;
 
+    let meleeAttackInterval = setInterval(() => {
+      this.playAnimation(this.IMAGES_MELEE_ATTACK);
+      frameCount++;
+
+      if (frameCount >= 7) {
+        clearInterval(meleeAttackInterval);
+        this.playAnimation(this.IMAGES_IDLE); // or any other idle animation
+      }
+    }, 1000 / 20);
+  }
 
 
 
