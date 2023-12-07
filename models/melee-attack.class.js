@@ -31,6 +31,7 @@ class MeleeAttack extends MovableObject {
 
 
 
+
             }
             if (this.world.keyboard.LEFT && this.world.character.x > 0) {
                 this.moveLeft();

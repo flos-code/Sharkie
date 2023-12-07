@@ -4,6 +4,7 @@ class Level {
   collectibles;
   statusbars;
   level_end_x = 3600;
+  wordl;
 
   constructor(enemies, backgroundObjects, collectibles, statusbars) {
     this.enemies = enemies;

@@ -26,7 +26,7 @@ class DrawableObject {
       ctx.rect(this.x + 25, this.y + 65, this.width - 50, this.height - 90);
       ctx.stroke();
     }
-    if (this instanceof GreenFish || this instanceof JellyFishYellow || this instanceof Coin || this instanceof Poison) {
+    if (this instanceof GreenFish || this instanceof RedFish || this instanceof JellyFishYellow || this instanceof Coin || this instanceof Poison) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "red";

@@ -26,8 +26,11 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+    }, 1000 / 60);
+    setInterval(() => {
+
       this.checkShootObjects();
-    }, 200);
+    }, 1000 / 25);
   }
 
   checkCollisions() {
@@ -53,7 +56,6 @@ class World {
 
     this.level.enemies = this.level.enemies.filter((enemy) => {
       if (this.meleeAttack.isColliding(enemy) && this.keyboard.SPACE && !this.character.attackCooldown()) {
-        //nur wenn kein attack cooldown
         if (enemy instanceof GreenFish || enemy instanceof RedFish) {
           console.log("hit");
           return false; // Filter out GreenFish and RedFish
@@ -81,7 +83,7 @@ class World {
     if (!this.character.otherDirection) {
       bubblePosition = 120
     }
-    if (this.keyboard.D) {
+    if (this.keyboard.D && !this.character.attackCooldown()) {
       let bubble = new ShootableObject(this.character.x + bubblePosition, this.character.y + 50);
       this.shootableObjects.push(bubble)
     }
