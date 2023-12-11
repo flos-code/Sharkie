@@ -3,6 +3,7 @@ class World {
   level = level1;
   canvas;
   keyboard;
+  hpBarEndboss;
   ctx;
   camera_x = 0;
   shootableObjects = [];
@@ -13,6 +14,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.hpBarEndboss = this.level.statusbars.find(bar => bar instanceof HpBarEndboss);
     this.draw();
     this.setWorld();
     this.run();
@@ -89,14 +91,14 @@ class World {
           if (enemy instanceof Endboss) {
 
             collidesWithEnemy = true;
-            if (this.character.hasPosion()) {
-              enemy.hit(bubble.damage);
 
-              console.log(enemy.hp)
-            } else {
-              enemy.hit(bubble.damage);
-              console.log(enemy.hp)
+            enemy.hit(bubble.damage);
+            console.log(enemy.hp);
+            if (this.hpBarEndboss) {
+              this.hpBarEndboss.setPrecentage(enemy.hp);
             }
+
+
 
           }
         }

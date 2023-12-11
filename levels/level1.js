@@ -113,5 +113,5 @@ const level1 = new Level(
     new Poison(2450, 350, "left"),
 
   ],
-  [new PosionBar(), new HpBar(), new CoinBar()]
+  [new PosionBar(), new HpBar(), new CoinBar(), new HpBarEndboss()]
 );

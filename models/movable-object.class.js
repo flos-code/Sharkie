@@ -66,17 +66,7 @@ class MovableObject extends DrawableObject {
 
   }
 
-  hitNormal() {
-    if (!this.isHurt()) {
-      this.hp -= 10;
-      if (this.hp < 0) {
-        this.hp = 0;
-      } else {
-        this.lastHit = new Date().getTime();
-      }
-    }
 
-  }
 
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;

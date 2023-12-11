@@ -14,7 +14,7 @@ class Character extends MovableObject {
     "./img/1.Sharkie/3.Swim/3.png",
     "./img/1.Sharkie/3.Swim/4.png",
     "./img/1.Sharkie/3.Swim/5.png",
-    "./img/1.Sharkie/3.Swim/6.png",
+    "./img/1.Sharkie/3.Swim/6.png"
   ];
 
   IMAGES_DEAD_POISONED = [

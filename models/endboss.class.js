@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
 
   y = -60;
   hp = 100;
+  hpBarEndboss;
 
   IMAGES_SPAWNING = [
     "./img/2.Enemy/3 Final Enemy/1.Introduce/1.png",
@@ -81,6 +82,7 @@ class Endboss extends MovableObject {
         if (this.hadFirstContact) {
           setTimeout(() => {
             this.x = 3500;
+            this.hpBarEndboss.x = 500;
           }, 300);
 
         }
@@ -97,6 +99,8 @@ class Endboss extends MovableObject {
       if (world && world.character.x > 3000 && !this.hadFirstContact) {
         i = 0;
         this.hadFirstContact = true;
+        this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+
 
       }
 
