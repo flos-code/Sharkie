@@ -26,7 +26,7 @@ class DrawableObject {
       ctx.rect(this.x + 25, this.y + 65, this.width - 50, this.height - 90);
       ctx.stroke();
     }
-    if (this instanceof GreenFish || this instanceof RedFish || this instanceof JellyFishYellow || this instanceof Coin || this instanceof Poison) {
+    if (this instanceof GreenFish || this instanceof RedFish || this instanceof JellyFishYellow || this instanceof JellyFishGreen || this instanceof Coin || this instanceof Poison) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "red";
@@ -63,7 +63,6 @@ class DrawableObject {
     if (this instanceof StatusBar) {
       ctx.font = "48px luckiestguy";
       ctx.fillStyle = "white";
-      // ctx.textAlign = "center";
       ctx.fillText(stat, x, 65);
     }
   }

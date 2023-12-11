@@ -59,11 +59,10 @@ class World {
     this.level.enemies = this.level.enemies.filter((enemy) => {
       if (this.meleeAttack.isColliding(enemy) && this.keyboard.SPACE && !this.character.attackCooldown()) {
         if (enemy instanceof GreenFish || enemy instanceof RedFish) {
-          console.log("hit");
-          return false; // Filter out GreenFish and RedFish
+          enemy.hit(10);
         }
       }
-      return true;;
+      return true;
     });
 
     this.shootableObjects = this.shootableObjects.filter((bubble) => {
@@ -71,10 +70,10 @@ class World {
 
       this.level.enemies = this.level.enemies.filter((enemy) => {
         if (bubble.isColliding(enemy)) {
-          if (enemy instanceof JellyFishYellow) {
-            console.log("hit");
+          if (enemy instanceof JellyFishYellow || enemy instanceof JellyFishGreen) {
+            enemy.hit(10);
             collidesWithEnemy = true;
-            return false; // Filter out JellyFishYellow and Endboss
+
           }
         }
         return true;
@@ -93,7 +92,6 @@ class World {
             collidesWithEnemy = true;
 
             enemy.hit(bubble.damage);
-            console.log(enemy.hp);
             if (this.hpBarEndboss) {
               this.hpBarEndboss.setPrecentage(enemy.hp);
             }

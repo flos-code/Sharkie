@@ -17,6 +17,15 @@ const level1 = new Level(
     new JellyFishYellow(2850, 370),
     new JellyFishYellow(2930, 330),
     new JellyFishYellow(3010, 290),
+
+    new JellyFishGreen(1900, 100, -1),
+    new JellyFishGreen(2000, 180, 1),
+    new JellyFishGreen(2100, 140, -1),
+    new JellyFishGreen(2200, 280, 1),
+    new JellyFishGreen(2300, 260, -1),
+    new JellyFishGreen(2400, 120, 1),
+    new JellyFishGreen(2500, 300, -1),
+
     new RedFish(),
     new Endboss(),
   ],
