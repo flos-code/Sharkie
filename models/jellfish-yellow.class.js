@@ -41,6 +41,7 @@ class JellyFishYellow extends MovableObject {
 
 
     this.moveUpDown();
+
     setInterval(() => {
       if (this.isDead()) {
         this.speed = 0;

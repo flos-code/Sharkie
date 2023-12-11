@@ -127,6 +127,8 @@ class MovableObject extends DrawableObject {
     }, 1000 / 60);
   }
 
+
+
   applyBuoyancy() {
     setInterval(() => {
       if (this.isUnderWater() || this.speedY > 0) {

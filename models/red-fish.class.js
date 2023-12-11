@@ -6,7 +6,7 @@ class RedFish extends MovableObject {
     "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim2.png",
     "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim3.png",
     "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim4.png",
-    "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim5.png",
+    "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim5.png"
   ];
 
 

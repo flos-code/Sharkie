@@ -6,6 +6,9 @@ class Character extends MovableObject {
   offsetY = 65;
   widthOffset = 50;
   heightOffset = 90;
+  lastDamage;
+
+
 
 
   IMAGES_SWIMMING = [
@@ -130,7 +133,10 @@ class Character extends MovableObject {
   ];
 
   world;
-  swimming_sound = new Audio("./audio/swimming.mp3");
+  swimming_sound;
+  //  = new Audio("./audio/swimming.mp3");
+
+
 
   constructor() {
     super().loadeImage("./img/1.Sharkie/3.Swim/1.png");
@@ -145,9 +151,19 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_IDLE_LONG);
     this.animate();
+
+
+    // if (this.sound) {
+    //   this.swimming_sound = new Audio("./audio/swimming.mp3");
+
+    // } else {
+    //   this.swimming_sound = new Audio("./audio/empty_Sound.mp3");
+    // }
   }
 
   animate() {
+
+
     setInterval(() => {
       this.swimming_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -198,11 +214,15 @@ class Character extends MovableObject {
     }, 1000 / 8);
 
     setInterval(() => {
-      if (this.isDead()) {
+      if (this.isDead() && this.lastDamage == "poisoned") {
         this.playAnimation(this.IMAGES_DEAD_POISONED);
+      } else if (this.isDead() && this.lastDamage == "shocked") {
+        this.playAnimation(this.IMAGES_DEAD_SHOCK);
       }
-      else if (this.isHurt()) {
+      else if (this.isHurt() && this.lastDamage == "poisoned") {
         this.playAnimation(this.IMAGES_HURT_POISONED);
+      } else if (this.isHurt() && this.lastDamage == "shocked") {
+        this.playAnimation(this.IMAGES_HURT_SHOCK);
       }
       else if (
         this.world.keyboard.RIGHT ||

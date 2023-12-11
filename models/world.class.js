@@ -3,6 +3,7 @@ class World {
   level = level1;
   canvas;
   keyboard;
+  audioOn = false;
   hpBarEndboss;
   ctx;
   camera_x = 0;
@@ -14,6 +15,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+
     this.hpBarEndboss = this.level.statusbars.find(bar => bar instanceof HpBarEndboss);
     this.draw();
     this.setWorld();
@@ -39,7 +41,12 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit(1);
-
+        if (enemy instanceof GreenFish || enemy instanceof RedFish || enemy instanceof Endboss) {
+          this.character.lastDamage = "poisoned"
+        }
+        if (enemy instanceof JellyFishYellow || enemy instanceof JellyFishGreen) {
+          this.character.lastDamage = "shocked"
+        }
       };
     });
 
@@ -72,6 +79,7 @@ class World {
         if (bubble.isColliding(enemy)) {
           if (enemy instanceof JellyFishYellow || enemy instanceof JellyFishGreen) {
             enemy.hit(10);
+
             collidesWithEnemy = true;
 
           }
