@@ -36,7 +36,7 @@ class World {
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        this.character.hit();
+        this.character.hit(1);
 
       };
     });
@@ -64,16 +64,46 @@ class World {
       return true;;
     });
 
-    this.level.enemies = this.level.enemies.filter((enemy) => {
-      for (let bubble of this.shootableObjects) {
+    this.shootableObjects = this.shootableObjects.filter((bubble) => {
+      let collidesWithEnemy = false;
+
+      this.level.enemies = this.level.enemies.filter((enemy) => {
         if (bubble.isColliding(enemy)) {
-          if (enemy instanceof JellyFishYellow || enemy instanceof Endboss) {
+          if (enemy instanceof JellyFishYellow) {
             console.log("hit");
+            collidesWithEnemy = true;
             return false; // Filter out JellyFishYellow and Endboss
           }
         }
-      }
-      return true;
+        return true;
+      });
+
+      return !collidesWithEnemy;
+    });
+
+    this.shootableObjects = this.shootableObjects.filter((bubble) => {
+      let collidesWithEnemy = false;
+
+      this.level.enemies = this.level.enemies.filter((enemy) => {
+        if (bubble.isColliding(enemy)) {
+          if (enemy instanceof Endboss) {
+
+            collidesWithEnemy = true;
+            if (this.character.hasPosion()) {
+              enemy.hit(bubble.damage);
+
+              console.log(enemy.hp)
+            } else {
+              enemy.hit(bubble.damage);
+              console.log(enemy.hp)
+            }
+
+          }
+        }
+        return true;
+      });
+
+      return !collidesWithEnemy;
     });
 
   }

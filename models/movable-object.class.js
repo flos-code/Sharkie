@@ -8,6 +8,12 @@ class MovableObject extends DrawableObject {
   coins = 0;
   posions = 0;
   lastHit = 0;
+
+  offsetX = 0;
+  offsetY = 0;
+  widthOffset = 0;
+  heightOffset = 0;
+
   lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
 
@@ -48,9 +54,21 @@ class MovableObject extends DrawableObject {
     this.item_pickup.play();
   }
 
-  hit() {
+  hit(damage) {
     if (!this.isHurt()) {
-      this.hp -= 1;
+      this.hp -= damage;
+      if (this.hp < 0) {
+        this.hp = 0;
+      } else {
+        this.lastHit = new Date().getTime();
+      }
+    }
+
+  }
+
+  hitNormal() {
+    if (!this.isHurt()) {
+      this.hp -= 10;
       if (this.hp < 0) {
         this.hp = 0;
       } else {
