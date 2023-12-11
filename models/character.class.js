@@ -2,6 +2,10 @@ class Character extends MovableObject {
   width = 180;
   height = 150;
   speed = 10;
+  offsetX = 25;
+  offsetY = 65;
+  widthOffset = 50;
+  heightOffset = 90;
 
   IMAGES_SWIMMING = [
     "./img/1.Sharkie/3.Swim/1.png",
@@ -210,7 +214,10 @@ class Character extends MovableObject {
       }
 
       else if (this.world.keyboard.SPACE && !this.attackCooldown()) {
-        this.animateMeleeAttack();
+        // this.animateMeleeAttack();
+        for (let i = 0; i < 8; i++) {
+          this.playAnimation(this.IMAGES_MELEE_ATTACK)
+        }
 
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
@@ -242,23 +249,19 @@ class Character extends MovableObject {
   }
 
   animateRangeAttack() {
-    let frameCount = 0;
-
-    let rangeAttackInterval = setInterval(() => {
-      if (this.posions > 0) {
-        this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
-        frameCount++;
+    let i = 0;
+    setInterval(() => {
+      if (i < 10) {
+        this.playAnimation(this.IMAGES_SPAWNING);
       } else {
-        this.playAnimation(this.IMAGES_RANGE_ATTACK);
-        frameCount++;
+        this.playAnimation(this.IMAGES_SWIMMING);
+        // schwmmt noch vor  dem spawnen
       }
+      i++;
 
 
-      if (frameCount >= 8) {
-        clearInterval(rangeAttackInterval);
-        this.playAnimation(this.IMAGES_IDLE); // or any other idle animation
-      }
-    }, 100);
+
+    }, 200);
   }
 
 

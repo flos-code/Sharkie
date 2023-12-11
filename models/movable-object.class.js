@@ -18,23 +18,14 @@ class MovableObject extends DrawableObject {
 
 
   isColliding(mo) {
-    if (this instanceof Character) {
-      // Apply adjustments for character collision
-      return (
-        (this.x + 25 + this.width - 50) >= mo.x &&
-        this.x + 25 <= (mo.x + mo.width) &&
-        (this.y + 65 + this.height - 90) >= mo.y &&
-        (this.y + 65) <= (mo.y + mo.height)
-      );
-    } else {
-      // Normal collision detection without adjustments
-      return (
-        this.x + this.width >= mo.x &&
-        this.x <= mo.x + mo.width &&
-        this.y + this.height >= mo.y &&
-        this.y <= mo.y + mo.height
-      );
-    }
+
+    return (
+      this.x + this.offsetX + this.width - this.widthOffset >= mo.x &&
+      this.x + this.offsetX <= mo.x + mo.width &&
+      this.y + this.offsetY + this.height - this.heightOffset >= mo.y &&
+      this.y + this.offsetY <= mo.y + mo.height
+    );
+
   }
 
   addCoin() {
