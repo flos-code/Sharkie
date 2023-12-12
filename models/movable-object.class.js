@@ -17,9 +17,9 @@ class MovableObject extends DrawableObject {
   lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
 
-  coin_sound = new Audio("./audio/coin_sound.mp3");
-  level_up = new Audio("./audio/level_up.mp3");
-  item_pickup = new Audio("./audio/item_pickup.mp3");
+  // coin_sound = new Audio("./audio/coin_sound.mp3");
+  // level_up = new Audio("./audio/level_up.mp3");
+  // item_pickup = new Audio("./audio/item_pickup.mp3");
 
 
 
@@ -34,24 +34,24 @@ class MovableObject extends DrawableObject {
 
   }
 
-  addCoin() {
-    if (!this.coin_sound.currentTime == 0) {
+  addCoin(coin_sound, level_up) {
+    if (!coin_sound.currentTime == 0) {
 
-      this.coin_sound.currentTime = 0; // Set currentTime to 0 for restarting
+      coin_sound.currentTime = 0; // Set currentTime to 0 for restarting
     }
 
     this.coins++
-    this.coin_sound.play();
+    coin_sound.play();
     if (this.coins == 10) {
       this.coins = 0;
       this.hp++;
-      this.level_up.play();
+      level_up.play();
     }
   }
 
-  addPoison() {
+  addPoison(item_pickup) {
     this.posions++
-    this.item_pickup.play();
+    item_pickup.play();
   }
 
   hit(damage) {

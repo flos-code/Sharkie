@@ -3,10 +3,11 @@ let world;
 let keyboard = new Keyboard();
 
 
+
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
-  toggleSound();
+  loadeSounds();
 }
 
 window.addEventListener("keydown", (event) => {
@@ -52,16 +53,30 @@ window.addEventListener("keyup", (event) => {
 });
 
 
+function loadeSounds() {
+  world.character.swimming_sound = new Audio("./audio/swimming.mp3");
+  world.item_pickup = new Audio("./audio/item_pickup.mp3");
+  world.coin_sound = new Audio("./audio/coin_sound.mp3");
+  world.level_up = new Audio("./audio/level_up.mp3");
+}
+
+
 function toggleSound() {
-  if (world.audioOn == true) {
-    world.audioOn = false;
-    world.character.swimming_sound = new Audio("./audio/swimming.mp3");
+  if (world.sound) {
+    world.sound = false;
+    world.character.swimming_sound = new Audio("./audio/empty_Sound.mp3");
+    world.item_pickup = new Audio("./audio/empty_Sound.mp3");
+    world.coin_sound = new Audio("./audio/empty_Sound.mp3");
+    world.level_up = new Audio("./audio/empty_Sound.mp3");
+
+    // loadeSounds();
     document.getElementById("sound").classList.add("d-none");
     document.getElementById("noSound").classList.remove("d-none");
   }
   else {
-    world.audioOn = true;
-    world.character.swimming_sound = new Audio("./audio/empty_Sound.mp3");
+    world.sound = true;
+    loadeSounds();
+    // world.character.swimming_sound = new Audio("./audio/empty_Sound.mp3");
     document.getElementById("sound").classList.remove("d-none");
     document.getElementById("noSound").classList.add("d-none");
   }

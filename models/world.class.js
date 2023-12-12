@@ -3,12 +3,16 @@ class World {
   level = level1;
   canvas;
   keyboard;
-  audioOn = false;
+  sound = true;
   hpBarEndboss;
   ctx;
   camera_x = 0;
   shootableObjects = [];
   meleeAttack = new MeleeAttack(this.character);
+
+  coin_sound;
+  level_up;
+  item_pickup;
 
 
   constructor(canvas, keyboard) {
@@ -53,10 +57,10 @@ class World {
     this.level.collectibles = this.level.collectibles.filter((collectible) => {
       if (this.character.isColliding(collectible)) {
         if (collectible instanceof Poison) {
-          this.character.addPoison();
+          this.character.addPoison(this.item_pickup);
         }
         if (collectible instanceof Coin) {
-          this.character.addCoin();
+          this.character.addCoin(this.coin_sound, this.level_up);
         }
         return false; // Exclude the collided collectible
       }
