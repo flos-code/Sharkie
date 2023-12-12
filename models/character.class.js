@@ -193,7 +193,7 @@ class Character extends MovableObject {
         this.swimming_sound.play();
         this.idle_sound.pause();
       }
-      if (this.world.keyboard.SPACE && !this.attackCooldown(2000)) {
+      if (this.world.keyboard.SPACE && !this.attackCooldown(800)) {
         this.attackPossibleMelee = true;
         this.melee_sound.play();
         this.idle_sound.pause();
@@ -252,7 +252,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_SWIMMING);
         this.lastMove = new Date().getTime();
         // } else if (this.world.keyboard.SPACE && !this.attackCooldown(800) && this.attackPossible) {
-      } else if (this.world.keyboard.SPACE && this.attackPossibleMelee) {
+      } else if (this.attackPossibleMelee) {
         this.meleeAttack();
         // this.playAnimation(this.IMAGES_MELEE_ATTACK)
         // this.animationIndex++;
@@ -274,7 +274,7 @@ class Character extends MovableObject {
         //   this.lastMove = new Date().getTime();
 
         // } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible) {
-      } else if (this.world.keyboard.D && this.attackPossibleRange) {
+      } else if (this.attackPossibleRange) {
         this.rangeAttack();
         // this.playAnimation(this.IMAGES_RANGE_ATTACK)
         // this.animationIndex++;
@@ -294,12 +294,14 @@ class Character extends MovableObject {
   }
 
   meleeAttack() {
+    this.attackPossibleMelee = false;
     this.playAnimation(this.IMAGES_MELEE_ATTACK)
+
     if (!this.isAttacking) {
       this.isAttacking = true;
       setTimeout(() => {
         this.isAttacking = false;
-        this.attackPossibleMelee = false;
+
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
       }, this.IMAGES_MELEE_ATTACK.length * 200);
@@ -307,20 +309,24 @@ class Character extends MovableObject {
   }
 
   rangeAttack() {
+
     let attackImage;
     if (this.hasPosion()) {
       attackImage = this.IMAGES_RANGE_ATTACK_POISON;
     } else {
       attackImage = this.IMAGES_RANGE_ATTACK;
     }
+    this.attackPossibleRange = false;
     this.playAnimation(attackImage);
+
     if (!this.isAttacking) {
       this.isAttacking = true;
       setTimeout(() => {
         this.isAttacking = false;
-        this.attackPossibleRange = false;
+
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
+        this.world.checkShootObjects();
       }, attackImage.length * 200);
     }
   }
