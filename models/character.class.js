@@ -9,7 +9,9 @@ class Character extends MovableObject {
   heightOffset = 90;
   lastDamage;
   animationIndex = 0;
-  attackPossible = false;
+  attackPossibleMelee = false;
+  attackPossibleRange = false;
+  isAttacking = false;
 
 
 
@@ -191,8 +193,8 @@ class Character extends MovableObject {
         this.swimming_sound.play();
         this.idle_sound.pause();
       }
-      if (this.world.keyboard.SPACE && !this.attackCooldown(800)) {
-        this.attackPossible = true;
+      if (this.world.keyboard.SPACE && !this.attackCooldown(2000)) {
+        this.attackPossibleMelee = true;
         this.melee_sound.play();
         this.idle_sound.pause();
       }
@@ -200,14 +202,17 @@ class Character extends MovableObject {
 
 
       if (this.world.keyboard.D && !this.attackCooldown(800)) {
-        if (this.posions > 0) {
-          this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
-          this.idle_sound.pause();
-        } else {
-          this.playAnimation(this.IMAGES_RANGE_ATTACK);
-          this.idle_sound.pause();
-          //sound idle
-        }
+        this.attackPossibleRange = true;
+
+        this.idle_sound.pause();
+        // if (this.posions > 0) {
+        //   this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
+        //   this.idle_sound.pause();
+        // } else {
+        //   this.playAnimation(this.IMAGES_RANGE_ATTACK);
+        //   this.idle_sound.pause();
+        //   //sound idle
+        // }
 
 
 
@@ -225,7 +230,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE_LONG);
         this.idle_sound.play();
       }
-    }, 1000 / 8);
+    }, 200);
 
     setInterval(() => {
       if (this.isDead() && this.lastDamage == "poisoned") {
@@ -246,36 +251,41 @@ class Character extends MovableObject {
       ) {
         this.playAnimation(this.IMAGES_SWIMMING);
         this.lastMove = new Date().getTime();
-      } else if (this.world.keyboard.SPACE && !this.attackCooldown(800) && this.attackPossible) {
-        this.playAnimation(this.IMAGES_MELEE_ATTACK)
-        this.animationIndex++;
-        if (this.animationIndex = this.IMAGES_MELEE_ATTACK.lengt) {
-          this.animationIndex = 0;
-          this.attackPossible = false;
-        }
-        this.lastAttack = new Date().getTime();
-        this.lastMove = new Date().getTime();
-      } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible && this.hasPosion()) {
-        this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON)
-        this.animationIndex++;
-        if (this.animationIndex = this.IMAGES_RANGE_ATTACK_POISON.lengt) {
-          this.animationIndex = 0;
-          this.attackPossible = false;
+        // } else if (this.world.keyboard.SPACE && !this.attackCooldown(800) && this.attackPossible) {
+      } else if (this.world.keyboard.SPACE && this.attackPossibleMelee) {
+        this.meleeAttack();
+        // this.playAnimation(this.IMAGES_MELEE_ATTACK)
+        // this.animationIndex++;
+        // if (this.animationIndex = this.IMAGES_MELEE_ATTACK.lengt) {
+        //   this.animationIndex = 0;
+        //   this.attackPossible = false;
+        // }
+        // this.lastAttack = new Date().getTime();
+        // this.lastMove = new Date().getTime();
+        // } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible && this.hasPosion()) {
+        //   this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON)
+        //   this.animationIndex++;
+        //   if (this.animationIndex = this.IMAGES_RANGE_ATTACK_POISON.lengt) {
+        //     this.animationIndex = 0;
+        //     this.attackPossible = false;
 
-        }
-        this.lastAttack = new Date().getTime();
-        this.lastMove = new Date().getTime();
+        //   }
+        //   this.lastAttack = new Date().getTime();
+        //   this.lastMove = new Date().getTime();
 
-      } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible) {
-        this.playAnimation(this.IMAGES_RANGE_ATTACK)
-        this.animationIndex++;
-        if (this.animationIndex = this.IMAGES_RANGE_ATTACK.lengt) {
-          this.animationIndex = 0;
-          this.attackPossible = false;
+        // } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible) {
+      } else if (this.world.keyboard.D && this.attackPossibleRange) {
+        this.rangeAttack();
+        // this.playAnimation(this.IMAGES_RANGE_ATTACK)
+        // this.animationIndex++;
+        // if (this.animationIndex = this.IMAGES_RANGE_ATTACK.lengt) {
+        //   this.animationIndex = 0;
+        //   this.attackPossible = false;
 
-        }
-        this.lastAttack = new Date().getTime();
-        this.lastMove = new Date().getTime();
+        // }
+        // this.lastAttack = new Date().getTime();
+        // this.lastMove = new Date().getTime();
+
       }
 
     }, 200);
@@ -283,8 +293,37 @@ class Character extends MovableObject {
 
   }
 
+  meleeAttack() {
+    this.playAnimation(this.IMAGES_MELEE_ATTACK)
+    if (!this.isAttacking) {
+      this.isAttacking = true;
+      setTimeout(() => {
+        this.isAttacking = false;
+        this.attackPossibleMelee = false;
+        this.lastAttack = new Date().getTime();
+        this.lastMove = new Date().getTime();
+      }, this.IMAGES_MELEE_ATTACK.length * 200);
+    }
+  }
 
-
+  rangeAttack() {
+    let attackImage;
+    if (this.hasPosion()) {
+      attackImage = this.IMAGES_RANGE_ATTACK_POISON;
+    } else {
+      attackImage = this.IMAGES_RANGE_ATTACK;
+    }
+    this.playAnimation(attackImage);
+    if (!this.isAttacking) {
+      this.isAttacking = true;
+      setTimeout(() => {
+        this.isAttacking = false;
+        this.attackPossibleRange = false;
+        this.lastAttack = new Date().getTime();
+        this.lastMove = new Date().getTime();
+      }, attackImage.length * 200);
+    }
+  }
 
 
 

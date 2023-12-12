@@ -146,11 +146,7 @@ class MovableObject extends DrawableObject {
   }
 
 
-  meleeAttack() {
 
-
-
-  }
 }
 
 
