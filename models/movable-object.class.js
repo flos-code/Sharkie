@@ -13,6 +13,7 @@ class MovableObject extends DrawableObject {
   offsetY = 0;
   widthOffset = 0;
   heightOffset = 0;
+  circularMovementInterval;
 
   lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
@@ -26,10 +27,10 @@ class MovableObject extends DrawableObject {
   isColliding(mo) {
 
     return (
-      this.x + this.offsetX + this.width - this.widthOffset >= mo.x &&
-      this.x + this.offsetX <= mo.x + mo.width &&
-      this.y + this.offsetY + this.height - this.heightOffset >= mo.y &&
-      this.y + this.offsetY <= mo.y + mo.height
+      this.x + this.offsetX + this.width - this.widthOffset >= mo.x + mo.offsetX &&
+      this.x + this.offsetX <= mo.x + mo.offsetX + mo.width - mo.widthOffset &&
+      this.y + this.offsetY + this.height - this.heightOffset >= mo.y + mo.offsetY &&
+      this.y + this.offsetY <= mo.y + mo.offsetY + mo.height - mo.heightOffset
     );
 
   }
@@ -82,9 +83,9 @@ class MovableObject extends DrawableObject {
     return timepassed > 5000;
   }
 
-  attackCooldown() {
+  attackCooldown(cooldown) {
     let timepassed = new Date().getTime() - this.lastAttack;
-    return timepassed < 800;
+    return timepassed < cooldown;
   }
 
   hasPosion() {
@@ -126,6 +127,7 @@ class MovableObject extends DrawableObject {
       }
     }, 1000 / 60);
   }
+
 
 
 

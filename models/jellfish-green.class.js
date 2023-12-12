@@ -6,6 +6,8 @@ class JellyFishGreen extends MovableObject {
   centerX = 200;
   radius = 100;
   angle = 0;
+  speed = 0;
+  circularMovementInterval;
 
   IMAGES_SWIMMING = [
     "./img/2.Enemy/2 Jelly fish/S｣per dangerous/Green 1.png",
@@ -30,8 +32,6 @@ class JellyFishGreen extends MovableObject {
     this.centerX = centerX;
     this.centerY = centerY;
 
-    // this.x = this.centerX + this.radius * Math.cos(this.angle);
-    // this.y = this.centerY + this.radius * Math.sin(this.angle);
 
     this.animate();
 
@@ -40,7 +40,7 @@ class JellyFishGreen extends MovableObject {
 
   animate() {
 
-    setInterval(() => {
+    this.circularMovementInterval = setInterval(() => {
 
       this.angle += 0.01 * this.rotationDirection;
 
@@ -49,11 +49,15 @@ class JellyFishGreen extends MovableObject {
 
     }, 1000 / 60);
 
+    setInterval(() => {
+      this.moveLeft();
+    }, 1000 / 60);
 
 
 
     setInterval(() => {
       if (this.isDead()) {
+        clearInterval(this.circularMovementInterval);
         this.rotationDirection = 0;
         if (!world.character.otherDirection) {
           this.speed = -5;
@@ -61,7 +65,7 @@ class JellyFishGreen extends MovableObject {
           this.speed = 5;
         }
         this.speedY = 1;
-        this.moveLeft();
+
         this.applyBuoyancy();
         this.playAnimation(this.IMAGES_DEAD)
       } else {

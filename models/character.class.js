@@ -8,6 +8,8 @@ class Character extends MovableObject {
   widthOffset = 50;
   heightOffset = 90;
   lastDamage;
+  animationIndex = 0;
+  attackPossible = false;
 
 
 
@@ -180,11 +182,14 @@ class Character extends MovableObject {
         this.moveDown();
         this.swimming_sound.play();
       }
-      if (this.world.keyboard.SPACE && !this.attackCooldown()) {
-        this.meleeAttack();
-
+      if (this.world.keyboard.SPACE && !this.attackCooldown(800)) {
+        this.attackPossible = true;
+        //sound mele
       }
-      if (this.world.keyboard.D && !this.attackCooldown()) {
+
+
+
+      if (this.world.keyboard.D && !this.attackCooldown(800)) {
         if (this.posions > 0) {
           this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
         } else {
@@ -225,16 +230,31 @@ class Character extends MovableObject {
       ) {
         this.playAnimation(this.IMAGES_SWIMMING);
         this.lastMove = new Date().getTime();
-      } else if (this.world.keyboard.SPACE && !this.attackCooldown()) {
-        // this.animateMeleeAttack();
-        // for (let i = 0; i < 8; i++) {
+      } else if (this.world.keyboard.SPACE && !this.attackCooldown(800) && this.attackPossible) {
         this.playAnimation(this.IMAGES_MELEE_ATTACK)
-        // }
-
+        this.animationIndex++;
+        if (this.animationIndex = this.IMAGES_MELEE_ATTACK.lengt) {
+          this.animationIndex = 0;
+          this.attackPossible = false;
+        }
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
-      } else if (this.world.keyboard.D && !this.attackCooldown()) {
-        this.animateRangeAttack();
+      } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible && this.hasPosion()) {
+        this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON)
+        this.animationIndex++;
+        if (this.animationIndex = this.IMAGES_RANGE_ATTACK_POISON.lengt) {
+          this.animationIndex = 0;
+          this.attackPossible = false;
+        }
+        this.lastAttack = new Date().getTime();
+        this.lastMove = new Date().getTime();
+      } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible) {
+        this.playAnimation(this.IMAGES_RANGE_ATTACK)
+        this.animationIndex++;
+        if (this.animationIndex = this.IMAGES_RANGE_ATTACK.lengt) {
+          this.animationIndex = 0;
+          this.attackPossible = false;
+        }
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
       }
@@ -244,33 +264,6 @@ class Character extends MovableObject {
 
   }
 
-  animateMeleeAttack() {
-    let frameCount = 0;
-
-    let meleeAttackInterval = setInterval(() => {
-      this.playAnimation(this.IMAGES_MELEE_ATTACK);
-      frameCount++;
-
-      if (frameCount >= 7) {
-        clearInterval(meleeAttackInterval);
-        this.playAnimation(this.IMAGES_IDLE); // or any other idle animation
-      }
-    }, 1000 / 20);
-  }
-
-  animateRangeAttack() {
-    let i = 0;
-
-    const playAnimationAtIndex = () => {
-      if (i < 8) {
-        this.playAnimation(this.IMAGES_RANGE_ATTACK);
-        i++;
-        setTimeout(playAnimationAtIndex, 200); // Adjust the delay time as needed
-      }
-    };
-
-    playAnimationAtIndex();
-  }
 
 
 

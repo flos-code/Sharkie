@@ -9,6 +9,7 @@ class RedFish extends MovableObject {
   animationIndex = 0;
 
 
+
   IMAGES_SWIMMING = [
     "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim1.png",
     "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim2.png",
@@ -46,8 +47,8 @@ class RedFish extends MovableObject {
     this.loadImages(this.IMAGES_TRANSFORM);
     this.loadImages(this.IMAGES_DEAD);
 
-    this.x = 800;
-    this.y = 200;
+    this.x = 2960;
+    this.y = 30;
 
 
 
@@ -70,12 +71,12 @@ class RedFish extends MovableObject {
         this.otherDirection = false;
 
       }
-      if (this.hadFirstContact && world.character.y - this.y < 0 - world.character.offsetY) {
+      if (this.hadFirstContact && world.character.y - this.y < 0 - world.character.offsetY && !this.isDead()) {
         this.moveUp();
 
       }
 
-      if (this.hadFirstContact && world.character.y - this.y > 0 - world.character.offsetY) {
+      if (this.hadFirstContact && world.character.y - this.y > 0 - world.character.offsetY && !this.isDead()) {
         this.moveDown();
 
       }
@@ -91,7 +92,7 @@ class RedFish extends MovableObject {
     setInterval(() => {
       this.playAnimation(this.IMAGES_SWIMMING);
 
-      if (world && world.character.x > 300 && !this.hadFirstContact) {
+      if (world && world.character.x > 2400 && !this.hadFirstContact) {
         this.hadFirstContact = true;
       }
       if (this.isDead()) {

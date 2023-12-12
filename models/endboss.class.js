@@ -1,6 +1,14 @@
 class Endboss extends MovableObject {
   height = 500;
   width = 400;
+  speed = 0;
+  speedY = 0;
+  offsetX = 20;
+  offsetY = 150;
+  widthOffset = 50;
+  heightOffset = 220;
+  attack = false;
+  animationIndex = 0;
 
   y = -60;
   hp = 100;
@@ -77,6 +85,28 @@ class Endboss extends MovableObject {
     let i = 0;
 
     setInterval(() => {
+
+      if (this.hadFirstContact && world.character.x - this.x > 0 + 100 && !this.isDead()) {
+        this.moveRight();
+        this.otherDirection = true;
+      }
+      if (this.hadFirstContact && world.character.x - this.x < 0 + 100 && !this.isDead()) {
+        this.moveLeft();
+        this.otherDirection = false;
+      }
+      if (this.hadFirstContact && world.character.y - this.y < 0 + 200 && !this.isDead()) {
+        this.moveUp();
+      }
+      if (this.hadFirstContact && world.character.y - this.y > 0 + 200 && !this.isDead()) {
+        this.moveDown();
+      }
+
+      // if (!this.attackCooldown(3000)) {
+      //   this.attack = true;
+      // }
+    }, 1000 / 60);
+
+    setInterval(() => {
       if (i < 10) {
         this.playAnimation(this.IMAGES_SPAWNING);
         if (this.hadFirstContact) {
@@ -84,14 +114,29 @@ class Endboss extends MovableObject {
             this.x = 3500;
             this.hpBarEndboss.x = 500;
           }, 300);
+          setTimeout(() => {
+            this.speed = 0.1;
+            this.speedY = 0.1;
+            this.attack = true;
+            this.lastAttack = new Date().getTime();
+          }, 1500);
 
         }
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-      }
-      else {
+      } else if (this.attack) {
+        this.playAnimation(this.IMAGES_ATTACK);
+        this.animationIndex++;
+        this.offsetX = 0;
+        if (this.animationIndex = this.IMAGES_ATTACK.length) {
+          this.animationIndex = 0;
+          this.offsetX = 20;
+          this.attack = false;
+          this.lastAttack = new Date().getTime();
+        }
+      } else {
         this.playAnimation(this.IMAGES_SWIMMING);
         // schwmmt noch vor  dem spawnen
       }
@@ -100,10 +145,10 @@ class Endboss extends MovableObject {
         i = 0;
         this.hadFirstContact = true;
         this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
-
-
       }
-
+      if (!this.attackCooldown(3000)) {
+        this.attack = true;
+      }
 
     }, 200);
   }

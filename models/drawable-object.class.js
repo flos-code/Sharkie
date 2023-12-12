@@ -26,6 +26,15 @@ class DrawableObject {
       ctx.rect(this.x + 25, this.y + 65, this.width - 50, this.height - 90);
       ctx.stroke();
     }
+
+    if (this instanceof Endboss) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x + 20, this.y + 150, this.width - 50, this.height - 220);
+      ctx.stroke();
+    }
+
     if (this instanceof GreenFish || this instanceof RedFish || this instanceof JellyFishYellow || this instanceof JellyFishGreen || this instanceof Coin || this instanceof Poison) {
       ctx.beginPath();
       ctx.lineWidth = "5";
