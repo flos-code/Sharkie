@@ -78,7 +78,10 @@ class World {
     this.level.enemies = this.level.enemies.filter((enemy) => {
       if (this.meleeAttack.isColliding(enemy) && this.keyboard.SPACE && !this.character.attackCooldown(800)) {
         if (enemy instanceof GreenFish || enemy instanceof RedFish) {
-          enemy.hit(10);
+          setTimeout(() => {
+            enemy.hit(10);
+          }, 800);
+
         }
       }
       return true;

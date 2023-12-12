@@ -106,7 +106,6 @@ function toggleSound() {
   else {
     world.sound = true;
     loadeSounds();
-
     document.getElementById("sound").classList.remove("d-none");
     document.getElementById("noSound").classList.add("d-none");
   }
