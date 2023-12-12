@@ -109,11 +109,11 @@ class MovableObject extends DrawableObject {
   }
 
   moveUp() {
-    this.y -= this.speed;
+    this.y -= this.speedY;
   }
 
   moveDown() {
-    this.y += this.speed;
+    this.y += this.speedY;
   }
 
 

@@ -2,6 +2,7 @@ class Character extends MovableObject {
   width = 180;
   height = 150;
   speed = 10;
+  speedY = 10;
   offsetX = 25;
   offsetY = 65;
   widthOffset = 50;
@@ -134,7 +135,8 @@ class Character extends MovableObject {
 
   world;
   swimming_sound;
-  //  = new Audio("./audio/swimming.mp3");
+
+
 
 
 
@@ -152,13 +154,6 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDLE_LONG);
     this.animate();
 
-
-    // if (this.sound) {
-    //   this.swimming_sound = new Audio("./audio/swimming.mp3");
-
-    // } else {
-    //   this.swimming_sound = new Audio("./audio/empty_Sound.mp3");
-    // }
   }
 
   animate() {
@@ -218,13 +213,11 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD_POISONED);
       } else if (this.isDead() && this.lastDamage == "shocked") {
         this.playAnimation(this.IMAGES_DEAD_SHOCK);
-      }
-      else if (this.isHurt() && this.lastDamage == "poisoned") {
+      } else if (this.isHurt() && this.lastDamage == "poisoned") {
         this.playAnimation(this.IMAGES_HURT_POISONED);
       } else if (this.isHurt() && this.lastDamage == "shocked") {
         this.playAnimation(this.IMAGES_HURT_SHOCK);
-      }
-      else if (
+      } else if (
         this.world.keyboard.RIGHT ||
         this.world.keyboard.LEFT ||
         this.world.keyboard.UP ||
@@ -232,9 +225,7 @@ class Character extends MovableObject {
       ) {
         this.playAnimation(this.IMAGES_SWIMMING);
         this.lastMove = new Date().getTime();
-      }
-
-      else if (this.world.keyboard.SPACE && !this.attackCooldown()) {
+      } else if (this.world.keyboard.SPACE && !this.attackCooldown()) {
         // this.animateMeleeAttack();
         // for (let i = 0; i < 8; i++) {
         this.playAnimation(this.IMAGES_MELEE_ATTACK)
@@ -242,15 +233,13 @@ class Character extends MovableObject {
 
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
-      }
-
-      else if (this.world.keyboard.D && !this.attackCooldown()) {
+      } else if (this.world.keyboard.D && !this.attackCooldown()) {
         this.animateRangeAttack();
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
       }
 
-    }, 80);
+    }, 200);
 
 
   }
