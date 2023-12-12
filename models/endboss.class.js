@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
   widthOffset = 50;
   heightOffset = 220;
   attack = false;
+  lastAttack = new Date().getTime();
   animationIndex = 0;
 
   y = -60;
@@ -126,15 +127,19 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.attack) {
+        world.endboss_dead_sound.play();
+      } else if (this.attack && this.hadFirstContact) {
         this.playAnimation(this.IMAGES_ATTACK);
         this.animationIndex++;
         this.offsetX = 0;
+        this.speed = this.speed * 1.5;
+        this.speedY = this.speedY * 1.5;
         if (this.animationIndex = this.IMAGES_ATTACK.length) {
           this.animationIndex = 0;
           this.offsetX = 20;
           this.attack = false;
           this.lastAttack = new Date().getTime();
+          world.endboss_attack_sound.play();
         }
       } else {
         this.playAnimation(this.IMAGES_SWIMMING);
@@ -145,6 +150,7 @@ class Endboss extends MovableObject {
         i = 0;
         this.hadFirstContact = true;
         this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+        world.bossfight_sound.play();
       }
       if (!this.attackCooldown(3000)) {
         this.attack = true;

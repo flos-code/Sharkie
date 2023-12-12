@@ -13,6 +13,11 @@ class World {
   coin_sound;
   level_up;
   item_pickup;
+  bubble_sound;
+  endboss_hit_sound;
+  endboss_dead_sound;
+  bossfight_sound;
+  background_sound;
 
 
   constructor(canvas, keyboard) {
@@ -24,11 +29,13 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+
   }
 
   setWorld() {
     this.character.world = this;
     this.meleeAttack.world = this;
+
   }
 
   run() {
@@ -39,6 +46,7 @@ class World {
 
       this.checkShootObjects();
     }, 1000 / 25);
+
   }
 
   checkCollisions() {
@@ -68,7 +76,7 @@ class World {
     });
 
     this.level.enemies = this.level.enemies.filter((enemy) => {
-      if (this.meleeAttack.isColliding(enemy) && this.keyboard.SPACE && !this.character.attackCooldown()) {
+      if (this.meleeAttack.isColliding(enemy) && this.keyboard.SPACE && !this.character.attackCooldown(800)) {
         if (enemy instanceof GreenFish || enemy instanceof RedFish) {
           enemy.hit(10);
         }
@@ -104,6 +112,7 @@ class World {
             collidesWithEnemy = true;
 
             enemy.hit(bubble.damage);
+            this.endboss_hit_sound.play();
             if (this.hpBarEndboss) {
               this.hpBarEndboss.setPrecentage(enemy.hp);
             }
@@ -125,9 +134,10 @@ class World {
     if (!this.character.otherDirection) {
       bubblePosition = 120
     }
-    if (this.keyboard.D && !this.character.attackCooldown()) {
+    if (this.keyboard.D && !this.character.attackCooldown(800)) {
       let bubble = new ShootableObject(this.character.x + bubblePosition, this.character.y + 50);
       this.shootableObjects.push(bubble)
+      this.bubble_sound.play();
     }
   }
 

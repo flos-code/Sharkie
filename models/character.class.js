@@ -137,7 +137,10 @@ class Character extends MovableObject {
 
   world;
   swimming_sound;
-
+  poisoned_sound;
+  shock_sound;
+  melee_sound;
+  idle_sound;
 
 
 
@@ -161,30 +164,37 @@ class Character extends MovableObject {
   animate() {
 
 
+
     setInterval(() => {
+
       this.swimming_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
         this.swimming_sound.play();
+        this.idle_sound.pause();
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
         this.swimming_sound.play();
+        this.idle_sound.pause();
       }
       if (this.world.keyboard.UP && this.y > -50) {
         this.moveUp();
         this.swimming_sound.play();
+        this.idle_sound.pause();
       }
 
       if (this.world.keyboard.DOWN && this.y < 480 - 130) {
         this.moveDown();
         this.swimming_sound.play();
+        this.idle_sound.pause();
       }
       if (this.world.keyboard.SPACE && !this.attackCooldown(800)) {
         this.attackPossible = true;
-        //sound mele
+        this.melee_sound.play();
+        this.idle_sound.pause();
       }
 
 
@@ -192,8 +202,11 @@ class Character extends MovableObject {
       if (this.world.keyboard.D && !this.attackCooldown(800)) {
         if (this.posions > 0) {
           this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
+          this.idle_sound.pause();
         } else {
           this.playAnimation(this.IMAGES_RANGE_ATTACK);
+          this.idle_sound.pause();
+          //sound idle
         }
 
 
@@ -210,6 +223,7 @@ class Character extends MovableObject {
       }
       if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.isHurt() && !this.isDead() && this.isIdle()) {
         this.playAnimation(this.IMAGES_IDLE_LONG);
+        this.idle_sound.play();
       }
     }, 1000 / 8);
 
@@ -220,8 +234,10 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD_SHOCK);
       } else if (this.isHurt() && this.lastDamage == "poisoned") {
         this.playAnimation(this.IMAGES_HURT_POISONED);
+        this.poisoned_sound.play();
       } else if (this.isHurt() && this.lastDamage == "shocked") {
         this.playAnimation(this.IMAGES_HURT_SHOCK);
+        this.shock_sound.play();
       } else if (
         this.world.keyboard.RIGHT ||
         this.world.keyboard.LEFT ||
@@ -245,15 +261,18 @@ class Character extends MovableObject {
         if (this.animationIndex = this.IMAGES_RANGE_ATTACK_POISON.lengt) {
           this.animationIndex = 0;
           this.attackPossible = false;
+
         }
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();
+
       } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible) {
         this.playAnimation(this.IMAGES_RANGE_ATTACK)
         this.animationIndex++;
         if (this.animationIndex = this.IMAGES_RANGE_ATTACK.lengt) {
           this.animationIndex = 0;
           this.attackPossible = false;
+
         }
         this.lastAttack = new Date().getTime();
         this.lastMove = new Date().getTime();

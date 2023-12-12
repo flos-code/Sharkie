@@ -15,7 +15,7 @@ class MeleeAttack extends MovableObject {
         this.speed = character.speed;
         this.speedY = character.speedY;
 
-        this.loadeImage("./img/4. Marcadores/1. Coins/1.png");
+        this.loadeImage("./img/1.Sharkie/1.IDLE/empty.png");
         this.animate();
 
 

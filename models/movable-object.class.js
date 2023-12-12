@@ -83,6 +83,7 @@ class MovableObject extends DrawableObject {
     return timepassed > 5000;
   }
 
+  //is true wenn aktuell noch auf cooldown und man somit nicht angreifen kann
   attackCooldown(cooldown) {
     let timepassed = new Date().getTime() - this.lastAttack;
     return timepassed < cooldown;
