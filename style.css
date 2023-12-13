@@ -54,6 +54,7 @@ canvas {
   width: 720px;
   height: 480px;
   border-radius: 20px;
+  -webkit-text-stroke: 2px #531b82;
   background-color: rgba(255, 224, 127, 0.93);
 }
 
@@ -62,6 +63,18 @@ canvas {
   display: flex;
   font-size: 36px;
   gap: 32px;
+}
+
+.gameInfoNav:hover {
+  transition: all 125;
+  cursor: pointer;
+  scale: 1.05;
+  color: #531b82;
+  filter: drop-shadow(0px 0px 12px white);
+}
+
+.activeSection {
+  color: #531b82;
 }
 
 .keyInstruction {
@@ -83,6 +96,58 @@ canvas {
 
 .imgMelee {
   height: 50px;
+}
+
+.gametips {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 28px;
+  margin: 0 60px 0 32px;
+}
+
+.tip {
+  white-space: normal;
+}
+
+.gametips img {
+  height: 36px;
+  margin: 0 2px -6px 2px;
+}
+
+.imgJellifish {
+  height: unset !important;
+  width: 40px;
+  margin-bottom: -12px !important;
+}
+
+.imgPoision {
+  height: unset !important;
+  width: 48px;
+  margin: 0 -4px -8px -4px !important;
+}
+
+.sources {
+  display: flex;
+  flex-direction: column;
+  font-size: 32px;
+  gap: 16px;
+}
+
+.sources a {
+  text-decoration: none;
+  color: white;
+  -webkit-text-stroke: 2px #1f92b1;
+}
+
+.sources a:hover {
+  transition: all 125;
+  cursor: pointer;
+  scale: 1.05;
+  color: #1f92b1;
+
+  filter: drop-shadow(0px 0px 12px white);
 }
 
 .menu {

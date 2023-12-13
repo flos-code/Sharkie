@@ -47,12 +47,26 @@
 
       <div class="overlayed" id="gameInfos">
         <div class="gameInfoMenu">
-          <div>controls</div>
-          <div>tips</div>
-          <div>sources</div>
+          <div
+            class="gameInfoNav activeSection"
+            id="controls"
+            onclick="openInfoSection('controls')"
+          >
+            controls
+          </div>
+          <div class="gameInfoNav" id="tips" onclick="openInfoSection('tips')">
+            tips
+          </div>
+          <div
+            class="gameInfoNav"
+            id="sources"
+            onclick="openInfoSection('sources')"
+          >
+            sources
+          </div>
         </div>
         <div>
-          <div class="keyInstruction">
+          <div id="controlsContent" class="keyInstruction">
             <img
               class="imgMovement"
               src="img/6.Botones/Key/arrow keys.png"
@@ -72,8 +86,49 @@
             />
             <span>Melee Attack</span>
           </div>
-          <!-- <div>tips</div>
-          <div>sources</div> -->
+          <div class="gametips d-none" id="tipsContent">
+            <div class="tip">
+              <span>your melee attacks only damages</span>
+              <img src="./img/tips/fish.png" alt="fish" />
+            </div>
+            <div class="tip">
+              <span>your range attacks only damages</span>
+              <img
+                class="imgJellifish"
+                src="./img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png"
+                alt="Jellifish"
+              />
+              <span>and the endboss</span>
+            </div>
+
+            <div class="tip">
+              <span>collect</span>
+              <img
+                class="imgPoision"
+                src="./img/4. Marcadores/Posiขn/Animada/5.png"
+                alt="Poision"
+              />
+              <span>in order to deal increase damage to the endboss</span>
+            </div>
+            <div class="tip">
+              <span>collect 10</span>
+              <img src="./img/4. Marcadores/1. Coins/1.png" alt="Coins" />
+              <span>in order to get one extra</span>
+              <img src="./img/tips/live.png" alt="Live" />
+            </div>
+          </div>
+          <div class="sources d-none" id="sourcesContent">
+            <div>
+              sound from
+              <a href="https://freesound.org/" target="_blank">freesound.org</a>
+            </div>
+            <div>
+              icons from
+              <a href="https://tablericons.com/" target="_blank"
+                >tablericons.com</a
+              >
+            </div>
+          </div>
         </div>
       </div>
 

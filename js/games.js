@@ -132,3 +132,18 @@ function toggleMenu() {
     menu = true;
   }
 }
+
+function openInfoSection(section) {
+
+  document.getElementById('controlsContent').classList.add('d-none');
+  document.getElementById('tipsContent').classList.add('d-none');
+  document.getElementById('sourcesContent').classList.add('d-none');
+
+  document.getElementById('controls').classList.remove('activeSection');
+  document.getElementById('tips').classList.remove('activeSection');
+  document.getElementById('sources').classList.remove('activeSection');
+
+  document.getElementById(section + 'Content').classList.remove('d-none');
+
+  document.getElementById(section).classList.add('activeSection');
+}
