@@ -10,14 +10,6 @@ class World {
   shootableObjects = [];
   meleeAttack = new MeleeAttack(this.character);
 
-  coin_sound;
-  level_up;
-  item_pickup;
-  bubble_sound;
-  endboss_hit_sound;
-  endboss_dead_sound;
-  bossfight_sound;
-  background_sound;
 
 
   constructor(canvas, keyboard) {
@@ -42,10 +34,7 @@ class World {
     setInterval(() => {
       this.checkCollisions();
     }, 1000 / 60);
-    // setInterval(() => {
 
-    //   this.checkShootObjects();
-    // }, 1000 / 25);
 
   }
 
@@ -137,11 +126,11 @@ class World {
     if (!this.character.otherDirection) {
       bubblePosition = 120
     }
-    // if (this.keyboard.D && !this.character.attackCooldown(800)) {
+
     let bubble = new ShootableObject(this.character.x + bubblePosition, this.character.y + 50);
     this.shootableObjects.push(bubble)
     this.bubble_sound.play();
-    // }
+
   }
 
   draw() {

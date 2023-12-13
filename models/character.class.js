@@ -138,14 +138,6 @@ class Character extends MovableObject {
   ];
 
   world;
-  swimming_sound;
-  poisoned_sound;
-  shock_sound;
-  melee_sound;
-  idle_sound;
-
-
-
 
   constructor() {
     super().loadeImage("./img/1.Sharkie/3.Swim/1.png");
@@ -199,39 +191,17 @@ class Character extends MovableObject {
         this.melee_sound.play();
         this.idle_sound.pause();
       }
-
-
-
       if (this.world.keyboard.D && !this.attackCooldown(800)) {
         this.attackPossibleRange = true;
         this.currenImage = 0;
         this.idle_sound.pause();
-        // if (this.posions > 0) {
-        //   this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
-        //   this.idle_sound.pause();
-        // } else {
-        //   this.playAnimation(this.IMAGES_RANGE_ATTACK);
-        //   this.idle_sound.pause();
-        //   //sound idle
-        // }
-
-
-
       }
 
 
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
-    setInterval(() => {
-      if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.isHurt() && !this.isDead() && !this.isIdle() && this.animationIndex == 0) {
-        this.playAnimation(this.IMAGES_IDLE);
-      }
-      if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.isHurt() && !this.isDead() && this.isIdle() && this.animationIndex == 0) {
-        this.playAnimation(this.IMAGES_IDLE_LONG);
-        this.idle_sound.play();
-      }
-    }, 200);
+
 
     setInterval(() => {
       if (this.isDead() && this.lastDamage == "poisoned") {
@@ -252,69 +222,27 @@ class Character extends MovableObject {
       ) {
         this.playAnimation(this.IMAGES_SWIMMING);
         this.lastMove = new Date().getTime();
-        // } else if (this.world.keyboard.SPACE && !this.attackCooldown(800) && this.attackPossible) {
       } else if (this.attackPossibleMelee) {
         this.meleeAttack();
-        // this.playAnimation(this.IMAGES_MELEE_ATTACK)
-        // this.animationIndex++;
-        // if (this.animationIndex = this.IMAGES_MELEE_ATTACK.lengt) {
-        //   this.animationIndex = 0;
-        //   this.attackPossible = false;
-        // }
-        // this.lastAttack = new Date().getTime();
-        // this.lastMove = new Date().getTime();
-        // } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible && this.hasPosion()) {
-        //   this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON)
-        //   this.animationIndex++;
-        //   if (this.animationIndex = this.IMAGES_RANGE_ATTACK_POISON.lengt) {
-        //     this.animationIndex = 0;
-        //     this.attackPossible = false;
-
-        //   }
-        //   this.lastAttack = new Date().getTime();
-        //   this.lastMove = new Date().getTime();
-
-        // } else if (this.world.keyboard.D && !this.attackCooldown(800) && this.attackPossible) {
       } else if (this.attackPossibleRange) {
         this.rangeAttack();
-
-        // this.playAnimation(this.IMAGES_RANGE_ATTACK)
-        // console.log(this.attackPossibleRange)
-        // this.animationIndex++;
-        // console.log(this.animationIndex);
-        // if (this.animationIndex == this.IMAGES_RANGE_ATTACK.length) {
-        //   this.animationIndex = 0;
-        //   this.attackPossibleRange = false;
-
-        // }
-        // this.lastAttack = new Date().getTime();
-        // this.lastMove = new Date().getTime();
-
+      } else if (this.isIdle()) {
+        this.playAnimation(this.IMAGES_IDLE_LONG);
+        this.idle_sound.play();
+      } else {
+        this.playAnimation(this.IMAGES_IDLE);
       }
 
-    }, 200);
+    }, 150);
 
 
   }
 
   meleeAttack() {
-    // this.attackPossibleMelee = false;
-    // this.playAnimation(this.IMAGES_MELEE_ATTACK)
-
-    // if (!this.isAttacking) {
-    //   this.isAttacking = true;
-    //   setTimeout(() => {
-    //     this.isAttacking = false;
-
-    //     this.lastAttack = new Date().getTime();
-    //     this.lastMove = new Date().getTime();
-    //   }, this.IMAGES_MELEE_ATTACK.length * 200);
-    // }
-
     this.playAnimation(this.IMAGES_MELEE_ATTACK)
 
     this.animationIndex++;
-    console.log(this.animationIndex)
+
 
     if (this.animationIndex == this.IMAGES_MELEE_ATTACK.length) {
       this.animationIndex = 0;
@@ -327,21 +255,15 @@ class Character extends MovableObject {
   }
 
   rangeAttack() {
-
     let animationLength;
-
     if (this.hasPosion()) {
-
       this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
-      console.log(this.currenImage)
+
       animationLength = this.IMAGES_RANGE_ATTACK_POISON.length;
     } else {
       this.playAnimation(this.IMAGES_RANGE_ATTACK);
       animationLength = this.IMAGES_RANGE_ATTACK.length;
     }
-
-
-
     this.animationIndex++;
 
     if (this.animationIndex == animationLength) {
@@ -352,7 +274,6 @@ class Character extends MovableObject {
     }
     this.lastAttack = new Date().getTime();
     this.lastMove = new Date().getTime();
-
   }
 
 

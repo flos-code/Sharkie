@@ -8,6 +8,9 @@ class Endboss extends MovableObject {
   widthOffset = 50;
   heightOffset = 220;
   attack = false;
+  hadFirstContact = false;
+  startSpawning = false;
+  spawned = false;
   lastAttack = new Date().getTime();
   animationIndex = 0;
 
@@ -68,7 +71,7 @@ class Endboss extends MovableObject {
     "./img/2.Enemy/3 Final Enemy/Attack/6.png"
   ]
 
-  hadFirstContact = false;
+
 
   constructor() {
     super().loadeImage(this.IMAGES_SWIMMING[0]);
@@ -102,59 +105,76 @@ class Endboss extends MovableObject {
         this.moveDown();
       }
 
-      // if (!this.attackCooldown(3000)) {
-      //   this.attack = true;
-      // }
+      if (world && world.character.x > 3000 && !this.hadFirstContact) {
+        this.hadFirstContact = true;
+
+        this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+        // this.x = 3500;
+        this.hpBarEndboss.x = 500;
+        this.startSpawning = true;
+        this.currenImage = 0;
+        this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+        world.bossfight_sound.play();
+        this.startSpawning = true;
+        this.currenImage = 0;
+
+      }
+      if (this.spawned && !this.attackCooldown(3000) && !this.isDead()) {
+        this.attack = true;
+        this.currenImage = 0;
+      }
+
     }, 1000 / 60);
 
     setInterval(() => {
-      if (i < 10) {
-        this.playAnimation(this.IMAGES_SPAWNING);
-        if (this.hadFirstContact) {
-          setTimeout(() => {
-            this.x = 3500;
-            this.hpBarEndboss.x = 500;
-          }, 300);
-          setTimeout(() => {
-            this.speed = 0.1;
-            this.speedY = 0.1;
-            this.attack = true;
-            this.lastAttack = new Date().getTime();
-          }, 1500);
 
-        }
-      } else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isDead()) {
+      if (this.isDead()) {
+
         this.playAnimation(this.IMAGES_DEAD);
         world.endboss_dead_sound.play();
-      } else if (this.attack && this.hadFirstContact) {
+        world.bossfight_sound.pause();
+      } else if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_HURT);
+      }
+      else if (this.startSpawning) {
+        this.x = 3500;
+        this.playAnimation(this.IMAGES_SPAWNING);
+
+        this.animationIndex++
+        if (this.animationIndex == this.IMAGES_SPAWNING.length) {
+          this.animationIndex = 0;
+          this.startSpawning = false;
+          this.spawned = true;
+          this.speed = 0.1;
+          this.speedY = 0.1;
+
+        }
+
+
+
+
+      }
+      else if (this.attack) {
+        this.lastAttack = new Date().getTime();
         this.playAnimation(this.IMAGES_ATTACK);
         this.animationIndex++;
         this.offsetX = 0;
-        this.speed = this.speed * 1.5;
-        this.speedY = this.speedY * 1.5;
-        if (this.animationIndex = this.IMAGES_ATTACK.length) {
+
+
+        if (this.animationIndex == this.IMAGES_ATTACK.length) {
           this.animationIndex = 0;
           this.offsetX = 20;
           this.attack = false;
-          this.lastAttack = new Date().getTime();
+          this.speed = this.speed * 1.5;
+          this.speedY = this.speedY * 1.5;
           world.endboss_attack_sound.play();
         }
       } else {
         this.playAnimation(this.IMAGES_SWIMMING);
-        // schwmmt noch vor  dem spawnen
+
       }
       i++;
-      if (world && world.character.x > 3000 && !this.hadFirstContact) {
-        i = 0;
-        this.hadFirstContact = true;
-        this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
-        world.bossfight_sound.play();
-      }
-      if (!this.attackCooldown(3000)) {
-        this.attack = true;
-      }
+
 
     }, 200);
   }

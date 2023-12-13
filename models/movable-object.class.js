@@ -18,9 +18,7 @@ class MovableObject extends DrawableObject {
   lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
 
-  // coin_sound = new Audio("./audio/coin_sound.mp3");
-  // level_up = new Audio("./audio/level_up.mp3");
-  // item_pickup = new Audio("./audio/item_pickup.mp3");
+
 
 
 
@@ -80,7 +78,7 @@ class MovableObject extends DrawableObject {
 
   isIdle() {
     let timepassed = new Date().getTime() - this.lastMove;
-    return timepassed > 5000;
+    return timepassed > 10000;
   }
 
   //is true wenn aktuell noch auf cooldown und man somit nicht angreifen kann

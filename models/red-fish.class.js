@@ -4,7 +4,8 @@ class RedFish extends MovableObject {
   speed = 1;
   speedY = 1;
   hadFirstContact = false;
-  form = "normal";
+  startTransform = false;
+  isTransformed = false;
   hp = 10;
   animationIndex = 0;
 
@@ -81,7 +82,11 @@ class RedFish extends MovableObject {
 
       }
 
-
+      if (world && world.character.x > 2400 && !this.hadFirstContact) {
+        this.hadFirstContact = true;
+        this.startTransform = true;
+        this.currenImage = 0;
+      }
 
 
 
@@ -90,25 +95,23 @@ class RedFish extends MovableObject {
 
 
     setInterval(() => {
-      this.playAnimation(this.IMAGES_SWIMMING);
 
-      if (world && world.character.x > 2400 && !this.hadFirstContact) {
-        this.hadFirstContact = true;
-      }
       if (this.isDead()) {
         this.speed = 0;
         this.speedY = 1;
         this.applyBuoyancy();
         this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.hadFirstContact && this.form != "big") {
+      } else if (this.startTransform) {
+
         this.playAnimation(this.IMAGES_TRANSFORM);
         this.animationIndex++
-        if (this.animationIndex = this.IMAGES_TRANSFORM.length) {
+        if (this.animationIndex == this.IMAGES_TRANSFORM.length) {
           this.animationIndex = 0;
-          this.form = "big";
+          this.startTransform = false;
+          this.isTransformed = true;
         }
 
-      } else if (this.hadFirstContact) {
+      } else if (this.isTransformed) {
         this.playAnimation(this.IMAGES_SWIMMING_BIG);
       } else {
         this.playAnimation(this.IMAGES_SWIMMING);
