@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./css/font.css" />
+    <link rel="stylesheet" href="./css/media-queries.css" />
 
     <script src="./models/drawable-object.class.js" defer></script>
     <script src="./models/movable-object.class.js" defer></script>
@@ -42,15 +44,65 @@
     <h1>Sharkie</h1>
     <div class="mainContainer">
       <canvas class="overlayed" id="canvas" width="720" height="480"> </canvas>
-      <div class="overlayed d-none" id="gameInfos">test</div>
 
-      <div class="overlayed d-none" id="startScreen">start</div>
+      <div class="overlayed" id="gameInfos">
+        <div class="gameInfoMenu">
+          <div>controls</div>
+          <div>tips</div>
+          <div>sources</div>
+        </div>
+        <div>
+          <div class="keyInstruction">
+            <img
+              class="imgMovement"
+              src="img/6.Botones/Key/arrow keys.png"
+              alt="Movement Keys"
+            />
+            <span>Move Sharkie</span>
+            <img
+              class="imgRange"
+              src="img/6.Botones/Key/D key.png"
+              alt="Range Attack Key"
+            />
+            <span>Shoot Bubble</span>
+            <img
+              class="imgMelee"
+              src="img/6.Botones/Key/Space Bar key.png"
+              alt="Melee Attack Key"
+            />
+            <span>Melee Attack</span>
+          </div>
+          <!-- <div>tips</div>
+          <div>sources</div> -->
+        </div>
+      </div>
+
+      <div class="overlayed d-none" id="startScreen">
+        <img
+          class="startScreenBg"
+          src="./img/startScreen.png"
+          alt="Start Screen"
+        />
+        <img
+          onclick="startGame()"
+          class="startButton"
+          src="./img/6.Botones/Start/2.png"
+          alt="Start Button"
+        />
+      </div>
+
       <div class="overlayed d-none" id="endScreen">end</div>
-      <div class="overlayed d-none" id="gameover">gameover</div>
+
       <div class="overlayed menu">
-        <svg class="svg-iconMenu">
+        <svg class="svg-iconMenu" onclick="toggleMenu()" id="openMenu">
           <use
             xlink:href="icons.svg#svg-iconMenu"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+        <svg class="svg-iconClose d-none" onclick="toggleMenu()" id="closeMenu">
+          <use
+            xlink:href="icons.svg#svg-iconClose"
             xmlns:xlink="http://www.w3.org/1999/xlink"
           ></use>
         </svg>
@@ -71,34 +123,15 @@
           ></use>
         </svg>
 
-        <svg class="svg-iconPause">
+        <!-- <svg class="svg-iconPause">   Pause nötig?
           <use
             xlink:href="icons.svg#svg-iconPause"
             xmlns:xlink="http://www.w3.org/1999/xlink"
           ></use>
-        </svg>
+        </svg> -->
       </div>
-    </div>
 
-    <div class="keyInstruction">
-      <img
-        class="imgMovement"
-        src="img/6.Botones/Key/arrow keys.png"
-        alt="Movement Keys"
-      />
-      <span>Move Sharkie</span>
-      <img
-        class="imgRange"
-        src="img/6.Botones/Key/D key.png"
-        alt="Range Attack Key"
-      />
-      <span>Shoot Bubble</span>
-      <img
-        class="imgMelee"
-        src="img/6.Botones/Key/Space Bar key.png"
-        alt="Melee Attack Key"
-      />
-      <span>Melee Attack</span>
+      <div class="overlayed d-none" id="gameover">gameover</div>
     </div>
   </body>
 </html>

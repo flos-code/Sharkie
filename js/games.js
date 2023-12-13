@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let menu = false;
 
 
 
@@ -112,3 +113,22 @@ function toggleSound() {
 }
 
 
+function startGame() {
+  document.getElementById("startScreen").classList.add("d-none");
+  //game wirklich erst starten
+
+}
+
+function toggleMenu() {
+  if (menu) {
+    document.getElementById("openMenu").classList.add("d-none");
+    document.getElementById("closeMenu").classList.remove("d-none");
+    document.getElementById("gameInfos").classList.remove("d-none");
+    menu = false;
+  } else {
+    document.getElementById("openMenu").classList.remove("d-none");
+    document.getElementById("closeMenu").classList.add("d-none");
+    document.getElementById("gameInfos").classList.add("d-none");
+    menu = true;
+  }
+}
