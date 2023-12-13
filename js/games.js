@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let menu = false;
+let intervalIds = [];
 
 
 
@@ -121,14 +122,17 @@ function startGame() {
 
 function toggleMenu() {
   if (menu) {
-    document.getElementById("openMenu").classList.add("d-none");
-    document.getElementById("closeMenu").classList.remove("d-none");
-    document.getElementById("gameInfos").classList.remove("d-none");
-    menu = false;
-  } else {
     document.getElementById("openMenu").classList.remove("d-none");
     document.getElementById("closeMenu").classList.add("d-none");
     document.getElementById("gameInfos").classList.add("d-none");
+    menu = false;
+  } else {
+    document.getElementById("openMenu").classList.add("d-none");
+    document.getElementById("closeMenu").classList.remove("d-none");
+    document.getElementById("gameInfos").classList.remove("d-none");
+
+
+    //spiel muss pausieren
     menu = true;
   }
 }
@@ -146,4 +150,18 @@ function openInfoSection(section) {
   document.getElementById(section + 'Content').classList.remove('d-none');
 
   document.getElementById(section).classList.add('activeSection');
+}
+
+function restartGame() {
+  //alles zurücksetzen
+}
+
+
+function setStoppableInterval(fn, time) {
+  let id = setInterval(fn, time);
+  intervalIds.push(id);
+}
+
+function pauseGame() {
+  intervalIds.forEach(clearInterval)
 }

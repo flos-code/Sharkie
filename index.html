@@ -14,7 +14,6 @@
     <script src="./models/world.class.js" defer></script>
     <script src="./models/character.class.js" defer></script>
     <script src="./models/green-fish.class.js" defer></script>
-    <script src="./models/orange-fish.class.js" defer></script>
     <script src="./models/red-fish.class.js" defer></script>
     <script src="./models/jellfish-yellow.class.js" defer></script>
     <script src="./models/jellfish-green.class.js" defer></script>
@@ -45,7 +44,45 @@
     <div class="mainContainer">
       <canvas class="overlayed" id="canvas" width="720" height="480"> </canvas>
 
-      <div class="overlayed" id="gameInfos">
+      <div class="overlayed" id="startScreen">
+        <img
+          class="startScreenBg"
+          src="./img/startScreen.png"
+          alt="Start Screen"
+        />
+        <img
+          onclick="startGame()"
+          class="startButton"
+          src="./img/6.Botones/Start/2.png"
+          alt="Start Button"
+        />
+      </div>
+
+      <div class="overlayed d-none" id="gameover">
+        <img
+          class="startScreenBg"
+          src="./img/GameOverScreen.png"
+          alt="Game Over Screen"
+        />
+        <img
+          onclick="restartGame()"
+          class="restartButtonGameover"
+          src="./img/6.Botones/Try again/Recurso 17.png"
+          alt="Restart Button"
+        />
+      </div>
+
+      <div class="overlayed d-none" id="endScreen">
+        <img class="startScreenBg" src="./img/endScreen.png" alt="End Screen" />
+        <img
+          onclick="restartGame()"
+          class="restartButtonEndscreen"
+          src="./img/6.Botones/Try again/Recurso 17.png"
+          alt="Restart Button"
+        />
+      </div>
+
+      <div class="overlayed d-none" id="gameInfos">
         <div class="gameInfoMenu">
           <div
             class="gameInfoNav activeSection"
@@ -132,22 +169,6 @@
         </div>
       </div>
 
-      <div class="overlayed d-none" id="startScreen">
-        <img
-          class="startScreenBg"
-          src="./img/startScreen.png"
-          alt="Start Screen"
-        />
-        <img
-          onclick="startGame()"
-          class="startButton"
-          src="./img/6.Botones/Start/2.png"
-          alt="Start Button"
-        />
-      </div>
-
-      <div class="overlayed d-none" id="endScreen">end</div>
-
       <div class="overlayed menu">
         <svg class="svg-iconMenu" onclick="toggleMenu()" id="openMenu">
           <use
@@ -178,15 +199,13 @@
           ></use>
         </svg>
 
-        <!-- <svg class="svg-iconPause">   Pause nötig?
+        <svg class="svg-iconPause" onclick="pauseGame()">
           <use
             xlink:href="icons.svg#svg-iconPause"
             xmlns:xlink="http://www.w3.org/1999/xlink"
           ></use>
-        </svg> -->
+        </svg>
       </div>
-
-      <div class="overlayed d-none" id="gameover">gameover</div>
     </div>
   </body>
 </html>

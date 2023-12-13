@@ -133,6 +133,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD);
         world.endboss_dead_sound.play();
         world.bossfight_sound.pause();
+        document.getElementById("endScreen").classList.remove("d-none");
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       }

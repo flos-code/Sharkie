@@ -206,8 +206,10 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead() && this.lastDamage == "poisoned") {
         this.playAnimation(this.IMAGES_DEAD_POISONED);
+        document.getElementById("gameover").classList.remove("d-none");
       } else if (this.isDead() && this.lastDamage == "shocked") {
         this.playAnimation(this.IMAGES_DEAD_SHOCK);
+
       } else if (this.isHurt() && this.lastDamage == "poisoned") {
         this.playAnimation(this.IMAGES_HURT_POISONED);
         this.poisoned_sound.play();

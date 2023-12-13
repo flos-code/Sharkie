@@ -14,7 +14,7 @@ class MovableObject extends DrawableObject {
   widthOffset = 0;
   heightOffset = 0;
   circularMovementInterval;
-
+  intervalIds = [];
   lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
 
@@ -143,7 +143,10 @@ class MovableObject extends DrawableObject {
     return this.y > -200;
   }
 
-
+  setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    this.intervalIds.push(id);
+  }
 
 }
 
