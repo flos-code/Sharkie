@@ -40,22 +40,46 @@
   </head>
   <body onload="init()">
     <h1>Sharkie</h1>
+    <div class="mainContainer">
+      <canvas class="overlayed" id="canvas" width="720" height="480"> </canvas>
+      <div class="overlayed d-none" id="gameInfos">test</div>
 
-    <canvas id="canvas" width="720" height="480"> </canvas>
-    <img
-      onclick="toggleSound()"
-      id="sound"
-      class="muteButton"
-      src="./img/icons/icons8-sound-on-100.png"
-      alt="Mute Button"
-    />
-    <img
-      onclick="toggleSound()"
-      id="noSound"
-      class="muteButton d-none"
-      src="./img/icons/icons8-mute-100.png"
-      alt="Mute Button"
-    />
+      <div class="overlayed d-none" id="startScreen">start</div>
+      <div class="overlayed d-none" id="endScreen">end</div>
+      <div class="overlayed d-none" id="gameover">gameover</div>
+      <div class="overlayed menu">
+        <svg class="svg-iconMenu">
+          <use
+            xlink:href="icons.svg#svg-iconMenu"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+        <svg class="svg-iconSoundOn" onclick="toggleSound()" id="sound">
+          <use
+            xlink:href="icons.svg#svg-iconSoundOn"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+        <svg
+          class="svg-iconSoundOff d-none"
+          onclick="toggleSound()"
+          id="noSound"
+        >
+          <use
+            xlink:href="icons.svg#svg-iconSoundOff"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+
+        <svg class="svg-iconPause">
+          <use
+            xlink:href="icons.svg#svg-iconPause"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+      </div>
+    </div>
+
     <div class="keyInstruction">
       <img
         class="imgMovement"
