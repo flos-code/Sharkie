@@ -116,6 +116,7 @@ class Endboss extends MovableObject {
       this.currenImage = 0;
       this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
       world.bossfight_sound.play();
+      world.background_sound.pause();
       this.startSpawning = true;
       this.currenImage = 0;
 
@@ -169,7 +170,10 @@ class Endboss extends MovableObject {
       }
     } else {
       this.playAnimation(this.IMAGES_SWIMMING);
-
+      if (world && this.hadFirstContact) {
+        world.bossfight_sound.play();
+        world.background_sound.pause();
+      }
     }
 
 

@@ -105,6 +105,7 @@ class World {
 
             enemy.hit(bubble.damage);
             this.endboss_hit_sound.play();
+
             if (this.hpBarEndboss) {
               this.hpBarEndboss.setPrecentage(enemy.hp);
             }
