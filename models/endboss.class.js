@@ -143,15 +143,9 @@ class Endboss extends MovableObject {
   endbossAnimation() {
 
     if (this.deathToBubble) {
-
       this.deathAnimation();
-
-
       world.endboss_dead_sound.play();
       world.bossfight_sound.pause();
-
-
-
     }
 
     else if (this.hasDiedToBubble) {

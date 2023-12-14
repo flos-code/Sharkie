@@ -8,6 +8,7 @@ class World {
   ctx;
   camera_x = 0;
   shootableObjects = [];
+  intervalIds = [];
   meleeAttack = new MeleeAttack(this.character);
 
 
@@ -31,9 +32,11 @@ class World {
   }
 
   run() {
-    setInterval(() => {
-      this.checkCollisions();
-    }, 1000 / 60);
+    this.setStoppableInterval(() => this.checkCollisions(), 1000 / 60);
+
+    // setInterval(() => {
+    //   this.checkCollisions();
+    // }, 1000 / 60);
 
 
   }
@@ -196,8 +199,15 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    this.intervalIds.push(id);
+  }
+
 
   clearAllIntervals() {
+    this.intervalIds.forEach(interval => { clearInterval(interval); });
+
     this.character.intervalIds.forEach(interval => { clearInterval(interval); });
 
     this.level.enemies.forEach(enemy => {
@@ -210,6 +220,7 @@ class World {
   }
 
   resumeAllIntervals() {
+    this.run();
     this.character.animate();
 
     this.level.enemies.forEach(enemy => {
