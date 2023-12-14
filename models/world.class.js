@@ -54,10 +54,10 @@ class World {
     this.level.collectibles = this.level.collectibles.filter((collectible) => {
       if (this.character.isColliding(collectible)) {
         if (collectible instanceof Poison) {
-          this.character.addPoison(this.item_pickup);
+          this.character.addPoison(this.item_pickup_sound);
         }
         if (collectible instanceof Coin) {
-          this.character.addCoin(this.coin_sound, this.level_up);
+          this.character.addCoin(this.coin_sound, this.level_up_sound);
         }
         return false; // Exclude the collided collectible
       }

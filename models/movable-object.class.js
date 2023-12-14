@@ -33,7 +33,7 @@ class MovableObject extends DrawableObject {
 
   }
 
-  addCoin(coin_sound, level_up) {
+  addCoin(coin_sound, level_up_sound) {
     if (!coin_sound.currentTime == 0) {
 
       coin_sound.currentTime = 0; // Set currentTime to 0 for restarting
@@ -44,13 +44,13 @@ class MovableObject extends DrawableObject {
     if (this.coins == 10) {
       this.coins = 0;
       this.hp++;
-      level_up.play();
+      level_up_sound.play();
     }
   }
 
-  addPoison(item_pickup) {
+  addPoison(item_pickup_sound) {
     this.posions++
-    item_pickup.play();
+    item_pickup_sound.play();
   }
 
   hit(damage) {
@@ -117,15 +117,7 @@ class MovableObject extends DrawableObject {
   }
 
 
-  moveUpDown() {
-    let direction = 1;
-    setInterval(() => {
-      this.y += direction * this.speedY;
-      if (this.y <= 20 || this.y >= 380) {
-        direction *= -1; // Reverse the direction
-      }
-    }, 1000 / 60);
-  }
+
 
 
 

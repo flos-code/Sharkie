@@ -3,7 +3,6 @@ let world;
 let keyboard = new Keyboard();
 let menu = false;
 let pause = false;
-// let intervalIds = [];
 
 
 
@@ -11,6 +10,8 @@ function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   loadeSounds();
+  togglePause();
+  document.getElementById("pause").classList.add("d-none");
 }
 
 window.addEventListener("keydown", (event) => {
@@ -56,59 +57,46 @@ window.addEventListener("keyup", (event) => {
 });
 
 
+
+
+let audioElements = {
+  swimming_sound: new Audio("./audio/swimming.mp3"),
+  poisoned_sound: new Audio("./audio/poisoned.mp3"),
+  shock_sound: new Audio("./audio/shock.mp3"),
+  melee_sound: new Audio("./audio/melee_attack.mp3"),
+  idle_sound: new Audio("./audio/long_idle.mp3"),
+  item_pickup_sound: new Audio("./audio/item_pickup.mp3"),
+  coin_sound: new Audio("./audio/coin_sound.mp3"),
+  level_up_sound: new Audio("./audio/level_up.mp3"),
+  bubble_sound: new Audio("./audio/bubble.mp3"),
+  endboss_hit_sound: new Audio("./audio/endboss_hit.mp3"),
+  endboss_attack_sound: new Audio("./audio/endboss_attack.mp3"),
+  endboss_dead_sound: new Audio("./audio/endboss_dead.mp3"),
+  bossfight_sound: new Audio("./audio/bossfight_sound.mp3"),
+  background_sound: new Audio("./audio/background_sound.mp3"),
+};
+
 function loadeSounds() {
-  world.character.swimming_sound = new Audio("./audio/swimming.mp3");
-  world.character.poisoned_sound = new Audio("./audio/poisoned.mp3");
-  world.character.shock_sound = new Audio("./audio/shock.mp3");
-  world.character.melee_sound = new Audio("./audio/melee_attack.mp3");
-  world.character.idle_sound = new Audio("./audio/long_idle.mp3");
-  world.character.idle_sound.loop = true;
-
-  world.item_pickup = new Audio("./audio/item_pickup.mp3");
-  world.coin_sound = new Audio("./audio/coin_sound.mp3");
-  world.level_up = new Audio("./audio/level_up.mp3");
-  world.bubble_sound = new Audio("./audio/bubble.mp3");
-  world.endboss_hit_sound = new Audio("./audio/endboss_hit.mp3");
-  world.endboss_attack_sound = new Audio("./audio/endboss_attack.mp3");
-  world.endboss_dead_sound = new Audio("./audio/endboss_dead.mp3");
-  world.bossfight_sound = new Audio("./audio/bossfight_sound.mp3");
-  world.bossfight_sound.loop = true;
-  world.background_sound = new Audio("./audio/background_sound.mp3");
-  world.background_sound.loop = true;
+  Object.entries(audioElements).forEach(([key, audio]) => {
+    world[key] = audio;
+    world.character[key] = audio;
+  });
 }
-
 
 function toggleSound() {
   if (world.sound) {
     world.sound = false;
-
-
-    world.character.swimming_sound = new Audio("./audio/empty_Sound.mp3");
-    world.character.poisoned_sound = new Audio("./audio/empty_Sound.mp3");
-    world.character.shock_sound = new Audio("./audio/empty_Sound.mp3");
-    world.character.melee_sound = new Audio("./audio/empty_Sound.mp3");
-    world.character.idle_sound.pause();
-    world.character.idle_sound = new Audio("./audio/empty_Sound.mp3");
-
-    world.item_pickup = new Audio("./audio/empty_Sound.mp3");
-    world.coin_sound = new Audio("./audio/empty_Sound.mp3");
-    world.level_up = new Audio("./audio/empty_Sound.mp3");
-    world.bubble_sound = new Audio("./audio/empty_Sound.mp3");
-    world.endboss_hit_sound = new Audio("./audio/empty_Sound.mp3");
-    world.endboss_attack_sound = new Audio("./audio/empty_Sound.mp3");
-    world.endboss_dead_sound = new Audio("./audio/empty_Sound.mp3");
-    world.bossfight_sound.pause();
-    world.bossfight_sound = new Audio("./audio/empty_Sound.mp3");
-    world.background_sound.pause();
-    world.background_sound = new Audio("./audio/empty_Sound.mp3");
-
-
+    Object.values(audioElements).forEach(audio => {
+      audio.volume = 0;
+    });
     document.getElementById("sound").classList.add("d-none");
     document.getElementById("noSound").classList.remove("d-none");
-  }
-  else {
+  } else {
     world.sound = true;
-    loadeSounds();
+    Object.values(audioElements).forEach(audio => {
+      audio.volume = 1;
+    });
+
     document.getElementById("sound").classList.remove("d-none");
     document.getElementById("noSound").classList.add("d-none");
   }
@@ -116,29 +104,40 @@ function toggleSound() {
 
 
 function startGame() {
+  world.character.lastMove = new Date().getTime();
   document.getElementById("startScreen").classList.add("d-none");
-  //game wirklich erst starten
+  togglePause();
+
 
 }
 
 function toggleMenu() {
+  let alreadyPaused = pause;
+  console.log(alreadyPaused);
   if (menu) {
     document.getElementById("openMenu").classList.remove("d-none");
     document.getElementById("closeMenu").classList.add("d-none");
     document.getElementById("gameInfos").classList.add("d-none");
     menu = false;
-    pause = true;
-    togglePause()
+    if (!alreadyPaused) {
+      pause = true;
+      togglePause()
+    } else { document.getElementById("pause").classList.remove("d-none"); }
+
   } else {
+    console.log(alreadyPaused);
+
     document.getElementById("openMenu").classList.add("d-none");
     document.getElementById("closeMenu").classList.remove("d-none");
     document.getElementById("gameInfos").classList.remove("d-none");
 
-
-    //spiel muss pausieren
     menu = true;
-    pause = false;
-    togglePause()
+    if (!alreadyPaused) {
+
+      togglePause()
+      pause = false;
+    }
+
     document.getElementById("pause").classList.add("d-none");
   }
 }

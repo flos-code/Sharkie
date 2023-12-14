@@ -89,6 +89,7 @@ class Endboss extends MovableObject {
     this.setStoppableInterval(() => this.endbossMovement(), 1000 / 60);
     this.setStoppableInterval(() => this.endbossAnimation(), 200);
   }
+
   endbossMovement() {
 
     if (this.hadFirstContact && world.character.x - this.x > 0 + 100 && !this.isDead()) {

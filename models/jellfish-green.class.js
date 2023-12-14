@@ -51,14 +51,6 @@ class JellyFishGreen extends MovableObject {
     this.y = this.centerY + this.radius * Math.sin(this.angle);
   }
 
-
-
-
-
-
-
-
-
   greenJellyfishAnimation() {
     if (this.isDead()) {
       clearInterval(this.intervalIds[1]);
@@ -76,7 +68,6 @@ class JellyFishGreen extends MovableObject {
 
       this.playAnimation(this.IMAGES_SWIMMING);
     }
-
   }
 }
 
