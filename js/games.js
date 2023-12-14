@@ -4,6 +4,7 @@ let keyboard = new Keyboard();
 let menu = false;
 let pause = false;
 let gameStarted = false;
+let fullscreen = false;
 
 let audioElements = {
   swimming_sound: new Audio("./audio/swimming.mp3"),
@@ -175,5 +176,38 @@ function togglePause() {
     document.getElementById("pause").classList.remove("d-none");
     world.clearAllIntervals();
     pause = true;
+  }
+}
+
+function toggleFullscreen() {
+  let mainContainer = document.getElementById("mainContainer");
+  if (!fullscreen) {
+    fullscreen = true;
+    document.getElementById("noFullscreen").classList.remove("d-none");
+    document.getElementById("fullscreen").classList.add("d-none");
+    enterFullscreen(mainContainer)
+  } else {
+    fullscreen = false;
+    exitFullscreen()
+    document.getElementById("noFullscreen").classList.add("d-none");
+    document.getElementById("fullscreen").classList.remove("d-none");
+  }
+}
+
+function enterFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+    element.msRequestFullscreen();
+  } else if (element.webkitRequestFullscreen) {  // iOS Safari
+    element.webkitRequestFullscreen();
+  }
+}
+
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
   }
 }

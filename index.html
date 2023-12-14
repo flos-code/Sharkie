@@ -41,7 +41,7 @@
   </head>
   <body onload="init()">
     <h1>Sharkie</h1>
-    <div class="mainContainer">
+    <div class="mainContainer" id="mainContainer">
       <canvas class="overlayed" id="canvas" width="720" height="480"> </canvas>
 
       <div class="overlayed" id="startScreen">
@@ -170,6 +170,27 @@
       </div>
 
       <div class="overlayed menu">
+        <svg
+          class="svg-iconFullscreen"
+          onclick="toggleFullscreen()"
+          id="fullscreen"
+        >
+          <use
+            xlink:href="icons.svg#svg-iconFullscreen"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+        <svg
+          class="svg-iconCloseFullscreen d-none"
+          onclick="toggleFullscreen()"
+          id="noFullscreen"
+        >
+          <use
+            xlink:href="icons.svg#svg-iconCloseFullscreen"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+
         <svg class="svg-iconMenu" onclick="toggleMenu()" id="openMenu">
           <use
             xlink:href="icons.svg#svg-iconMenu"
@@ -182,6 +203,7 @@
             xmlns:xlink="http://www.w3.org/1999/xlink"
           ></use>
         </svg>
+
         <svg class="svg-iconSoundOn" onclick="toggleSound()" id="sound">
           <use
             xlink:href="icons.svg#svg-iconSoundOn"
