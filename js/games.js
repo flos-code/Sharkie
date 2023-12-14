@@ -125,8 +125,6 @@ function toggleMenu() {
     } else if (gameStarted) { document.getElementById("pause").classList.remove("d-none"); }
 
   } else {
-    console.log(alreadyPaused);
-
     document.getElementById("openMenu").classList.add("d-none");
     document.getElementById("closeMenu").classList.remove("d-none");
     document.getElementById("gameInfos").classList.remove("d-none");

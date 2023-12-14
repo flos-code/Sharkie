@@ -53,7 +53,10 @@ class JellyFishGreen extends MovableObject {
 
   greenJellyfishAnimation() {
     if (this.isDead()) {
-      clearInterval(this.intervalIds[1]);
+      for (let i = 1; i < this.intervalIds.length; i = i + 3) {
+        clearInterval(this.intervalIds[i]);
+      }
+
       this.rotationDirection = 0;
       if (!world.character.otherDirection) {
         this.speed = -5;

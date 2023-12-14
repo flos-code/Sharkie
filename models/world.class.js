@@ -33,17 +33,11 @@ class World {
 
   run() {
     this.setStoppableInterval(() => this.checkCollisions(), 1000 / 60);
-
-    // setInterval(() => {
-    //   this.checkCollisions();
-    // }, 1000 / 60);
-
-
   }
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && !enemy.isDead()) {
         this.character.hit(1);
         if (enemy instanceof GreenFish || enemy instanceof RedFish || enemy instanceof Endboss) {
           this.character.lastDamage = "poisoned"
@@ -72,6 +66,7 @@ class World {
         if (enemy instanceof GreenFish || enemy instanceof RedFish) {
           setTimeout(() => {
             enemy.hit(10);
+            this.fish_hit_sound.play();
           }, 800);
 
         }
@@ -86,7 +81,7 @@ class World {
         if (bubble.isColliding(enemy)) {
           if (enemy instanceof JellyFishYellow || enemy instanceof JellyFishGreen) {
             enemy.hit(10);
-
+            this.jellyfish_hit_sound.play();
             collidesWithEnemy = true;
 
           }
