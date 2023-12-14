@@ -81,6 +81,7 @@ class World {
         if (bubble.isColliding(enemy)) {
           if (enemy instanceof JellyFishYellow || enemy instanceof JellyFishGreen) {
             enemy.hit(10);
+            enemy.deathDirection = bubble.bubbleOtherDirection;
             this.jellyfish_hit_sound.play();
             collidesWithEnemy = true;
 

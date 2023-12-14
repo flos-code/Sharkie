@@ -1,5 +1,6 @@
 class ShootableObject extends MovableObject {
     damage;
+    bubbleOtherDirection = false;
 
     constructor(x, y) {
         super();
@@ -27,10 +28,12 @@ class ShootableObject extends MovableObject {
 
         this.speedY = 0;
         if (!world.character.otherDirection) {
+            this.bubbleOtherDirection = false;
             setInterval(() => {
                 this.x += 20;
             }, 1000 / 25);
         } else {
+            this.bubbleOtherDirection = true;
             setInterval(() => {
                 this.x -= 20;
             }, 1000 / 25);

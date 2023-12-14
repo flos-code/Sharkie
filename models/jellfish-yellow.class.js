@@ -4,6 +4,7 @@ class JellyFishYellow extends MovableObject {
   y = 200;
   hp = 10;
   direction = 1;
+  deathDirection = false;
 
   IMAGES_SWIMMING = [
     "./img/2.Enemy/2 Jelly fish/Regular damage/Yellow 1.png",
@@ -54,10 +55,10 @@ class JellyFishYellow extends MovableObject {
   yellowJellyfishAnimation() {
     if (this.isDead()) {
       this.speed = 0;
-      if (!world.character.otherDirection) {
-        this.speed = -5;
-      } else {
+      if (this.deathDirection) {
         this.speed = 5;
+      } else {
+        this.speed = -5;
       }
       this.speedY = 1;
       this.applyBuoyancy();

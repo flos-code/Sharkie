@@ -8,6 +8,7 @@ class JellyFishGreen extends MovableObject {
   angle = 0;
   speed = 0;
   circularMovementInterval;
+  deathDirection = false;
 
   IMAGES_SWIMMING = [
     "./img/2.Enemy/2 Jelly fish/S｣per dangerous/Green 1.png",
@@ -58,10 +59,10 @@ class JellyFishGreen extends MovableObject {
       }
 
       this.rotationDirection = 0;
-      if (!world.character.otherDirection) {
-        this.speed = -5;
-      } else {
+      if (this.deathDirection) {
         this.speed = 5;
+      } else {
+        this.speed = -5;
       }
       this.speedY = 1;
 
