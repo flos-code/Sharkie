@@ -34,6 +34,7 @@ function init() {
 
   togglePause();
   document.getElementById("pause").classList.add("d-none");
+  bindBtsPressEvents();
 }
 
 window.addEventListener("keydown", (event) => {
@@ -78,6 +79,66 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
+function bindBtsPressEvents() {
+  document.getElementById("moveUp").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.UP = true;
+  });
+
+  document.getElementById("moveUp").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.UP = false;
+  });
+
+  document.getElementById("moveRight").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = true;
+  });
+
+  document.getElementById("moveRight").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = false;
+  });
+  document.getElementById("moveDown").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.DOWN = true;
+  });
+
+  document.getElementById("moveDown").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.DOWN = false;
+  });
+
+  document.getElementById("moveLeft").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.LEFT = true;
+  });
+
+  document.getElementById("moveLeft").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.LEFT = false;
+  });
+
+  document.getElementById("meleeAttack").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.SPACE = true;
+  });
+
+  document.getElementById("meleeAttack").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.SPACE = false;
+  });
+
+  document.getElementById("rangeAttack").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.D = true;
+  });
+
+  document.getElementById("rangeAttack").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.D = false;
+  });
+}
 
 function loadeSounds() {
   Object.entries(audioElements).forEach(([key, audio]) => {
