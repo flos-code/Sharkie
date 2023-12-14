@@ -25,6 +25,7 @@ class Character extends MovableObject {
 
 
 
+
   IMAGES_SWIMMING = [
     "./img/1.Sharkie/3.Swim/1.png",
     "./img/1.Sharkie/3.Swim/2.png",
