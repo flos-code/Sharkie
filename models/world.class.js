@@ -194,4 +194,36 @@ class World {
     this.ctx.restore();
     mo.x = mo.x * -1;
   }
+
+
+  clearAllIntervals() {
+    this.character.intervalIds.forEach(interval => { clearInterval(interval); });
+
+    this.level.enemies.forEach(enemy => {
+      enemy.intervalIds.forEach(interval => { clearInterval(interval); })
+    });
+
+    this.level.collectibles.forEach(collectible => {
+      collectible.intervalIds.forEach(interval => { clearInterval(interval); })
+    })
+  }
+
+  resumeAllIntervals() {
+    this.character.animate();
+
+    this.level.enemies.forEach(enemy => {
+
+      enemy.animate()
+
+    })
+
+    this.level.collectibles.forEach(collectible => {
+
+      collectible.animate()
+
+    })
+  }
+
 }
+
+

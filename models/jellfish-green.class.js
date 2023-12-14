@@ -39,41 +39,16 @@ class JellyFishGreen extends MovableObject {
   }
 
   animate() {
+    this.setStoppableInterval(() => this.moveLeft(), 1000 / 60);
+    this.setStoppableInterval(() => this.greenJellyfishMovement(), 1000 / 60);
+    this.setStoppableInterval(() => this.greenJellyfishAnimation(), 200);
+  }
 
-    this.circularMovementInterval = setInterval(() => {
+  greenJellyfishMovement() {
+    this.angle += 0.01 * this.rotationDirection;
 
-      this.angle += 0.01 * this.rotationDirection;
-
-      this.x = this.centerX + this.radius * Math.cos(this.angle);
-      this.y = this.centerY + this.radius * Math.sin(this.angle);
-
-    }, 1000 / 60);
-
-    setInterval(() => {
-      this.moveLeft();
-    }, 1000 / 60);
-
-
-
-    setInterval(() => {
-      if (this.isDead()) {
-        clearInterval(this.circularMovementInterval);
-        this.rotationDirection = 0;
-        if (!world.character.otherDirection) {
-          this.speed = -5;
-        } else {
-          this.speed = 5;
-        }
-        this.speedY = 1;
-
-        this.applyBuoyancy();
-        this.playAnimation(this.IMAGES_DEAD)
-      } else {
-
-        this.playAnimation(this.IMAGES_SWIMMING);
-      }
-
-    }, 200);
+    this.x = this.centerX + this.radius * Math.cos(this.angle);
+    this.y = this.centerY + this.radius * Math.sin(this.angle);
   }
 
 
@@ -83,6 +58,25 @@ class JellyFishGreen extends MovableObject {
 
 
 
-}
 
+  greenJellyfishAnimation() {
+    if (this.isDead()) {
+      clearInterval(this.intervalIds[1]);
+      this.rotationDirection = 0;
+      if (!world.character.otherDirection) {
+        this.speed = -5;
+      } else {
+        this.speed = 5;
+      }
+      this.speedY = 1;
+
+      this.applyBuoyancy();
+      this.playAnimation(this.IMAGES_DEAD)
+    } else {
+
+      this.playAnimation(this.IMAGES_SWIMMING);
+    }
+
+  }
+}
 

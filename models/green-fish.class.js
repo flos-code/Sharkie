@@ -51,31 +51,28 @@ class GreenFish extends MovableObject {
   }
 
   animate() {
+    this.setStoppableInterval(() => this.moveLeft(), 1000 / 60);
+    this.setStoppableInterval(() => this.greenFishAnimation(), 200);
+  }
 
 
 
-    setInterval(() => {
-      this.moveLeft();
-    }, 1000 / 60);
-
-
-    setInterval(() => {
-      if (this.form == "big" && this.isDead()) {
-        this.speed = 0;
-        this.speedY = 1;
-        this.applyBuoyancy();
-        this.playAnimation(this.IMAGES_DEAD_BIG);
-      } else if (this.form == "big") {
-        this.playAnimation(this.IMAGES_SWIMMING_BIG);
-      } else if (this.isDead()) {
-        this.speed = 0;
-        this.speedY = 1;
-        this.applyBuoyancy();
-        this.playAnimation(this.IMAGES_DEAD);
-      } else {
-        this.playAnimation(this.IMAGES_SWIMMING);
-      }
-    }, 200);
+  greenFishAnimation() {
+    if (this.form == "big" && this.isDead()) {
+      this.speed = 0;
+      this.speedY = 1;
+      this.applyBuoyancy();
+      this.playAnimation(this.IMAGES_DEAD_BIG);
+    } else if (this.form == "big") {
+      this.playAnimation(this.IMAGES_SWIMMING_BIG);
+    } else if (this.isDead()) {
+      this.speed = 0;
+      this.speedY = 1;
+      this.applyBuoyancy();
+      this.playAnimation(this.IMAGES_DEAD);
+    } else {
+      this.playAnimation(this.IMAGES_SWIMMING);
+    }
   }
 
 }

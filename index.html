@@ -199,9 +199,15 @@
           ></use>
         </svg>
 
-        <svg class="svg-iconPause" onclick="pauseGame()">
+        <svg class="svg-iconPause" id="noPause" onclick="togglePause()">
           <use
             xlink:href="icons.svg#svg-iconPause"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          ></use>
+        </svg>
+        <svg class="svg-iconPlay d-none" id="pause" onclick="togglePause()">
+          <use
+            xlink:href="icons.svg#svg-iconPlay"
             xmlns:xlink="http://www.w3.org/1999/xlink"
           ></use>
         </svg>

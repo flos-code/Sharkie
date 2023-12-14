@@ -86,97 +86,92 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    let i = 0;
+    this.setStoppableInterval(() => this.endbossMovement(), 1000 / 60);
+    this.setStoppableInterval(() => this.endbossAnimation(), 200);
+  }
+  endbossMovement() {
 
-    setInterval(() => {
+    if (this.hadFirstContact && world.character.x - this.x > 0 + 100 && !this.isDead()) {
+      this.moveRight();
+      this.otherDirection = true;
+    }
+    if (this.hadFirstContact && world.character.x - this.x < 0 + 100 && !this.isDead()) {
+      this.moveLeft();
+      this.otherDirection = false;
+    }
+    if (this.hadFirstContact && world.character.y - this.y < 0 + 200 && !this.isDead()) {
+      this.moveUp();
+    }
+    if (this.hadFirstContact && world.character.y - this.y > 0 + 200 && !this.isDead()) {
+      this.moveDown();
+    }
 
-      if (this.hadFirstContact && world.character.x - this.x > 0 + 100 && !this.isDead()) {
-        this.moveRight();
-        this.otherDirection = true;
-      }
-      if (this.hadFirstContact && world.character.x - this.x < 0 + 100 && !this.isDead()) {
-        this.moveLeft();
-        this.otherDirection = false;
-      }
-      if (this.hadFirstContact && world.character.y - this.y < 0 + 200 && !this.isDead()) {
-        this.moveUp();
-      }
-      if (this.hadFirstContact && world.character.y - this.y > 0 + 200 && !this.isDead()) {
-        this.moveDown();
-      }
+    if (world && world.character.x > 3000 && !this.hadFirstContact) {
+      this.hadFirstContact = true;
 
-      if (world && world.character.x > 3000 && !this.hadFirstContact) {
-        this.hadFirstContact = true;
+      this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+      this.hpBarEndboss.x = 500;
+      this.startSpawning = true;
+      this.currenImage = 0;
+      this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+      world.bossfight_sound.play();
+      this.startSpawning = true;
+      this.currenImage = 0;
 
-        this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
-        // this.x = 3500;
-        this.hpBarEndboss.x = 500;
-        this.startSpawning = true;
-        this.currenImage = 0;
-        this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
-        world.bossfight_sound.play();
-        this.startSpawning = true;
-        this.currenImage = 0;
+    }
+    if (this.spawned && !this.attackCooldown(3000) && !this.isDead()) {
+      this.attack = true;
+      this.currenImage = 0;
+    }
 
-      }
-      if (this.spawned && !this.attackCooldown(3000) && !this.isDead()) {
-        this.attack = true;
-        this.currenImage = 0;
-      }
+  }
 
-    }, 1000 / 60);
+  endbossAnimation() {
 
-    setInterval(() => {
+    if (this.isDead()) {
 
-      if (this.isDead()) {
+      this.playAnimation(this.IMAGES_DEAD);
+      world.endboss_dead_sound.play();
+      world.bossfight_sound.pause();
+      document.getElementById("endScreen").classList.remove("d-none");
+    } else if (this.isHurt()) {
+      this.playAnimation(this.IMAGES_HURT);
+    }
+    else if (this.startSpawning) {
+      this.x = 3500;
+      this.playAnimation(this.IMAGES_SPAWNING);
 
-        this.playAnimation(this.IMAGES_DEAD);
-        world.endboss_dead_sound.play();
-        world.bossfight_sound.pause();
-        document.getElementById("endScreen").classList.remove("d-none");
-      } else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      }
-      else if (this.startSpawning) {
-        this.x = 3500;
-        this.playAnimation(this.IMAGES_SPAWNING);
-
-        this.animationIndex++
-        if (this.animationIndex == this.IMAGES_SPAWNING.length) {
-          this.animationIndex = 0;
-          this.startSpawning = false;
-          this.spawned = true;
-          this.speed = 0.1;
-          this.speedY = 0.1;
-
-        }
-
-
-
+      this.animationIndex++
+      if (this.animationIndex == this.IMAGES_SPAWNING.length) {
+        this.animationIndex = 0;
+        this.startSpawning = false;
+        this.spawned = true;
+        this.speed = 0.1;
+        this.speedY = 0.1;
 
       }
-      else if (this.attack) {
-        this.lastAttack = new Date().getTime();
-        this.playAnimation(this.IMAGES_ATTACK);
-        this.animationIndex++;
-        this.offsetX = 0;
+    }
+    else if (this.attack) {
+      this.lastAttack = new Date().getTime();
+      this.playAnimation(this.IMAGES_ATTACK);
+      this.animationIndex++;
+      this.offsetX = 0;
 
 
-        if (this.animationIndex == this.IMAGES_ATTACK.length) {
-          this.animationIndex = 0;
-          this.offsetX = 20;
-          this.attack = false;
-          this.speed = this.speed * 1.5;
-          this.speedY = this.speedY * 1.5;
-          world.endboss_attack_sound.play();
-        }
-      } else {
-        this.playAnimation(this.IMAGES_SWIMMING);
-
+      if (this.animationIndex == this.IMAGES_ATTACK.length) {
+        this.animationIndex = 0;
+        this.offsetX = 20;
+        this.attack = false;
+        this.speed = this.speed * 1.5;
+        this.speedY = this.speedY * 1.5;
+        world.endboss_attack_sound.play();
       }
-      i++;
+    } else {
+      this.playAnimation(this.IMAGES_SWIMMING);
+
+    }
 
 
-    }, 200);
+
   }
 }

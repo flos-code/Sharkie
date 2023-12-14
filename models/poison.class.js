@@ -35,17 +35,18 @@ class Poison extends MovableObject {
   }
 
   animate() {
+    this.setStoppableInterval(() => this.posionAnimation(), 300);
 
 
 
-    setInterval(() => {
-      if (this.form === "left") {
-        this.playAnimation(this.IMAGES_POISON_GROUND_LEFT);
-      } else if (this.form === "right") {
-        this.playAnimation(this.IMAGES_POISON_GROUND_RIGHT);
-      } else {
-        this.playAnimation(this.IMAGES_POISON);
-      }
-    }, 300);
+  }
+  posionAnimation() {
+    if (this.form === "left") {
+      this.playAnimation(this.IMAGES_POISON_GROUND_LEFT);
+    } else if (this.form === "right") {
+      this.playAnimation(this.IMAGES_POISON_GROUND_RIGHT);
+    } else {
+      this.playAnimation(this.IMAGES_POISON);
+    }
   }
 }

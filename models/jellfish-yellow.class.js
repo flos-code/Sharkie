@@ -3,6 +3,8 @@ class JellyFishYellow extends MovableObject {
   height = 80;
   y = 200;
   hp = 10;
+  direction = 1;
+
   IMAGES_SWIMMING = [
     "./img/2.Enemy/2 Jelly fish/Regular damage/Yellow 1.png",
     "./img/2.Enemy/2 Jelly fish/Regular damage/Yellow 2.png",
@@ -35,29 +37,35 @@ class JellyFishYellow extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      this.moveLeft();
-    }, 1000 / 60);
+    this.setStoppableInterval(() => this.moveLeft(), 1000 / 60);
+    this.setStoppableInterval(() => this.yellowJellyfishMovement(), 1000 / 60);
+    this.setStoppableInterval(() => this.yellowJellyfishAnimation(), 200);
+  }
 
 
-    this.moveUpDown();
 
-    setInterval(() => {
-      if (this.isDead()) {
-        this.speed = 0;
-        if (!world.character.otherDirection) {
-          this.speed = -5;
-        } else {
-          this.speed = 5;
-        }
-        this.speedY = 1;
-        this.applyBuoyancy();
-        this.playAnimation(this.IMAGES_DEAD)
+  yellowJellyfishMovement() {
+    this.y += this.direction * this.speedY;
+    if (this.y <= 20 || this.y >= 380) {
+      this.direction *= -1; // Reverse the direction
+    }
+  }
+
+  yellowJellyfishAnimation() {
+    if (this.isDead()) {
+      this.speed = 0;
+      if (!world.character.otherDirection) {
+        this.speed = -5;
       } else {
-        this.playAnimation(this.IMAGES_SWIMMING);
+        this.speed = 5;
       }
+      this.speedY = 1;
+      this.applyBuoyancy();
+      this.playAnimation(this.IMAGES_DEAD)
+    } else {
+      this.playAnimation(this.IMAGES_SWIMMING);
+    }
 
-    }, 200);
   }
 
 

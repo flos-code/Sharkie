@@ -59,65 +59,63 @@ class RedFish extends MovableObject {
   }
 
   animate() {
-
-    setInterval(() => {
-
-      if (this.hadFirstContact && world.character.x - this.x > 0 - world.character.widthOffset) {
-        this.moveRight();
-        this.otherDirection = true;
-
-      }
-      if (this.hadFirstContact && world.character.x - this.x < 0 - world.character.widthOffset) {
-        this.moveLeft();
-        this.otherDirection = false;
-
-      }
-      if (this.hadFirstContact && world.character.y - this.y < 0 - world.character.offsetY && !this.isDead()) {
-        this.moveUp();
-
-      }
-
-      if (this.hadFirstContact && world.character.y - this.y > 0 - world.character.offsetY && !this.isDead()) {
-        this.moveDown();
-
-      }
-
-      if (world && world.character.x > 2400 && !this.hadFirstContact) {
-        this.hadFirstContact = true;
-        this.startTransform = true;
-        this.currenImage = 0;
-      }
+    this.setStoppableInterval(() => this.redFishMovement(), 1000 / 60);
+    this.setStoppableInterval(() => this.redFishAnimation(), 200);
 
 
 
 
-    }, 1000 / 60);
-
-
-    setInterval(() => {
-
-      if (this.isDead()) {
-        this.speed = 0;
-        this.speedY = 1;
-        this.applyBuoyancy();
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.startTransform) {
-
-        this.playAnimation(this.IMAGES_TRANSFORM);
-        this.animationIndex++
-        if (this.animationIndex == this.IMAGES_TRANSFORM.length) {
-          this.animationIndex = 0;
-          this.startTransform = false;
-          this.isTransformed = true;
-        }
-
-      } else if (this.isTransformed) {
-        this.playAnimation(this.IMAGES_SWIMMING_BIG);
-      } else {
-        this.playAnimation(this.IMAGES_SWIMMING);
-      }
-    }, 200);
   }
+
+  redFishMovement() {
+
+    if (this.hadFirstContact && world.character.x - this.x > 0 - world.character.widthOffset) {
+      this.moveRight();
+      this.otherDirection = true;
+    }
+    if (this.hadFirstContact && world.character.x - this.x < 0 - world.character.widthOffset) {
+      this.moveLeft();
+      this.otherDirection = false;
+    }
+    if (this.hadFirstContact && world.character.y - this.y < 0 - world.character.offsetY && !this.isDead()) {
+      this.moveUp();
+    }
+
+    if (this.hadFirstContact && world.character.y - this.y > 0 - world.character.offsetY && !this.isDead()) {
+      this.moveDown();
+    }
+
+    if (world && world.character.x > 2400 && !this.hadFirstContact) {
+      this.hadFirstContact = true;
+      this.startTransform = true;
+      this.currenImage = 0;
+    }
+  }
+
+  redFishAnimation() {
+
+    if (this.isDead()) {
+      this.speed = 0;
+      this.speedY = 1;
+      this.applyBuoyancy();
+      this.playAnimation(this.IMAGES_DEAD);
+    } else if (this.startTransform) {
+
+      this.playAnimation(this.IMAGES_TRANSFORM);
+      this.animationIndex++
+      if (this.animationIndex == this.IMAGES_TRANSFORM.length) {
+        this.animationIndex = 0;
+        this.startTransform = false;
+        this.isTransformed = true;
+      }
+
+    } else if (this.isTransformed) {
+      this.playAnimation(this.IMAGES_SWIMMING_BIG);
+    } else {
+      this.playAnimation(this.IMAGES_SWIMMING);
+    }
+  }
+
 
 
 }

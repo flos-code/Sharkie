@@ -2,7 +2,8 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let menu = false;
-let intervalIds = [];
+let pause = false;
+// let intervalIds = [];
 
 
 
@@ -126,6 +127,8 @@ function toggleMenu() {
     document.getElementById("closeMenu").classList.add("d-none");
     document.getElementById("gameInfos").classList.add("d-none");
     menu = false;
+    pause = true;
+    togglePause()
   } else {
     document.getElementById("openMenu").classList.add("d-none");
     document.getElementById("closeMenu").classList.remove("d-none");
@@ -134,6 +137,9 @@ function toggleMenu() {
 
     //spiel muss pausieren
     menu = true;
+    pause = false;
+    togglePause()
+    document.getElementById("pause").classList.add("d-none");
   }
 }
 
@@ -157,11 +163,19 @@ function restartGame() {
 }
 
 
-function setStoppableInterval(fn, time) {
-  let id = setInterval(fn, time);
-  intervalIds.push(id);
-}
 
-function pauseGame() {
-  intervalIds.forEach(clearInterval)
+function togglePause() {
+  if (pause) {
+    document.getElementById("noPause").classList.remove("d-none");
+    document.getElementById("pause").classList.add("d-none");
+
+    world.resumeAllIntervals();
+    pause = false;
+  } else {
+    document.getElementById("noPause").classList.add("d-none");
+    document.getElementById("pause").classList.remove("d-none");
+
+    world.clearAllIntervals();
+    pause = true;
+  }
 }
