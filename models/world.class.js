@@ -18,16 +18,31 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
 
-    this.hpBarEndboss = this.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+    // this.hpBarEndboss = this.level.statusbars.find(bar => bar instanceof HpBarEndboss);
     this.draw();
     this.setWorld();
     this.run();
 
   }
 
+  resetCharacter() {
+    // Clear existing character
+    this.character = null;
+
+    // Create a new character
+    this.character = new Character();
+
+    // Set up the new character's world reference
+    // this.character.world = this;
+  }
+
+
+
+
   setWorld() {
     this.character.world = this;
     this.meleeAttack.world = this;
+    this.hpBarEndboss = this.level.statusbars.find(bar => bar instanceof HpBarEndboss);
 
   }
 

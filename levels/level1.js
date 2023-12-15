@@ -1,37 +1,4 @@
-let enemiesArray = [
-  new GreenFish(700, 80, "normal"),
-  new GreenFish(780, 40, "normal"),
-  new GreenFish(780, 120, "normal"),
-  new GreenFish(1200, 360, "normal"),
-  new GreenFish(1280, 400, "normal"),
-  new GreenFish(1280, 320, "normal"),
-  new GreenFish(1580, 200, "big"),
-  new GreenFish(1660, 250, "normal"),
-  new GreenFish(1660, 170, "normal"),
-  new GreenFish(1740, 290, "normal"),
-  new GreenFish(1740, 130, "normal"),
-
-  new JellyFishYellow(2200, 200),
-  new JellyFishYellow(2280, 160),
-  new JellyFishYellow(2360, 120),
-  new JellyFishYellow(2850, 370),
-  new JellyFishYellow(2930, 330),
-  new JellyFishYellow(3010, 290),
-
-  new JellyFishGreen(1900, 100, -1),
-  new JellyFishGreen(2000, 180, 1),
-  new JellyFishGreen(2100, 140, -1),
-  new JellyFishGreen(2200, 280, 1),
-  new JellyFishGreen(2300, 260, -1),
-  new JellyFishGreen(2400, 120, 1),
-  new JellyFishGreen(2500, 300, -1),
-
-  new RedFish(),
-
-  new Endboss(),
-]
-
-let backgroundArray = [];
+const backgroundArray = [];
 
 for (let i = -1; i <= 5; i++) {
   let x;
@@ -49,7 +16,7 @@ for (let i = -1; i <= 5; i++) {
   );
 }
 
-let collectiblesArray = [
+const collectiblesArray = [
   new Coin(820, 40), new Coin(860, 80), new Coin(920, 100), new Coin(980, 80), new Coin(1020, 40),
   new Coin(1820, 420), new Coin(1860, 380), new Coin(1920, 360), new Coin(1980, 380), new Coin(2020, 420),
   new Coin(2620, 40), new Coin(2660, 80), new Coin(2720, 100), new Coin(2780, 80), new Coin(2820, 40),
@@ -64,21 +31,88 @@ let collectiblesArray = [
 
 ]
 
-let statusbarsArray = [new PosionBar(), new HpBar(), new CoinBar(), new HpBarEndboss()]
 
 
 const level1 = new Level(
-  [...enemiesArray],
+  [
+    new GreenFish(700, 80, "normal"),
+    new GreenFish(780, 40, "normal"),
+    new GreenFish(780, 120, "normal"),
+    new GreenFish(1200, 360, "normal"),
+    new GreenFish(1280, 400, "normal"),
+    new GreenFish(1280, 320, "normal"),
+    new GreenFish(1580, 200, "big"),
+    new GreenFish(1660, 250, "normal"),
+    new GreenFish(1660, 170, "normal"),
+    new GreenFish(1740, 290, "normal"),
+    new GreenFish(1740, 130, "normal"),
+
+    new JellyFishYellow(2200, 200),
+    new JellyFishYellow(2280, 160),
+    new JellyFishYellow(2360, 120),
+    new JellyFishYellow(2850, 370),
+    new JellyFishYellow(2930, 330),
+    new JellyFishYellow(3010, 290),
+
+    new JellyFishGreen(1900, 100, -1),
+    new JellyFishGreen(2000, 180, 1),
+    new JellyFishGreen(2100, 140, -1),
+    new JellyFishGreen(2200, 280, 1),
+    new JellyFishGreen(2300, 260, -1),
+    new JellyFishGreen(2400, 120, 1),
+    new JellyFishGreen(2500, 300, -1),
+
+    new RedFish(),
+
+    new Endboss(),
+  ],
   [...backgroundArray],
   [...collectiblesArray],
-  [...statusbarsArray],
+  [new PosionBar(), new HpBar(), new CoinBar(), new HpBarEndboss()],
+
 );
 
+
 function resetLevel() {
+
+
   return new Level(
-    [...enemiesArray],
+    [
+      new GreenFish(700, 80, "normal"),
+      new GreenFish(780, 40, "normal"),
+      new GreenFish(780, 120, "normal"),
+      new GreenFish(1200, 360, "normal"),
+      new GreenFish(1280, 400, "normal"),
+      new GreenFish(1280, 320, "normal"),
+      new GreenFish(1580, 200, "big"),
+      new GreenFish(1660, 250, "normal"),
+      new GreenFish(1660, 170, "normal"),
+      new GreenFish(1740, 290, "normal"),
+      new GreenFish(1740, 130, "normal"),
+
+      new JellyFishYellow(2200, 200),
+      new JellyFishYellow(2280, 160),
+      new JellyFishYellow(2360, 120),
+      new JellyFishYellow(2850, 370),
+      new JellyFishYellow(2930, 330),
+      new JellyFishYellow(3010, 290),
+
+      new JellyFishGreen(1900, 100, -1),
+      new JellyFishGreen(2000, 180, 1),
+      new JellyFishGreen(2100, 140, -1),
+      new JellyFishGreen(2200, 280, 1),
+      new JellyFishGreen(2300, 260, -1),
+      new JellyFishGreen(2400, 120, 1),
+      new JellyFishGreen(2500, 300, -1),
+
+      new RedFish(),
+
+      new Endboss(),
+    ],
     [...backgroundArray],
     [...collectiblesArray],
-    [...statusbarsArray],
+    [new PosionBar(), new HpBar(), new CoinBar(), new HpBarEndboss()],
+
   );
 }
+

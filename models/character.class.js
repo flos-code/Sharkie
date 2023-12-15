@@ -157,6 +157,7 @@ class Character extends MovableObject {
 
   world;
 
+
   constructor() {
     super().loadeImage("./img/1.Sharkie/3.Swim/1.png");
     this.loadImages(this.IMAGES_SWIMMING);
@@ -173,6 +174,8 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDLE_LONG);
     this.animate();
 
+
+
   }
 
   animate() {
@@ -182,40 +185,40 @@ class Character extends MovableObject {
 
   characterMovement() {
 
-    this.swimming_sound.pause();
+    world.swimming_sound.pause();
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
       this.otherDirection = false;
-      this.swimming_sound.play();
-      this.idle_sound.pause();
+      world.swimming_sound.play();
+      world.idle_sound.pause();
     }
     if (this.world.keyboard.LEFT && this.x > 0) {
       this.moveLeft();
       this.otherDirection = true;
-      this.swimming_sound.play();
-      this.idle_sound.pause();
+      world.swimming_sound.play();
+      world.idle_sound.pause();
     }
     if (this.world.keyboard.UP && this.y > -50) {
       this.moveUp();
-      this.swimming_sound.play();
-      this.idle_sound.pause();
+      world.swimming_sound.play();
+      world.idle_sound.pause();
     }
 
     if (this.world.keyboard.DOWN && this.y < 480 - 130) {
       this.moveDown();
-      this.swimming_sound.play();
-      this.idle_sound.pause();
+      world.swimming_sound.play();
+      world.idle_sound.pause();
     }
     if (this.world.keyboard.SPACE && !this.attackCooldown(800)) {
       this.attackPossibleMelee = true;
       this.currenImage = 0;
-      this.melee_sound.play();
-      this.idle_sound.pause();
+      world.world.melee_sound.play();
+      world.idle_sound.pause();
     }
     if (this.world.keyboard.D && !this.attackCooldown(800)) {
       this.attackPossibleRange = true;
       this.currenImage = 0;
-      this.idle_sound.pause();
+      world.idle_sound.pause();
     }
 
     if (this.x > 3000 && !this.hadFirstContact) {
@@ -243,8 +246,8 @@ class Character extends MovableObject {
     else if (this.hasDiedToPosion) {
       this.playAnimation(this.IMAGES_DEAD_POISONED);
       setTimeout(() => {
-        document.getElementById("gameover").classList.remove("d-none");
-      }, 5000);
+        this.gameOver();
+      }, 500);
     }
     else if (this.deathToShock) {
       this.deathAnimation("shock");
@@ -252,17 +255,17 @@ class Character extends MovableObject {
     else if (this.hasDiedToShock) {
       this.playAnimation(this.IMAGES_DEAD_SHOCK);
       setTimeout(() => {
-        document.getElementById("gameover").classList.remove("d-none");
-      }, 5000);
+        this.gameOver();
+      }, 500);
 
     }
     else if (this.isHurt() && this.lastDamage == "poisoned") {
       this.playAnimation(this.IMAGES_HURT_POISONED);
-      this.poisoned_sound.play();
+      this.world.poisoned_sound.play();
     }
     else if (this.isHurt() && this.lastDamage == "shocked") {
       this.playAnimation(this.IMAGES_HURT_SHOCK);
-      this.shock_sound.play();
+      this.world.shock_sound.play();
     }
     else if (
       this.world.keyboard.RIGHT ||
@@ -282,7 +285,7 @@ class Character extends MovableObject {
     else if (this.isIdle()) {
       this.playAnimation(this.IMAGES_IDLE_LONG);
       this.world.background_sound.pause();
-      this.idle_sound.play();
+      this.world.idle_sound.play();
     }
     else {
       this.playAnimation(this.IMAGES_IDLE);
@@ -353,6 +356,17 @@ class Character extends MovableObject {
       }
     }
     this.startDeath = true;
+  }
+
+  gameOver() {
+    this.world.clearAllIntervals();
+    world.background_sound.pause();
+    world.background_sound.currentTime = 0;
+    world.bossfight_sound.pause();
+    world.bossfight_sound.currentTime = 0;
+    world.idle_sound.pause();
+    world.idle_sound.currentTime = 0;
+    document.getElementById("gameover").classList.remove("d-none");
   }
 
 

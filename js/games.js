@@ -155,7 +155,6 @@ function bindBtsPressEvents() {
 function loadeSounds() {
   Object.entries(audioElements).forEach(([key, audio]) => {
     world[key] = audio;
-    world.character[key] = audio;
   });
 }
 
@@ -229,12 +228,6 @@ function openInfoSection(section) {
   document.getElementById(section).classList.add('activeSection');
 }
 
-function restartGame() {
-  //alles zurücksetzen
-}
-
-
-
 function togglePause() {
   if (pause) {
     document.getElementById("noPause").classList.remove("d-none");
@@ -284,3 +277,33 @@ function exitFullscreen() {
     document.webkitExitFullscreen();
   }
 }
+
+function restartGame() {
+  toggleSound();
+  togglePause();
+
+  // Clear all existing intervals
+
+
+  // Remove existing character from the world
+  world.level = resetLevel();
+  world.resetCharacter();
+
+  // Reset sounds
+  loadeSounds();
+
+  // Reset the level
+
+
+  // Set up the world for the new character
+  world.setWorld();
+  world.clearAllIntervals();
+  // Resume game intervals
+  togglePause();
+  toggleSound();
+
+  // Hide end game screens
+  document.getElementById("endScreen").classList.add("d-none");
+  document.getElementById("gameover").classList.add("d-none");
+}
+

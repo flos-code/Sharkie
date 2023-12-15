@@ -7,6 +7,7 @@ class JellyFishGreen extends MovableObject {
   radius = 100;
   angle = 0;
   speed = 0;
+  x = 1000;
   circularMovementInterval;
   deathDirection = false;
 

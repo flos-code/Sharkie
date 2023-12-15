@@ -12,6 +12,7 @@ class Endboss extends MovableObject {
   startSpawning = false;
   spawned = false;
   deathToBubble = false;
+  hasDiedToBubble = false;
   startDeath = false;
   lastAttack = new Date().getTime();
   animationIndex = 0;
@@ -122,7 +123,7 @@ class Endboss extends MovableObject {
       this.startSpawning = true;
       this.currenImage = 0;
       this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
-      world.bossfight_sound.play();
+      // world.bossfight_sound.pause();
       world.background_sound.pause();
       this.startSpawning = true;
       this.currenImage = 0;
@@ -144,16 +145,21 @@ class Endboss extends MovableObject {
 
     if (this.deathToBubble) {
       this.deathAnimation();
-      world.endboss_dead_sound.play();
-      world.bossfight_sound.pause();
+
+
     }
 
     else if (this.hasDiedToBubble) {
       this.playAnimation(this.IMAGES_DEAD);
+      world.bossfight_sound.pause();
+      world.endboss_dead_sound.play();
 
       setTimeout(() => {
+        world.endboss_dead_sound.pause();
+        world.endboss_dead_sound.currentTime = 0;
+        world.clearAllIntervals();
         document.getElementById("endScreen").classList.remove("d-none");
-      }, 3000);
+      }, 2000);
     }
 
     else if (this.isHurt()) {
@@ -187,6 +193,7 @@ class Endboss extends MovableObject {
         this.speed = this.speed * 1.5;
         this.speedY = this.speedY * 1.5;
         world.endboss_attack_sound.play();
+
       }
     } else {
       this.playAnimation(this.IMAGES_SWIMMING);
