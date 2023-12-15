@@ -192,10 +192,10 @@ function toggleMenu() {
     document.getElementById("closeMenu").classList.add("d-none");
     document.getElementById("gameInfos").classList.add("d-none");
     menu = false;
-    if (!alreadyPaused) {
+    if (!alreadyPaused && !world.gameOver) {
       pause = true;
       togglePause()
-    } else if (gameStarted) { document.getElementById("pause").classList.remove("d-none"); }
+    } else if (gameStarted && !world.gameOver) { document.getElementById("pause").classList.remove("d-none"); }
 
   } else {
     document.getElementById("openMenu").classList.add("d-none");
@@ -203,7 +203,7 @@ function toggleMenu() {
     document.getElementById("gameInfos").classList.remove("d-none");
 
     menu = true;
-    if (!alreadyPaused) {
+    if (!alreadyPaused && !world.gameOver) {
 
       togglePause()
       pause = false;
@@ -290,6 +290,7 @@ function restartGame() {
   // Remove existing character from the world
   world.level = resetLevel();
   world.resetCharacter();
+  world.gameOver = false;
 
   // Reset sounds
   loadeSounds();

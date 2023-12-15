@@ -157,6 +157,7 @@ class Endboss extends MovableObject {
       setTimeout(() => {
         world.endboss_dead_sound.pause();
         world.endboss_dead_sound.currentTime = 0;
+        world.gameOver = true;
         world.clearAllIntervals();
         document.getElementById("endScreen").classList.remove("d-none");
         document.getElementById("noPause").classList.add("d-none");

@@ -362,6 +362,7 @@ class Character extends MovableObject {
 
   gameOver() {
     this.world.clearAllIntervals();
+    this.world.gameOver = true;
     world.background_sound.pause();
     world.background_sound.currentTime = 0;
     world.bossfight_sound.pause();

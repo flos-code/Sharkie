@@ -10,6 +10,7 @@ class World {
   shootableObjects = [];
   intervalIds = [];
   meleeAttack = new MeleeAttack(this.character);
+  gameOver = false;
 
 
 
