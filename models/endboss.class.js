@@ -159,7 +159,14 @@ class Endboss extends MovableObject {
         world.endboss_dead_sound.currentTime = 0;
         world.clearAllIntervals();
         document.getElementById("endScreen").classList.remove("d-none");
+        document.getElementById("noPause").classList.add("d-none");
       }, 2000);
+      setTimeout(() => {
+        document.getElementById("restartButtonEndscreen").classList.remove("d-none");
+      }, 2500);
+      setTimeout(() => {
+        document.getElementById("restartButtonEndscreen").classList.add("visible");
+      }, 3000);
     }
 
     else if (this.isHurt()) {
@@ -221,4 +228,6 @@ class Endboss extends MovableObject {
 
     this.startDeath = true;
   }
+
+
 }

@@ -279,6 +279,8 @@ function exitFullscreen() {
 }
 
 function restartGame() {
+  // document.getElementById("restartButtonGameover").onclick = null;
+  // document.getElementById("restartButtonEndscreen").onclick = null;
   toggleSound();
   togglePause();
 
@@ -302,8 +304,19 @@ function restartGame() {
   togglePause();
   toggleSound();
 
+
+  setTimeout(() => {
+    document.getElementById("endScreen").classList.add("d-none");
+    document.getElementById("gameover").classList.add("d-none");
+    document.getElementById("noPause").classList.remove("d-none");
+
+    document.getElementById("restartButtonGameover").classList.add("d-none");
+    document.getElementById("restartButtonGameover").classList.remove("visible");
+
+    document.getElementById("restartButtonEndscreen").classList.add("d-none");
+    document.getElementById("restartButtonEndscreen").classList.remove("visible");
+  }, 150);
   // Hide end game screens
-  document.getElementById("endScreen").classList.add("d-none");
-  document.getElementById("gameover").classList.add("d-none");
+
 }
 

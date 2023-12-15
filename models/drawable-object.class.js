@@ -19,45 +19,45 @@ class DrawableObject {
 
   drawHitbox(ctx) {
 
-    if (this instanceof Character) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x + 25, this.y + 65, this.width - 50, this.height - 90);
-      ctx.stroke();
-    }
+    // if (this instanceof Character) {
+    //   ctx.beginPath();
+    //   ctx.lineWidth = "5";
+    //   ctx.strokeStyle = "blue";
+    //   ctx.rect(this.x + 25, this.y + 65, this.width - 50, this.height - 90);
+    //   ctx.stroke();
+    // }
 
-    if (this instanceof Endboss) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x + 20, this.y + 150, this.width - 50, this.height - 220);
-      ctx.stroke();
-    }
+    // if (this instanceof Endboss) {
+    //   ctx.beginPath();
+    //   ctx.lineWidth = "5";
+    //   ctx.strokeStyle = "blue";
+    //   ctx.rect(this.x + 20, this.y + 150, this.width - 50, this.height - 220);
+    //   ctx.stroke();
+    // }
 
-    if (this instanceof GreenFish || this instanceof RedFish || this instanceof JellyFishYellow || this instanceof JellyFishGreen || this instanceof Coin || this instanceof Poison) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "red";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
+    // if (this instanceof GreenFish || this instanceof RedFish || this instanceof JellyFishYellow || this instanceof JellyFishGreen || this instanceof Coin || this instanceof Poison) {
+    //   ctx.beginPath();
+    //   ctx.lineWidth = "5";
+    //   ctx.strokeStyle = "red";
+    //   ctx.rect(this.x, this.y, this.width, this.height);
+    //   ctx.stroke();
+    // }
 
-    if (this instanceof ShootableObject) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "green";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
+    // if (this instanceof ShootableObject) {
+    //   ctx.beginPath();
+    //   ctx.lineWidth = "5";
+    //   ctx.strokeStyle = "green";
+    //   ctx.rect(this.x, this.y, this.width, this.height);
+    //   ctx.stroke();
+    // }
 
-    if (this instanceof MeleeAttack) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "green";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
+    // if (this instanceof MeleeAttack) {
+    //   ctx.beginPath();
+    //   ctx.lineWidth = "5";
+    //   ctx.strokeStyle = "green";
+    //   ctx.rect(this.x, this.y, this.width, this.height);
+    //   ctx.stroke();
+    // }
   }
 
   loadImages(arr) {

@@ -26,6 +26,8 @@ class Character extends MovableObject {
 
 
 
+
+
   IMAGES_SWIMMING = [
     "./img/1.Sharkie/3.Swim/1.png",
     "./img/1.Sharkie/3.Swim/2.png",
@@ -212,7 +214,7 @@ class Character extends MovableObject {
     if (this.world.keyboard.SPACE && !this.attackCooldown(800)) {
       this.attackPossibleMelee = true;
       this.currenImage = 0;
-      world.world.melee_sound.play();
+      world.melee_sound.play();
       world.idle_sound.pause();
     }
     if (this.world.keyboard.D && !this.attackCooldown(800)) {
@@ -367,6 +369,13 @@ class Character extends MovableObject {
     world.idle_sound.pause();
     world.idle_sound.currentTime = 0;
     document.getElementById("gameover").classList.remove("d-none");
+    document.getElementById("noPause").classList.add("d-none");
+    setTimeout(() => {
+      document.getElementById("restartButtonGameover").classList.remove("d-none");
+    }, 500);
+    setTimeout(() => {
+      document.getElementById("restartButtonGameover").classList.add("visible");
+    }, 1000);
   }
 
 
