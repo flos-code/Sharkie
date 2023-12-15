@@ -249,15 +249,15 @@ h1 {
 }
 
 .mobileButtons:hover,
-.mobileButtons:active {
+.activeMobileButton {
   cursor: pointer;
   background-color: #531b82;
   transform: scale(1.1);
 }
 
 #movementMobile {
-  left: 8px;
-  top: calc(50% - 192px / 2);
+  left: 16px;
+  bottom: 16px;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Adjust as needed */
   grid-template-rows: repeat(3, 1fr); /* Adjust as needed */
@@ -277,4 +277,11 @@ h1 {
 
 #moveDown {
   grid-area: 3 / 2;
+}
+
+#attackMobile {
+  right: 16px;
+  bottom: 16px;
+  gap: 32px;
+  display: flex;
 }

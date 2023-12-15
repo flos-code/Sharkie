@@ -83,60 +83,72 @@ function bindBtsPressEvents() {
   document.getElementById("moveUp").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.UP = true;
+    document.getElementById("moveUp").classList.add("activeMobileButton");
   });
 
   document.getElementById("moveUp").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.UP = false;
+    document.getElementById("moveUp").classList.remove("activeMobileButton");
   });
 
   document.getElementById("moveRight").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.RIGHT = true;
+    document.getElementById("moveRight").classList.add("activeMobileButton");
   });
 
   document.getElementById("moveRight").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.RIGHT = false;
+    document.getElementById("moveRight").classList.remove("activeMobileButton");
   });
   document.getElementById("moveDown").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.DOWN = true;
+    document.getElementById("moveDown").classList.add("activeMobileButton");
   });
 
   document.getElementById("moveDown").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.DOWN = false;
+    document.getElementById("moveDown").classList.remove("activeMobileButton");
   });
 
   document.getElementById("moveLeft").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.LEFT = true;
+    document.getElementById("moveLeft").classList.add("activeMobileButton");
   });
 
   document.getElementById("moveLeft").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.LEFT = false;
+    document.getElementById("moveLeft").classList.remove("activeMobileButton");
   });
 
   document.getElementById("meleeAttack").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.SPACE = true;
+    document.getElementById("meleeAttack").classList.add("activeMobileButton");
   });
 
   document.getElementById("meleeAttack").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.SPACE = false;
+    document.getElementById("meleeAttack").classList.remove("activeMobileButton");
   });
 
   document.getElementById("rangeAttack").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.D = true;
+    document.getElementById("rangeAttack").classList.add("activeMobileButton");
   });
 
   document.getElementById("rangeAttack").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.D = false;
+    document.getElementById("rangeAttack").classList.remove("activeMobileButton");
   });
 }
 
