@@ -22,7 +22,7 @@ class Character extends MovableObject {
 
 
 
-
+  // hp = 1;
 
 
 

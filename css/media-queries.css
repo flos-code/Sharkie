@@ -2,6 +2,16 @@
   canvas {
     width: 100%;
   }
+
+  .mainContainer {
+    width: 100%;
+  }
+  .startScreenBg {
+    width: 100%;
+  }
+  #gameInfos {
+    width: 100%;
+  }
 }
 
 @media only screen and (max-height: 480px) {
@@ -9,7 +19,34 @@
     height: 100vh;
     border-radius: unset;
   }
+  .mainContainer {
+    height: 100vh;
+  }
+
+  .startScreenBg {
+    height: 100vh;
+    width: auto;
+    border-radius: unset;
+  }
+
+  #gameInfos {
+    height: 100vh;
+    border-radius: unset;
+  }
   h1 {
     display: none;
+  }
+
+  .gameInfoMenu {
+    margin: 16px 0;
+  }
+
+  .gametips {
+    gap: 4px;
+  }
+
+  .menu {
+    gap: 2px;
+    top: 64px;
   }
 }

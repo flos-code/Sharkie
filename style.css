@@ -44,6 +44,7 @@ body {
 canvas {
   background-color: black;
   border-radius: 20px;
+  display: block;
   box-shadow: 0 0 20px rgba(100, 228, 254, 0.5);
 }
 
@@ -175,8 +176,9 @@ canvas {
 }
 
 .startButton {
-  margin-top: 400px;
-  margin-left: 460px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
   width: 240px;
   height: 60px;
   grid-row-start: 1;
@@ -201,8 +203,9 @@ h1 {
 }
 
 .restartButtonGameover {
-  margin-top: 200px;
-  margin-left: 220px;
+  position: absolute;
+  bottom: calc(50% - 40px);
+  left: calc(50% - 140px);
   width: 280px;
   height: 80px;
   grid-row-start: 1;
@@ -227,8 +230,9 @@ h1 {
 }
 
 .restartButtonEndscreen {
-  margin-top: 400px;
-  margin-left: 460px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
   width: 240px;
   height: 60px;
   grid-row-start: 1;
@@ -291,4 +295,16 @@ h1 {
   bottom: 16px;
   gap: 32px;
   display: flex;
+}
+
+#forceLandscapeMobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
 }
