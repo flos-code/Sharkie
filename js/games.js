@@ -255,7 +255,7 @@ function toggleFullscreen() {
     enterFullscreen(mainContainer)
   } else {
     fullscreen = false;
-    exitFullscreen()
+    exitFullscreen(mainContainer)
     document.getElementById("noFullscreen").classList.add("d-none");
     document.getElementById("fullscreen").classList.remove("d-none");
   }
@@ -269,14 +269,34 @@ function enterFullscreen(element) {
   } else if (element.webkitRequestFullscreen) {  // iOS Safari
     element.webkitRequestFullscreen();
   }
+
+
+  element.classList.add("fullscreen");
+  document.getElementById("canvas").classList.add("fullscreen");
+  document.getElementById("startScreenBg").classList.add("fullscreen");
+  document.getElementById("gameoverScreenBg").classList.add("fullscreen");
+  document.getElementById("endScreenBg").classList.add("fullscreen");
+  document.getElementById("gameInfos").classList.add("fullscreen");
+
+
+
+
 }
 
-function exitFullscreen() {
+function exitFullscreen(element) {
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.webkitExitFullscreen) {
     document.webkitExitFullscreen();
   }
+
+  element.classList.remove("fullscreen");
+  document.getElementById("canvas").classList.remove("fullscreen");
+  document.getElementById("startScreenBg").classList.remove("fullscreen");
+  document.getElementById("gameoverScreenBg").classList.remove("fullscreen");
+  document.getElementById("endScreenBg").classList.remove("fullscreen");
+  document.getElementById("gameInfos").classList.remove("fullscreen");
+
 }
 
 function restartGame() {
@@ -359,6 +379,9 @@ function handleUserDevice() {
   } else {
     document.getElementById("movementMobile").classList.add("d-none");
     document.getElementById("attackMobile").classList.add("d-none");
-    document.getElementById("fullscreen").classList.remove("d-none");
+    if (!fullscreen) {
+      document.getElementById("fullscreen").classList.remove("d-none");
+    }
+
   }
 }

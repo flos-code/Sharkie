@@ -308,3 +308,9 @@ h1 {
   right: 0;
   background-color: black;
 }
+
+.fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: unset !important;
+}

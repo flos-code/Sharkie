@@ -104,6 +104,7 @@
 
       <div class="overlayed" id="startScreen">
         <img
+          id="startScreenBg"
           class="startScreenBg"
           src="./img/startScreen.png"
           alt="Start Screen"
@@ -118,6 +119,7 @@
 
       <div class="overlayed d-none" id="gameover">
         <img
+          id="gameoverScreenBg"
           class="startScreenBg"
           src="./img/GameOverScreen.png"
           alt="Game Over Screen"
@@ -132,7 +134,12 @@
       </div>
 
       <div class="overlayed d-none" id="endScreen">
-        <img class="startScreenBg" src="./img/endScreen.png" alt="End Screen" />
+        <img
+          id="endScreenBg"
+          class="startScreenBg"
+          src="./img/endScreen.png"
+          alt="End Screen"
+        />
         <img
           id="restartButtonEndscreen"
           onclick="restartGame()"

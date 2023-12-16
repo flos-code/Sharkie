@@ -11,7 +11,7 @@ class ShootableObject extends MovableObject {
 
 
         if (this.hasPosion()) {
-            this.damage = 200;
+            this.damage = 20;
             this.loadeImage("img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png");
             world.character.posions--;
         } else {
