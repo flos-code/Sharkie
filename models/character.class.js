@@ -244,9 +244,11 @@ class Character extends MovableObject {
   characterAnimation() {
     if (this.deathToPoison) {
       this.deathAnimation("posion");
+
     }
     else if (this.hasDiedToPosion) {
       this.playAnimation(this.IMAGES_DEAD_POISONED);
+      this.world.game_over_sound.play();
       setTimeout(() => {
         this.gameOver();
       }, 500);
@@ -256,6 +258,7 @@ class Character extends MovableObject {
     }
     else if (this.hasDiedToShock) {
       this.playAnimation(this.IMAGES_DEAD_SHOCK);
+      this.world.game_over_sound.play();
       setTimeout(() => {
         this.gameOver();
       }, 500);
@@ -363,6 +366,7 @@ class Character extends MovableObject {
   gameOver() {
     this.world.clearAllIntervals();
     this.world.gameOver = true;
+
     world.background_sound.pause();
     world.background_sound.currentTime = 0;
     world.bossfight_sound.pause();
@@ -376,6 +380,8 @@ class Character extends MovableObject {
     }, 500);
     setTimeout(() => {
       document.getElementById("restartButtonGameover").classList.add("visible");
+      world.game_over_sound.pause();
+      world.game_over_sound.currentTime = 0;
     }, 1000);
   }
 

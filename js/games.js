@@ -24,6 +24,7 @@ let audioElements = {
   fish_hit_sound: new Audio("./audio/fish_hit.mp3"),
   jellyfish_hit_sound: new Audio("./audio/jellifish_hit.mp3"),
   background_sound: new Audio("./audio/background_sound.mp3"),
+  game_over_sound: new Audio("./audio/game_over.mp3"),
 };
 
 
