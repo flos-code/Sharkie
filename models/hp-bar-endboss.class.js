@@ -3,8 +3,6 @@ class HpBarEndboss extends StatusBar {
     height = 90;
     precentage = 100;
 
-
-
     HP_IMAGES = [
         "img/4. Marcadores/orange/0hp.png",
         "img/4. Marcadores/orange/20hp.png",
@@ -22,12 +20,9 @@ class HpBarEndboss extends StatusBar {
     }
 
     setPrecentage(hpPrecentage) {
-
         this.hpPrecentage = hpPrecentage;
         let imagePath = this.HP_IMAGES[this.resolveImageIndex()]
         this.img = this.imageCache[imagePath];
-
-
     }
 
     resolveImageIndex() {

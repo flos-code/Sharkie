@@ -188,7 +188,6 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx)
-    mo.drawHitbox(this.ctx)
     mo.drawText(this.ctx, this.character.posions, 75)
     mo.drawText(this.ctx, this.character.hp, 170)
     mo.drawText(this.ctx, this.character.coins, 290)

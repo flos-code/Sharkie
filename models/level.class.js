@@ -5,7 +5,6 @@ class Level {
   statusbars;
   level_end_x = 3600;
 
-
   constructor(enemies, backgroundObjects, collectibles, statusbars) {
     this.enemies = enemies;
     this.backgroundObjects = backgroundObjects;

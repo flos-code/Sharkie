@@ -18,10 +18,6 @@ class MovableObject extends DrawableObject {
   lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
 
-
-
-
-
   isColliding(mo) {
 
     return (
@@ -35,12 +31,14 @@ class MovableObject extends DrawableObject {
 
   addCoin(coin_sound, level_up_sound) {
     if (!coin_sound.currentTime == 0) {
-
       coin_sound.currentTime = 0; // Set currentTime to 0 for restarting
     }
-
     this.coins++
     coin_sound.play();
+    this.addHp(level_up_sound);
+  }
+
+  addHp(level_up_sound) {
     if (this.coins == 10) {
       this.coins = 0;
       this.hp++;
@@ -64,8 +62,6 @@ class MovableObject extends DrawableObject {
     }
 
   }
-
-
 
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
@@ -116,12 +112,6 @@ class MovableObject extends DrawableObject {
     this.y += this.speedY;
   }
 
-
-
-
-
-
-
   applyBuoyancy() {
     setInterval(() => {
       if (this.isUnderWater() || this.speedY > 0) {
@@ -139,9 +129,6 @@ class MovableObject extends DrawableObject {
     let id = setInterval(fn, time);
     this.intervalIds.push(id);
   }
-
-
-
 }
 
 

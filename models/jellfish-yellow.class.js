@@ -25,16 +25,12 @@ class JellyFishYellow extends MovableObject {
     this.loadImages(this.IMAGES_SWIMMING);
     this.loadImages(this.IMAGES_DEAD);
 
-
     this.x = x;
     this.y = y;
-
 
     this.speed = 0.8;
     this.speedY = 0.8;
     this.animate();
-
-
   }
 
   animate() {

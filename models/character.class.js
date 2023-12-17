@@ -1,8 +1,8 @@
 class Character extends MovableObject {
   width = 180;
   height = 150;
-  speed = 10;
-  speedY = 10;
+  speed = 8;
+  speedY = 8;
   offsetX = 25;
   offsetY = 65;
   widthOffset = 50;
@@ -19,13 +19,6 @@ class Character extends MovableObject {
   deathToShock = false;
   hasDiedToShock = false;
   startDeath = false;
-
-
-
-
-
-
-
 
 
   IMAGES_SWIMMING = [
@@ -187,99 +180,137 @@ class Character extends MovableObject {
 
   characterMovement() {
 
+
     world.swimming_sound.pause();
-    if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+    if (this.canMoveRight())
       this.moveRight();
-      this.otherDirection = false;
-      world.swimming_sound.play();
-      world.idle_sound.pause();
-    }
-    if (this.world.keyboard.LEFT && this.x > 0) {
+    if (this.canMoveLeft())
       this.moveLeft();
-      this.otherDirection = true;
-      world.swimming_sound.play();
-      world.idle_sound.pause();
-    }
-    if (this.world.keyboard.UP && this.y > -50) {
+    if (this.canMoveUp())
       this.moveUp();
-      world.swimming_sound.play();
-      world.idle_sound.pause();
-    }
-
-    if (this.world.keyboard.DOWN && this.y < 480 - 130) {
+    if (this.canMoveDown())
       this.moveDown();
-      world.swimming_sound.play();
-      world.idle_sound.pause();
-    }
-    if (this.world.keyboard.SPACE && !this.attackCooldown(800)) {
-      this.attackPossibleMelee = true;
-      this.currenImage = 0;
-      world.melee_sound.play();
-      world.idle_sound.pause();
-    }
-    if (this.world.keyboard.D && !this.attackCooldown(800)) {
-      this.attackPossibleRange = true;
-      this.currenImage = 0;
-      world.idle_sound.pause();
-    }
-
-    if (this.x > 3000 && !this.hadFirstContact) {
+    if (this.canMeleeAttack())
+      this.triggerMelleAttack();
+    if (this.canRangeAttack())
+      this.triggerRangeAttack();
+    if (this.diedToPosion())
+      this.triggerPosionDeath();
+    if (this.diedToShock())
+      this.triggerShockDeath();
+    if (this.hadFirstContactEndboss())
       this.hadFirstContact = true;
-    }
-
-    if (this.isDead() && this.lastDamage == "poisoned" && !this.startDeath) {
-      this.deathToPoison = true;
-      this.currenImage = 0;
-    }
-
-    if (this.isDead() && this.lastDamage == "shocked" && !this.startDeath) {
-      this.deathToShock = true;
-      this.currenImage = 0;
-    }
-
-
     this.world.camera_x = -this.x + 100;
   }
 
+  canMoveRight() {
+    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+  }
+
+  moveRight() {
+    super.moveRight();
+    this.otherDirection = false;
+    world.swimming_sound.play();
+    world.idle_sound.pause();
+  }
+
+  canMoveLeft() {
+    return this.world.keyboard.LEFT && this.x > 0;
+  }
+
+  moveLeft() {
+    super.moveLeft();
+    this.otherDirection = true;
+    world.swimming_sound.play();
+    world.idle_sound.pause();
+  }
+
+  canMoveUp() {
+    return this.world.keyboard.UP && this.y > -50;
+  }
+
+  moveUp() {
+    super.moveUp();
+    world.swimming_sound.play();
+    world.idle_sound.pause();
+  }
+
+  canMoveDown() {
+    return this.world.keyboard.DOWN && this.y < 480 - 130;
+  }
+
+  moveDown() {
+    super.moveDown();
+    world.swimming_sound.play();
+    world.idle_sound.pause();
+  }
+
+  canMeleeAttack() {
+    return this.world.keyboard.SPACE && !this.attackCooldown(800);
+  }
+
+  triggerMelleAttack() {
+    this.attackPossibleMelee = true;
+    this.currenImage = 0;
+    world.melee_sound.play();
+    world.idle_sound.pause();
+  }
+
+  canRangeAttack() {
+    return this.world.keyboard.D && !this.attackCooldown(800);
+  }
+
+  triggerRangeAttack() {
+    this.attackPossibleRange = true;
+    this.currenImage = 0;
+    world.idle_sound.pause();
+  }
+
+  diedToPosion() {
+    return this.isDead() && this.lastDamage == "poisoned" && !this.startDeath;
+  }
+
+  triggerPosionDeath() {
+    this.deathToPoison = true;
+    this.currenImage = 0;
+  }
+
+  diedToShock() {
+    return this.isDead() && this.lastDamage == "shocked" && !this.startDeath;
+  }
+
+  triggerShockDeath() {
+    this.deathToShock = true;
+    this.currenImage = 0;
+  }
+
+  hadFirstContactEndboss() {
+    return this.x > 3000 && !this.hadFirstContact
+  }
+
+
+
   characterAnimation() {
     if (this.deathToPoison) {
-      this.deathAnimation("posion");
-
+      this.deathAnimation("poison");
     }
     else if (this.hasDiedToPosion) {
-      this.playAnimation(this.IMAGES_DEAD_POISONED);
-      this.world.game_over_sound.play();
-      setTimeout(() => {
-        this.gameOver();
-      }, 500);
+      this.triggerGameOver("poison")
     }
     else if (this.deathToShock) {
       this.deathAnimation("shock");
     }
     else if (this.hasDiedToShock) {
-      this.playAnimation(this.IMAGES_DEAD_SHOCK);
-      this.world.game_over_sound.play();
-      setTimeout(() => {
-        this.gameOver();
-      }, 500);
-
+      this.triggerGameOver("shock")
     }
-    else if (this.isHurt() && this.lastDamage == "poisoned") {
-      this.playAnimation(this.IMAGES_HURT_POISONED);
-      this.world.poisoned_sound.play();
+    else if (this.gotHurt("poison")) {
+      this.hurtAnimation("poison")
     }
-    else if (this.isHurt() && this.lastDamage == "shocked") {
-      this.playAnimation(this.IMAGES_HURT_SHOCK);
-      this.world.shock_sound.play();
+    else if (this.gotHurt("shock")) {
+      this.hurtAnimation("shock")
     }
-    else if (
-      this.world.keyboard.RIGHT ||
-      this.world.keyboard.LEFT ||
-      this.world.keyboard.UP ||
-      this.world.keyboard.DOWN
-    ) {
-      this.playAnimation(this.IMAGES_SWIMMING);
-      this.lastMove = new Date().getTime();
+    else if (this.isMoving()) {
+      this.movingAnimation();
     }
     else if (this.attackPossibleMelee) {
       this.meleeAttack();
@@ -288,64 +319,19 @@ class Character extends MovableObject {
       this.rangeAttack();
     }
     else if (this.isIdle()) {
-      this.playAnimation(this.IMAGES_IDLE_LONG);
-      this.world.background_sound.pause();
-      this.world.idle_sound.play();
+      this.idleAnimation();
     }
     else {
-      this.playAnimation(this.IMAGES_IDLE);
-      if (!this.hadFirstContact) {
-        this.world.background_sound.play();
-      }
+      this.defaultAnimation();
     }
 
   }
-
-
-  meleeAttack() {
-    this.playAnimation(this.IMAGES_MELEE_ATTACK)
-
-    this.animationIndex++;
-
-
-    if (this.animationIndex == this.IMAGES_MELEE_ATTACK.length) {
-      this.animationIndex = 0;
-      this.attackPossibleMelee = false;
-
-
-    }
-    this.lastAttack = new Date().getTime();
-    this.lastMove = new Date().getTime();
-  }
-
-  rangeAttack() {
-    let animationLength;
-    if (this.hasPosion()) {
-      this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
-
-      animationLength = this.IMAGES_RANGE_ATTACK_POISON.length;
-    } else {
-      this.playAnimation(this.IMAGES_RANGE_ATTACK);
-      animationLength = this.IMAGES_RANGE_ATTACK.length;
-    }
-    this.animationIndex++;
-
-    if (this.animationIndex == animationLength) {
-      this.animationIndex = 0;
-      this.attackPossibleRange = false;
-      this.world.checkShootObjects();
-
-    }
-    this.lastAttack = new Date().getTime();
-    this.lastMove = new Date().getTime();
-  }
-
 
   deathAnimation(deathReason) {
     this.animationIndex++;
     this.speed = 0;
     this.speedY = 0;
-    if (deathReason == "posion") {
+    if (deathReason == "poison") {
       this.playAnimation(this.IMAGES_DEAD_POISONED_ANIMATION);
       if (this.animationIndex == this.IMAGES_DEAD_POISONED_ANIMATION.length) {
         this.animationIndex = 0;
@@ -363,16 +349,36 @@ class Character extends MovableObject {
     this.startDeath = true;
   }
 
+  triggerGameOver(deathReason) {
+    if (deathReason == "poison") {
+      this.playAnimation(this.IMAGES_DEAD_POISONED);
+    }
+    else if (deathReason == "shock") {
+      this.playAnimation(this.IMAGES_DEAD_SHOCK);
+    }
+    this.world.game_over_sound.play();
+    setTimeout(() => {
+      this.gameOver();
+    }, 500);
+  }
+
   gameOver() {
     this.world.clearAllIntervals();
     this.world.gameOver = true;
+    this.muteOngoingSound();
+    this.showGameOverScreen();
+  }
 
+  muteOngoingSound() {
     world.background_sound.pause();
     world.background_sound.currentTime = 0;
     world.bossfight_sound.pause();
     world.bossfight_sound.currentTime = 0;
     world.idle_sound.pause();
     world.idle_sound.currentTime = 0;
+  }
+
+  showGameOverScreen() {
     document.getElementById("gameover").classList.remove("d-none");
     document.getElementById("noPause").classList.add("d-none");
     setTimeout(() => {
@@ -384,6 +390,90 @@ class Character extends MovableObject {
       world.game_over_sound.currentTime = 0;
     }, 1000);
   }
+
+
+  gotHurt(hurtReason) {
+    if (hurtReason == "poison") {
+      return this.isHurt() && this.lastDamage == "poisoned"
+    }
+    else if (hurtReason == "shock") {
+      return this.isHurt() && this.lastDamage == "shocked"
+    }
+  }
+
+  hurtAnimation(hurtReason) {
+    if (hurtReason == "poison") {
+      this.playAnimation(this.IMAGES_HURT_POISONED);
+      this.world.poisoned_sound.play();
+    }
+    else if (hurtReason == "shock") {
+      this.playAnimation(this.IMAGES_HURT_SHOCK);
+      this.world.shock_sound.play();
+    }
+  }
+
+  isMoving() {
+    return this.world.keyboard.RIGHT ||
+      this.world.keyboard.LEFT ||
+      this.world.keyboard.UP ||
+      this.world.keyboard.DOWN
+  }
+
+  movingAnimation() {
+    this.playAnimation(this.IMAGES_SWIMMING);
+    this.lastMove = new Date().getTime();
+  }
+
+  meleeAttack() {
+    this.playAnimation(this.IMAGES_MELEE_ATTACK)
+    this.animationIndex++;
+    if (this.animationIndex == this.IMAGES_MELEE_ATTACK.length) {
+      this.animationIndex = 0;
+      this.attackPossibleMelee = false;
+    }
+    this.lastAttack = new Date().getTime();
+    this.lastMove = new Date().getTime();
+  }
+
+  rangeAttack() {
+    let animationLength;
+    if (this.hasPosion()) {
+      this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
+      animationLength = this.IMAGES_RANGE_ATTACK_POISON.length;
+    } else {
+      this.playAnimation(this.IMAGES_RANGE_ATTACK);
+      animationLength = this.IMAGES_RANGE_ATTACK.length;
+    }
+    this.animationIndex++;
+    if (this.animationIndex == animationLength) {
+      this.animationIndex = 0;
+      this.attackPossibleRange = false;
+      this.world.checkShootObjects();
+    }
+    this.lastAttack = new Date().getTime();
+    this.lastMove = new Date().getTime();
+  }
+
+  idleAnimation() {
+    this.playAnimation(this.IMAGES_IDLE_LONG);
+    this.world.background_sound.pause();
+    this.world.idle_sound.play();
+  }
+
+  defaultAnimation() {
+    this.playAnimation(this.IMAGES_IDLE);
+    if (!this.hadFirstContact) {
+      this.world.background_sound.play();
+    }
+  }
+
+
+
+
+
+
+
+
 
 
 }
