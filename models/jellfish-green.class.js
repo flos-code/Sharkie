@@ -34,10 +34,7 @@ class JellyFishGreen extends MovableObject {
     this.centerX = centerX;
     this.centerY = centerY;
 
-
     this.animate();
-
-
   }
 
   animate() {
@@ -48,31 +45,31 @@ class JellyFishGreen extends MovableObject {
 
   greenJellyfishMovement() {
     this.angle += 0.01 * this.rotationDirection;
-
     this.x = this.centerX + this.radius * Math.cos(this.angle);
     this.y = this.centerY + this.radius * Math.sin(this.angle);
   }
 
   greenJellyfishAnimation() {
     if (this.isDead()) {
-      for (let i = 1; i < this.intervalIds.length; i = i + 3) {
-        clearInterval(this.intervalIds[i]);
-      }
-
-      this.rotationDirection = 0;
-      if (this.deathDirection) {
-        this.speed = 5;
-      } else {
-        this.speed = -5;
-      }
-      this.speedY = 1;
-
-      this.applyBuoyancy();
-      this.playAnimation(this.IMAGES_DEAD)
+      this.deathAnimation();
     } else {
-
       this.playAnimation(this.IMAGES_SWIMMING);
     }
+  }
+
+  deathAnimation() {
+    for (let i = 1; i < this.intervalIds.length; i = i + 3) {
+      clearInterval(this.intervalIds[i]);
+    }
+    this.rotationDirection = 0;
+    if (this.deathDirection) {
+      this.speed = 5;
+    } else {
+      this.speed = -5;
+    }
+    this.speedY = 1;
+    this.applyBuoyancy();
+    this.playAnimation(this.IMAGES_DEAD)
   }
 }
 

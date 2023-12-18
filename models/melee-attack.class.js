@@ -13,25 +13,45 @@ class MeleeAttack extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.world.character.x < this.world.level.level_end_x) {
-                this.moveRight();
-            }
-            if (this.world.keyboard.LEFT && this.world.character.x > 0) {
-                this.moveLeft();
-            }
-            if (this.world.keyboard.UP && this.world.character.y > -50) {
-                this.moveUp();
-            }
-            if (this.world.keyboard.DOWN && this.world.character.y < 480 - 130) {
-                this.moveDown();
-            }
-            this.y = this.world.character.y + 50;
-            if (this.world.character.otherDirection) {
-                this.x = this.world.character.x - 40;
-            } else {
-                this.x = this.world.character.x + 150;
-            }
-        }, 1000 / 60);
+        this.setStoppableInterval(() => this.moveMeleeHitbox(), 1000 / 60);
+    }
+
+    moveMeleeHitbox() {
+        this.y = this.world.character.y + 50;
+        this.checkCharacterDirection();
+        if (this.characterMovesRight())
+            this.moveRight();
+        if (this.characterMovesLeft())
+            this.moveLeft();
+        if (this.characterMovesUp())
+            this.moveUp();
+        if (this.characterMovesDown())
+            this.moveDown();
+    }
+
+
+    characterMovesRight() {
+        return this.world.keyboard.RIGHT && this.world.character.x < this.world.level.level_end_x
+    }
+
+    characterMovesLeft() {
+        return this.world.keyboard.LEFT && this.world.character.x > 0
+    }
+
+    characterMovesUp() {
+        return this.world.keyboard.UP && this.world.character.y > -50
+    }
+
+    characterMovesDown() {
+        return this.world.keyboard.DOWN && this.world.character.y < 480 - 130
+    }
+
+    checkCharacterDirection() {
+        if (this.world.character.otherDirection) {
+            this.x = this.world.character.x - 40;
+        } else {
+            this.x = this.world.character.x + 150;
+        }
     }
 }
+

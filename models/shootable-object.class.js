@@ -9,7 +9,12 @@ class ShootableObject extends MovableObject {
         this.height = 60;
         this.width = 60;
 
+        this.checkBubbleType();
+        this.shoot()
+    }
 
+
+    checkBubbleType() {
         if (this.hasPosion()) {
             this.damage = 20;
             this.loadeImage("img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png");
@@ -18,14 +23,9 @@ class ShootableObject extends MovableObject {
             this.damage = 10;
             this.loadeImage("img/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
         }
-
-        this.shoot()
-
-
     }
 
     shoot() {
-
         this.speedY = 0;
         if (!world.character.otherDirection) {
             this.bubbleOtherDirection = false;
@@ -42,6 +42,5 @@ class ShootableObject extends MovableObject {
             this.speedY = 10;
             this.applyBuoyancy();
         }, 600);
-
     }
 }

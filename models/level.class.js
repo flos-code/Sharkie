@@ -10,6 +10,5 @@ class Level {
     this.backgroundObjects = backgroundObjects;
     this.collectibles = collectibles;
     this.statusbars = statusbars;
-
   }
 }

@@ -42,27 +42,33 @@ class JellyFishYellow extends MovableObject {
 
 
   yellowJellyfishMovement() {
-    this.y += this.direction * this.speedY;
-    if (this.y <= 20 || this.y >= 380) {
-      this.direction *= -1; // Reverse the direction
+    if (!this.isDead()) {
+      this.y += this.direction * this.speedY;
+      if (this.y <= 20 || this.y >= 380) {
+        this.direction *= -1; // Reverse the direction
+      }
     }
   }
 
+
   yellowJellyfishAnimation() {
     if (this.isDead()) {
-      this.speed = 0;
-      if (this.deathDirection) {
-        this.speed = 5;
-      } else {
-        this.speed = -5;
-      }
-      this.speedY = 1;
-      this.applyBuoyancy();
-      this.playAnimation(this.IMAGES_DEAD)
+      this.deathAnimation();
     } else {
       this.playAnimation(this.IMAGES_SWIMMING);
     }
+  }
 
+  deathAnimation() {
+    this.speed = 0;
+    if (this.deathDirection) {
+      this.speed = 5;
+    } else {
+      this.speed = -5;
+    }
+    this.speedY = 1;
+    this.applyBuoyancy();
+    this.playAnimation(this.IMAGES_DEAD)
   }
 
 

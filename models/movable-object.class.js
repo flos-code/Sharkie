@@ -60,7 +60,6 @@ class MovableObject extends DrawableObject {
         this.lastHit = new Date().getTime();
       }
     }
-
   }
 
   isHurt() {
@@ -97,7 +96,6 @@ class MovableObject extends DrawableObject {
 
   moveRight() {
     this.x += this.speed;
-
   }
 
   moveLeft() {

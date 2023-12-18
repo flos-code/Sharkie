@@ -9,8 +9,6 @@ class RedFish extends MovableObject {
   hp = 10;
   animationIndex = 0;
 
-
-
   IMAGES_SWIMMING = [
     "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim1.png",
     "./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim2.png",
@@ -39,8 +37,6 @@ class RedFish extends MovableObject {
     "./img/2.Enemy/1.Puffer fish (3 color options)/2.transition/3.transition5.png"
   ]
 
-
-
   constructor() {
     super().loadeImage(this.IMAGES_SWIMMING[0]);
     this.loadImages(this.IMAGES_SWIMMING);
@@ -51,68 +47,89 @@ class RedFish extends MovableObject {
     this.x = 2960;
     this.y = 30;
 
-
-
-
-
     this.animate();
   }
 
   animate() {
     this.setStoppableInterval(() => this.redFishMovement(), 1000 / 60);
     this.setStoppableInterval(() => this.redFishAnimation(), 200);
-
-
-
-
   }
 
   redFishMovement() {
-
-    if (this.hadFirstContact && world.character.x - this.x > 0 - world.character.widthOffset) {
+    if (this.characterInSight())
+      this.startTransformation();
+    if (this.characterMovesRight())
       this.moveRight();
-      this.otherDirection = true;
-    }
-    if (this.hadFirstContact && world.character.x - this.x < 0 - world.character.widthOffset) {
+    if (this.characterMovesLeft())
       this.moveLeft();
-      this.otherDirection = false;
-    }
-    if (this.hadFirstContact && world.character.y - this.y < 0 - world.character.offsetY && !this.isDead()) {
+    if (this.characterMovesUp())
       this.moveUp();
-    }
-
-    if (this.hadFirstContact && world.character.y - this.y > 0 - world.character.offsetY && !this.isDead()) {
+    if (this.characterMovesDown())
       this.moveDown();
-    }
+  }
 
-    if (world && world.character.x > 2400 && !this.hadFirstContact) {
-      this.hadFirstContact = true;
-      this.startTransform = true;
-      this.currenImage = 0;
-    }
+  characterInSight() {
+    return world && world.character.x > 2400 && !this.hadFirstContact
+  }
+
+  startTransformation() {
+    this.hadFirstContact = true;
+    this.startTransform = true;
+    this.currenImage = 0;
+  }
+
+  characterMovesRight() {
+    return this.hadFirstContact && world.character.x - this.x > 0 - world.character.widthOffset && !this.isDead()
+  }
+
+  characterMovesLeft() {
+    return this.hadFirstContact && world.character.x - this.x < 0 - world.character.widthOffset && !this.isDead()
+  }
+
+  characterMovesUp() {
+    return this.hadFirstContact && world.character.y - this.y < 0 - world.character.offsetY && !this.isDead()
+  }
+
+  characterMovesDown() {
+    return this.hadFirstContact && world.character.y - this.y > 0 - world.character.offsetY && !this.isDead()
+  }
+
+  moveRight() {
+    super.moveRight();
+    this.otherDirection = true;
+  }
+
+  moveLeft() {
+    super.moveLeft();
+    this.otherDirection = false;
   }
 
   redFishAnimation() {
-
     if (this.isDead()) {
-      this.speed = 0;
-      this.speedY = 1;
-      this.applyBuoyancy();
-      this.playAnimation(this.IMAGES_DEAD);
+      this.deathANimation();
     } else if (this.startTransform) {
-
-      this.playAnimation(this.IMAGES_TRANSFORM);
-      this.animationIndex++
-      if (this.animationIndex == this.IMAGES_TRANSFORM.length) {
-        this.animationIndex = 0;
-        this.startTransform = false;
-        this.isTransformed = true;
-      }
-
+      this.transfromAnimation();
     } else if (this.isTransformed) {
       this.playAnimation(this.IMAGES_SWIMMING_BIG);
     } else {
       this.playAnimation(this.IMAGES_SWIMMING);
+    }
+  }
+
+  deathANimation() {
+    this.speed = 0;
+    this.speedY = 1;
+    this.applyBuoyancy();
+    this.playAnimation(this.IMAGES_DEAD);
+  }
+
+  transfromAnimation() {
+    this.playAnimation(this.IMAGES_TRANSFORM);
+    this.animationIndex++
+    if (this.animationIndex == this.IMAGES_TRANSFORM.length) {
+      this.animationIndex = 0;
+      this.startTransform = false;
+      this.isTransformed = true;
     }
   }
 

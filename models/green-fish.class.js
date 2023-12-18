@@ -33,19 +33,17 @@ class GreenFish extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_DEAD_BIG);
     this.form = form;
-
-    if (this.form === "big") {
-
-      this.width = 80;
-      this.height = 80;
-    } else {
-
-      this.width = 60;
-      this.height = 60;
-    }
     this.x = x;
     this.y = y;
     this.speed = 0.15;
+
+    if (this.form === "big") {
+      this.width = 80;
+      this.height = 80;
+    } else {
+      this.width = 60;
+      this.height = 60;
+    }
 
     this.animate();
   }
@@ -59,19 +57,24 @@ class GreenFish extends MovableObject {
 
   greenFishAnimation() {
     if (this.form == "big" && this.isDead()) {
-      this.speed = 0;
-      this.speedY = 1;
-      this.applyBuoyancy();
-      this.playAnimation(this.IMAGES_DEAD_BIG);
+      this.deathAnimation("big");
     } else if (this.form == "big") {
       this.playAnimation(this.IMAGES_SWIMMING_BIG);
     } else if (this.isDead()) {
-      this.speed = 0;
-      this.speedY = 1;
-      this.applyBuoyancy();
-      this.playAnimation(this.IMAGES_DEAD);
+      this.deathAnimation("normal");
     } else {
       this.playAnimation(this.IMAGES_SWIMMING);
+    }
+  }
+
+  deathAnimation(form) {
+    this.speed = 0;
+    this.speedY = 1;
+    this.applyBuoyancy();
+    if (form == "big") {
+      this.playAnimation(this.IMAGES_DEAD_BIG);
+    } else {
+      this.playAnimation(this.IMAGES_DEAD);
     }
   }
 
