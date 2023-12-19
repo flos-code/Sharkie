@@ -97,6 +97,7 @@ class Endboss extends MovableObject {
     this.setStoppableInterval(() => this.endbossMovement(), 1000 / 60);
     this.setStoppableInterval(() => this.endbossAnimation(), 200);
   }
+
   /**
    * determines which move the end boss should make next
    */

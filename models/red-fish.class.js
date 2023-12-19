@@ -55,6 +55,10 @@ class RedFish extends MovableObject {
     this.setStoppableInterval(() => this.redFishAnimation(), 200);
   }
 
+
+  /**
+   * determines which move the red fish should make next
+   */
   redFishMovement() {
     if (this.characterInSight())
       this.startTransformation();
@@ -123,6 +127,9 @@ class RedFish extends MovableObject {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
+  /**
+   * play the transformation animation once
+   */
   transfromAnimation() {
     this.playAnimation(this.IMAGES_TRANSFORM);
     this.animationIndex++

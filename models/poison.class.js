@@ -36,10 +36,8 @@ class Poison extends MovableObject {
 
   animate() {
     this.setStoppableInterval(() => this.posionAnimation(), 300);
-
-
-
   }
+
   posionAnimation() {
     if (this.form === "left") {
       this.playAnimation(this.IMAGES_POISON_GROUND_LEFT);

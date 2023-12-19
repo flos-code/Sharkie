@@ -498,14 +498,4 @@ class Character extends MovableObject {
       this.world.background_sound.play();
     }
   }
-
-
-
-
-
-
-
-
-
-
 }

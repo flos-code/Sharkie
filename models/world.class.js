@@ -22,6 +22,9 @@ class World {
     this.run();
   }
 
+  /**
+   * deletes the old character and creates a new one
+   */
   resetCharacter() {
     this.character = null;
     this.character = new Character();
@@ -45,7 +48,10 @@ class World {
     this.collisionBubbleEndboss();
   }
 
-
+  /**
+   * checks the collision between the character and the enemy 
+   * to determine the type of damage inflicted on the character
+   */
   collisionCharacterEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy) && !enemy.isDead()) {
@@ -60,6 +66,10 @@ class World {
     });
   }
 
+  /**
+   * checks the collision between the character and collectable objects 
+   * to give them to the character and if the object has been collected to delete it
+   */
   collisionCharacterColletible() {
     this.level.collectibles = this.level.collectibles.filter((collectible) => {
       if (this.character.isColliding(collectible)) {
@@ -69,12 +79,15 @@ class World {
         if (collectible instanceof Coin) {
           this.character.addCoin(this.coin_sound, this.level_up_sound);
         }
-        return false; // Exclude the collided collectible
+        return false;
       }
-      return true; // Keep non-collided collectibles in the array
+      return true;
     });
   }
 
+  /**
+   * checks the collision between the melee attack hit box and the fish
+   */
   collisionMelleAttackFish() {
     this.level.enemies.forEach((enemy) => {
       if (this.meleeAttack.isColliding(enemy) && this.keyboard.SPACE && !this.character.attackCooldown(800)) {
@@ -88,6 +101,10 @@ class World {
     });
   }
 
+  /**
+   * checks the collision between the bubble and the jellyfish and 
+   * if a bubble hits a jellyfish the bubble is deleted
+   */
   collisionBubbleJellyFish() {
     this.shootableObjects = this.shootableObjects.filter((bubble) => {
       let collidesWithEnemy = false;
@@ -105,6 +122,11 @@ class World {
     });
   }
 
+  /**
+   * checks the collision between the bubble and the endboss,
+   * if a bubble hits the endboss it will be deleted, and 
+   * the endboss will be damaged depending on the type of bubble
+   */
   collisionBubbleEndboss() {
     this.shootableObjects = this.shootableObjects.filter((bubble) => {
       let collidesWithEnemy = false;
@@ -124,6 +146,9 @@ class World {
     });
   }
 
+  /**
+   * creates a new bubble in the direction in which the chracter is facing
+   */
   checkShootObjects() {
     let bubblePosition = 0
     if (!this.character.otherDirection) {
@@ -134,6 +159,9 @@ class World {
     this.bubble_sound.play();
   }
 
+  /**
+   * draws everything on the canvas
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
@@ -207,6 +235,7 @@ class World {
       collectible.intervalIds.forEach(interval => { clearInterval(interval); })
     })
   }
+
   /**
    * restart all intervals
    */
@@ -220,7 +249,6 @@ class World {
       collectible.animate()
     })
   }
-
 }
 
 

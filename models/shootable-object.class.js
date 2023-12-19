@@ -14,6 +14,9 @@ class ShootableObject extends MovableObject {
     }
 
 
+    /**
+     * determines how much damage and what appearance the bubble has
+     */
     checkBubbleType() {
         if (this.hasPosion()) {
             this.damage = 20;
@@ -25,6 +28,9 @@ class ShootableObject extends MovableObject {
         }
     }
 
+    /**
+     * makes the bubble move in the direction in which the character looks when shooting
+     */
     shoot() {
         this.speedY = 0;
         if (!world.character.otherDirection) {
