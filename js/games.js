@@ -32,7 +32,6 @@ function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   loadeSounds();
-
   togglePause();
   document.getElementById("pause").classList.add("d-none");
   bindBtsPressEvents();
@@ -189,43 +188,45 @@ function startGame() {
 function toggleMenu() {
   let alreadyPaused = pause;
   if (menu) {
-    document.getElementById("openMenu").classList.remove("d-none");
-    document.getElementById("closeMenu").classList.add("d-none");
-    document.getElementById("gameInfos").classList.add("d-none");
+    hideMenu();
     menu = false;
     if (!alreadyPaused && !world.gameOver) {
       pause = true;
       togglePause()
     } else if (gameStarted && !world.gameOver) { document.getElementById("pause").classList.remove("d-none"); }
-
   } else {
-    document.getElementById("openMenu").classList.add("d-none");
-    document.getElementById("closeMenu").classList.remove("d-none");
-    document.getElementById("gameInfos").classList.remove("d-none");
-
+    showMenu();
     menu = true;
     if (!alreadyPaused && !world.gameOver) {
-
       togglePause()
       pause = false;
     }
-
     document.getElementById("pause").classList.add("d-none");
   }
 }
 
-function openInfoSection(section) {
+function hideMenu() {
+  document.getElementById("openMenu").classList.remove("d-none");
+  document.getElementById("closeMenu").classList.add("d-none");
+  document.getElementById("gameInfos").classList.add("d-none");
+}
 
+function showMenu() {
+  document.getElementById("openMenu").classList.add("d-none");
+  document.getElementById("closeMenu").classList.remove("d-none");
+  document.getElementById("gameInfos").classList.remove("d-none");
+}
+
+
+
+function openInfoSection(section) {
   document.getElementById('controlsContent').classList.add('d-none');
   document.getElementById('tipsContent').classList.add('d-none');
   document.getElementById('sourcesContent').classList.add('d-none');
-
   document.getElementById('controls').classList.remove('activeSection');
   document.getElementById('tips').classList.remove('activeSection');
   document.getElementById('sources').classList.remove('activeSection');
-
   document.getElementById(section + 'Content').classList.remove('d-none');
-
   document.getElementById(section).classList.add('activeSection');
 }
 
@@ -300,33 +301,21 @@ function exitFullscreen(element) {
 }
 
 function restartGame() {
-  // document.getElementById("restartButtonGameover").onclick = null;
-  // document.getElementById("restartButtonEndscreen").onclick = null;
   toggleSound();
   togglePause();
-
-  // Clear all existing intervals
-
-
-  // Remove existing character from the world
   world.level = resetLevel();
   world.resetCharacter();
   world.gameOver = false;
-
-  // Reset sounds
   loadeSounds();
-
-  // Reset the level
-
-
-  // Set up the world for the new character
   world.setWorld();
   world.clearAllIntervals();
-  // Resume game intervals
   togglePause();
   toggleSound();
+  hideEndscreen();
+}
 
 
+function hideEndscreen() {
   setTimeout(() => {
     document.getElementById("endScreen").classList.add("d-none");
     document.getElementById("gameover").classList.add("d-none");
@@ -338,8 +327,6 @@ function restartGame() {
     document.getElementById("restartButtonEndscreen").classList.add("d-none");
     document.getElementById("restartButtonEndscreen").classList.remove("visible");
   }, 150);
-  // Hide end game screens
-
 }
 
 function checkOrientation() {
@@ -371,11 +358,8 @@ window.mobileCheck = function () {
 
 function forceLandscapeOnMobile() {
   let isLandscape = window.matchMedia('(orientation: landscape)').matches;
-
   if (isLandscape) {
     document.getElementById("forceLandscapeMobile").classList.add("d-none");
-
-
   } else {
     document.getElementById("forceLandscapeMobile").classList.remove("d-none");
   }
