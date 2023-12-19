@@ -99,135 +99,166 @@ class Endboss extends MovableObject {
   }
 
   endbossMovement() {
-
-    if (this.hadFirstContact && world.character.x - this.x > 0 + 100 && !this.isDead()) {
+    if (this.characterMovesRight())
       this.moveRight();
-      this.otherDirection = true;
-    }
-    if (this.hadFirstContact && world.character.x - this.x < 0 + 100 && !this.isDead()) {
+    if (this.characterMovesLeft())
       this.moveLeft();
-      this.otherDirection = false;
-    }
-    if (this.hadFirstContact && world.character.y - this.y < 0 + 200 && !this.isDead()) {
+    if (this.characterMovesUp())
       this.moveUp();
-    }
-    if (this.hadFirstContact && world.character.y - this.y > 0 + 200 && !this.isDead()) {
+    if (this.characterMovesDown())
       this.moveDown();
-    }
+    if (this.characterInSight())
+      this.spawnEndboss();
+    if (this.canAttack())
+      this.triggerAttack();
+    if (this.hasDied())
+      this.triggerDeath();
+  }
 
-    if (world && world.character.x > 3000 && !this.hadFirstContact) {
-      this.hadFirstContact = true;
+  characterMovesRight() {
+    return this.hadFirstContact && world.character.x - this.x > 0 + 100 && !this.isDead()
+  }
 
-      this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
-      this.hpBarEndboss.x = 500;
-      this.startSpawning = true;
-      this.currenImage = 0;
-      this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
-      // world.bossfight_sound.pause();
-      world.background_sound.pause();
-      this.startSpawning = true;
-      this.currenImage = 0;
+  characterMovesLeft() {
+    return this.hadFirstContact && world.character.x - this.x < 0 + 100 && !this.isDead()
+  }
 
-    }
-    if (this.spawned && !this.attackCooldown(3000) && !this.isDead()) {
-      this.attack = true;
-      this.currenImage = 0;
-    }
+  characterMovesUp() {
+    return this.hadFirstContact && world.character.y - this.y < 0 + 200 && !this.isDead()
+  }
 
-    if (this.isDead() && !this.startDeath) {
-      this.deathToBubble = true;
-      this.currenImage = 0;
-    }
+  characterMovesDown() {
+    return this.hadFirstContact && world.character.y - this.y > 0 + 200 && !this.isDead()
+  }
 
+  moveRight() {
+    super.moveRight();
+    this.otherDirection = true;
+  }
+
+  moveLeft() {
+    super.moveLeft();
+    this.otherDirection = false;
+  }
+
+  characterInSight() {
+    return world && world.character.x > 3000 && !this.hadFirstContact
+  }
+
+  spawnEndboss() {
+    this.hadFirstContact = true;
+    this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
+    this.hpBarEndboss.x = 500;
+    this.startSpawning = true;
+    this.currenImage = 0;
+    world.background_sound.pause();
+  }
+
+  canAttack() {
+    return this.spawned && !this.attackCooldown(3000) && !this.isDead()
+  }
+
+  triggerAttack() {
+    this.attack = true;
+    this.currenImage = 0;
+  }
+
+  hasDied() {
+    return this.isDead() && !this.startDeath
+  }
+
+  triggerDeath() {
+    this.deathToBubble = true;
+    this.currenImage = 0;
   }
 
   endbossAnimation() {
-
     if (this.deathToBubble) {
       this.deathAnimation();
-
-
     }
-
     else if (this.hasDiedToBubble) {
-      this.playAnimation(this.IMAGES_DEAD);
-      world.bossfight_sound.pause();
-      world.endboss_dead_sound.play();
-
-      setTimeout(() => {
-        world.endboss_dead_sound.pause();
-        world.endboss_dead_sound.currentTime = 0;
-        world.gameOver = true;
-        world.clearAllIntervals();
-        document.getElementById("endScreen").classList.remove("d-none");
-        document.getElementById("noPause").classList.add("d-none");
-      }, 2000);
-      setTimeout(() => {
-        document.getElementById("restartButtonEndscreen").classList.remove("d-none");
-      }, 2500);
-      setTimeout(() => {
-        document.getElementById("restartButtonEndscreen").classList.add("visible");
-      }, 3000);
+      this.gameOver();
     }
-
     else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
     }
     else if (this.startSpawning) {
-      this.x = 3500;
-      this.playAnimation(this.IMAGES_SPAWNING);
-
-      this.animationIndex++
-      if (this.animationIndex == this.IMAGES_SPAWNING.length) {
-        this.animationIndex = 0;
-        this.startSpawning = false;
-        this.spawned = true;
-        this.speed = 0.1;
-        this.speedY = 0.1;
-
-      }
+      this.spawningAnimation();
     }
     else if (this.attack) {
-      this.lastAttack = new Date().getTime();
-      this.playAnimation(this.IMAGES_ATTACK);
-      this.animationIndex++;
-      this.offsetX = 0;
-
-
-      if (this.animationIndex == this.IMAGES_ATTACK.length) {
-        this.animationIndex = 0;
-        this.offsetX = 20;
-        this.attack = false;
-        this.speed = this.speed * 1.5;
-        this.speedY = this.speedY * 1.5;
-        world.endboss_attack_sound.play();
-
-      }
+      this.attackAnimation();
     } else {
-      this.playAnimation(this.IMAGES_SWIMMING);
-      if (world && this.hadFirstContact) {
-        world.bossfight_sound.play();
-        world.background_sound.pause();
-      }
+      this.defaultAnimation();
     }
-
-
-
   }
 
   deathAnimation() {
     this.animationIndex++;
     this.speed = 0;
     this.speedY = 0;
-
     this.playAnimation(this.IMAGES_DEAD_ANIMATION);
     if (this.animationIndex == this.IMAGES_DEAD_ANIMATION.length) {
       this.animationIndex = 0;
       this.deathToBubble = false;
       this.hasDiedToBubble = true;
     }
-
     this.startDeath = true;
+  }
+
+  gameOver() {
+    this.playAnimation(this.IMAGES_DEAD);
+    world.bossfight_sound.pause();
+    world.endboss_dead_sound.play();
+    setTimeout(() => {
+      world.endboss_dead_sound.pause();
+      world.endboss_dead_sound.currentTime = 0;
+      world.gameOver = true;
+      world.clearAllIntervals();
+      document.getElementById("endScreen").classList.remove("d-none");
+      document.getElementById("noPause").classList.add("d-none");
+    }, 2000);
+    setTimeout(() => {
+      document.getElementById("restartButtonEndscreen").classList.remove("d-none");
+    }, 2500);
+    setTimeout(() => {
+      document.getElementById("restartButtonEndscreen").classList.add("visible");
+    }, 3000);
+  }
+
+  spawningAnimation() {
+    this.x = 3500;
+    this.playAnimation(this.IMAGES_SPAWNING);
+    this.animationIndex++
+    if (this.animationIndex == this.IMAGES_SPAWNING.length) {
+      this.animationIndex = 0;
+      this.startSpawning = false;
+      this.spawned = true;
+      this.speed = 0.1;
+      this.speedY = 0.1;
+    }
+  }
+
+  attackAnimation() {
+    this.lastAttack = new Date().getTime();
+    this.playAnimation(this.IMAGES_ATTACK);
+    this.animationIndex++;
+    this.offsetX = 0;
+    if (this.animationIndex == this.IMAGES_ATTACK.length) {
+      this.animationIndex = 0;
+      this.offsetX = 20;
+      this.attack = false;
+      this.speed = this.speed * 1.5;
+      this.speedY = this.speedY * 1.5;
+      world.endboss_attack_sound.play();
+    }
+  }
+
+  defaultAnimation() {
+    this.playAnimation(this.IMAGES_SWIMMING);
+    if (world && this.hadFirstContact) {
+      world.bossfight_sound.play();
+      world.background_sound.pause();
+    }
   }
 
 
