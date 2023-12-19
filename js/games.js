@@ -36,6 +36,16 @@ function init() {
   bindBtsPressEvents();
 }
 
+function loadeComponent() {
+  document.getElementById("loadInfo").classList.add("d-none");
+  document.getElementById("startButton").classList.remove("d-none");
+}
+
+window.onload = function () {
+  loadeComponent();
+};
+
+
 window.addEventListener("keydown", (event) => {
   if (event.keyCode == 38) {
     keyboard.UP = true;
