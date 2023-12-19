@@ -18,8 +18,13 @@ class MovableObject extends DrawableObject {
   lastAttack = new Date().getTime();
   lastMove = new Date().getTime();
 
-  isColliding(mo) {
 
+  /**
+   * 
+   * @param {object} mo - movable object for which the collsion should be checked
+   * @returns boolean, whether a collision takes place
+   */
+  isColliding(mo) {
     return (
       this.x + this.offsetX + this.width - this.widthOffset >= mo.x + mo.offsetX &&
       this.x + this.offsetX <= mo.x + mo.offsetX + mo.width - mo.widthOffset &&
@@ -76,7 +81,11 @@ class MovableObject extends DrawableObject {
     return timepassed > 10000;
   }
 
-  //is true wenn aktuell noch auf cooldown und man somit nicht angreifen kann
+  /**
+   * 
+   * @param {number} cooldown - number of milliseconds before the next attack is possible
+   * @returns boolean, whether attack is still on cooldown
+   */
   attackCooldown(cooldown) {
     let timepassed = new Date().getTime() - this.lastAttack;
     return timepassed < cooldown;
@@ -110,6 +119,9 @@ class MovableObject extends DrawableObject {
     this.y += this.speedY;
   }
 
+  /**
+   * Gives the object buoyancy
+   */
   applyBuoyancy() {
     setInterval(() => {
       if (this.isUnderWater() || this.speedY > 0) {
@@ -123,6 +135,11 @@ class MovableObject extends DrawableObject {
     return this.y > -200;
   }
 
+  /**
+   * adds an interval to the functions and stores the id of the intervals in an array
+   * @param {function} fn - function which is to be executed in intervals
+   * @param {number} time - interval time
+   */
   setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     this.intervalIds.push(id);

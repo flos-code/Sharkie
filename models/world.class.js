@@ -144,7 +144,6 @@ class World {
     this.addToMap(this.character);
     this.addToMap(this.meleeAttack);
     this.ctx.translate(-this.camera_x, 0);
-    // --- Fixed Objects ---
     this.addObjectsToMap(this.level.statusbars);
     this.ctx.translate(this.camera_x, 0);
     this.ctx.translate(-this.camera_x, 0);
@@ -185,12 +184,19 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  /**
+   * adds an interval to the functions and stores the id of the intervals in an array
+   * @param {function} fn - function which is to be executed in intervals
+   * @param {number} time - interval time
+   */
   setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     this.intervalIds.push(id);
   }
 
-
+  /**
+   * stops all intervals
+   */
   clearAllIntervals() {
     this.intervalIds.forEach(interval => { clearInterval(interval); });
     this.character.intervalIds.forEach(interval => { clearInterval(interval); });
@@ -201,7 +207,9 @@ class World {
       collectible.intervalIds.forEach(interval => { clearInterval(interval); })
     })
   }
-
+  /**
+   * restart all intervals
+   */
   resumeAllIntervals() {
     this.run();
     this.character.animate();

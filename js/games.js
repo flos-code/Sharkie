@@ -367,11 +367,9 @@ function forceLandscapeOnMobile() {
 
 
 function handleUserDevice() {
-
   if (window.mobileCheck()) {
     document.getElementById("movementMobile").classList.remove("d-none");
     document.getElementById("attackMobile").classList.remove("d-none");
-
     toggleFullscreen();
     document.getElementById("noFullscreen").classList.add("d-none");
     forceLandscapeOnMobile()
@@ -381,11 +379,5 @@ function handleUserDevice() {
     if (!fullscreen) {
       document.getElementById("fullscreen").classList.remove("d-none");
     }
-
   }
-
-
-
-
-
 }

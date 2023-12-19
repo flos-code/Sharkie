@@ -42,7 +42,9 @@ class JellyFishGreen extends MovableObject {
     this.setStoppableInterval(() => this.greenJellyfishMovement(), 1000 / 60);
     this.setStoppableInterval(() => this.greenJellyfishAnimation(), 200);
   }
-
+  /**
+   * circular motion
+   */
   greenJellyfishMovement() {
     this.angle += 0.01 * this.rotationDirection;
     this.x = this.centerX + this.radius * Math.cos(this.angle);
@@ -57,6 +59,10 @@ class JellyFishGreen extends MovableObject {
     }
   }
 
+  /**
+   * stop the circular movement of the jellyfish and play the death animation 
+   * depending on which way the jellyfish should move during the death animation 
+   */
   deathAnimation() {
     for (let i = 1; i < this.intervalIds.length; i = i + 3) {
       clearInterval(this.intervalIds[i]);

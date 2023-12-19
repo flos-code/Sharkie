@@ -178,9 +178,10 @@ class Character extends MovableObject {
     this.setStoppableInterval(() => this.characterAnimation(), 150);
   }
 
+  /**
+   * determines the next move for the character
+   */
   characterMovement() {
-
-
     world.swimming_sound.pause();
     if (this.canMoveRight())
       this.moveRight();
@@ -289,7 +290,9 @@ class Character extends MovableObject {
   }
 
 
-
+  /**
+   * determines which character animation should be played
+   */
   characterAnimation() {
     if (this.deathToPoison) {
       this.deathAnimation("poison");
@@ -327,6 +330,10 @@ class Character extends MovableObject {
 
   }
 
+  /**
+   * depending on the deathreason, the corresponding death animation is played
+   * @param {string} deathReason - last damage type dealt to the character before death
+   */
   deathAnimation(deathReason) {
     this.animationIndex++;
     this.speed = 0;
@@ -349,6 +356,10 @@ class Character extends MovableObject {
     this.startDeath = true;
   }
 
+  /**
+   * shows the dead character  image depending on the death reason and triggers gamover
+   * @param {string} deathReason - last damage type dealt to the character before death
+   */
   triggerGameOver(deathReason) {
     if (deathReason == "poison") {
       this.playAnimation(this.IMAGES_DEAD_POISONED);
@@ -362,6 +373,9 @@ class Character extends MovableObject {
     }, 500);
   }
 
+  /**
+   * the game is paused via the intervals, the sound is deactivated and the end screen is shown
+   */
   gameOver() {
     this.world.clearAllIntervals();
     this.world.gameOver = true;
@@ -378,6 +392,9 @@ class Character extends MovableObject {
     world.idle_sound.currentTime = 0;
   }
 
+  /**
+   * shows the end screen and let the "try again" button fade in 
+   */
   showGameOverScreen() {
     document.getElementById("gameover").classList.remove("d-none");
     document.getElementById("noPause").classList.add("d-none");
@@ -391,7 +408,11 @@ class Character extends MovableObject {
     }, 1000);
   }
 
-
+  /**
+   * checks if and what type of damage was dealt to the character
+   * @param {string} hurtReason - last damage type dealt to the character
+   * @returns true if the hur reasons matches the last damage type dealt to the character
+   */
   gotHurt(hurtReason) {
     if (hurtReason == "poison") {
       return this.isHurt() && this.lastDamage == "poisoned"
@@ -401,6 +422,10 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * playes the hurt Animation depend on the last type of damage taken 
+   * @param {string} hurtReason - last damage type dealt to the character
+   */
   hurtAnimation(hurtReason) {
     if (hurtReason == "poison") {
       this.playAnimation(this.IMAGES_HURT_POISONED);
@@ -424,6 +449,9 @@ class Character extends MovableObject {
     this.lastMove = new Date().getTime();
   }
 
+  /**
+   * plays the melee attack animation only once
+   */
   meleeAttack() {
     this.playAnimation(this.IMAGES_MELEE_ATTACK)
     this.animationIndex++;
@@ -435,6 +463,10 @@ class Character extends MovableObject {
     this.lastMove = new Date().getTime();
   }
 
+  /**
+   * plays the corresponding ranged attack once, depending on 
+   * whether the character has poison or not, and then shoots a bubble
+   */
   rangeAttack() {
     let animationLength;
     if (this.hasPosion()) {

@@ -54,7 +54,9 @@ class GreenFish extends MovableObject {
   }
 
 
-
+  /**
+   * determines which animation should be played
+   */
   greenFishAnimation() {
     if (this.form == "big" && this.isDead()) {
       this.deathAnimation("big");
@@ -66,7 +68,10 @@ class GreenFish extends MovableObject {
       this.playAnimation(this.IMAGES_SWIMMING);
     }
   }
-
+  /**
+   * plays the death animation of the fish depending on its form
+   * @param {string} form - determines whether it is a normal or big fish
+   */
   deathAnimation(form) {
     this.speed = 0;
     this.speedY = 1;

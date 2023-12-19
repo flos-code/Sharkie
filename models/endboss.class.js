@@ -97,7 +97,9 @@ class Endboss extends MovableObject {
     this.setStoppableInterval(() => this.endbossMovement(), 1000 / 60);
     this.setStoppableInterval(() => this.endbossAnimation(), 200);
   }
-
+  /**
+   * determines which move the end boss should make next
+   */
   endbossMovement() {
     if (this.characterMovesRight())
       this.moveRight();
@@ -145,6 +147,9 @@ class Endboss extends MovableObject {
     return world && world.character.x > 3000 && !this.hadFirstContact
   }
 
+  /**
+   * triggers the spawning animation and shows the healt bar of the endboss
+   */
   spawnEndboss() {
     this.hadFirstContact = true;
     this.hpBarEndboss = world.level.statusbars.find(bar => bar instanceof HpBarEndboss);
@@ -172,6 +177,9 @@ class Endboss extends MovableObject {
     this.currenImage = 0;
   }
 
+  /**
+   * determines which endboss animation should be played
+   */
   endbossAnimation() {
     if (this.deathToBubble) {
       this.deathAnimation();
@@ -192,6 +200,9 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * plays the death animation once and then triggers gameover 
+   */
   deathAnimation() {
     this.animationIndex++;
     this.speed = 0;
@@ -205,6 +216,10 @@ class Endboss extends MovableObject {
     this.startDeath = true;
   }
 
+
+  /**
+   * the game is paused via the intervals, the sound is deactivated and the end screen is shown
+   */
   gameOver() {
     this.playAnimation(this.IMAGES_DEAD);
     world.bossfight_sound.pause();
@@ -225,6 +240,10 @@ class Endboss extends MovableObject {
     }, 3000);
   }
 
+
+  /**
+   * the spawn animation is played once
+   */
   spawningAnimation() {
     this.x = 3500;
     this.playAnimation(this.IMAGES_SPAWNING);
@@ -238,6 +257,9 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * the attack animation is played once and the speed of the endboss is increased
+   */
   attackAnimation() {
     this.lastAttack = new Date().getTime();
     this.playAnimation(this.IMAGES_ATTACK);

@@ -16,6 +16,10 @@ class MeleeAttack extends MovableObject {
         this.setStoppableInterval(() => this.moveMeleeHitbox(), 1000 / 60);
     }
 
+    /**
+     * the hitbox for the melee attack moves with the character and 
+     * is always in the direction the character is facing
+     */
     moveMeleeHitbox() {
         this.y = this.world.character.y + 50;
         this.checkCharacterDirection();

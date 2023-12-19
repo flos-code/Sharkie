@@ -24,6 +24,12 @@ class DrawableObject {
     });
   }
 
+  /**
+   * draws the number associated with the stat on the canvas
+   * @param {CanvasRenderingContext2D} ctx - canvas on which the text should be drawn
+   * @param {number} stat - the number belonging to the stats
+   * @param {number} x - x position of the text on the canvas
+   */
   drawText(ctx, stat, x) {
     if (this instanceof StatusBar) {
       ctx.font = "48px luckiestguy";

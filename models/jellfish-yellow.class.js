@@ -40,7 +40,9 @@ class JellyFishYellow extends MovableObject {
   }
 
 
-
+  /**
+   * up down movement
+   */
   yellowJellyfishMovement() {
     if (!this.isDead()) {
       this.y += this.direction * this.speedY;
