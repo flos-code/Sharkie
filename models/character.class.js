@@ -13,164 +13,28 @@ class Character extends MovableObject {
   attackPossibleMelee = false;
   attackPossibleRange = false;
   isAttacking = false;
-
   deathToPoison = false;
   hasDiedToPosion = false;
   deathToShock = false;
   hasDiedToShock = false;
   startDeath = false;
-
-
-  IMAGES_SWIMMING = [
-    "./img/1.Sharkie/3.Swim/1.png",
-    "./img/1.Sharkie/3.Swim/2.png",
-    "./img/1.Sharkie/3.Swim/3.png",
-    "./img/1.Sharkie/3.Swim/4.png",
-    "./img/1.Sharkie/3.Swim/5.png",
-    "./img/1.Sharkie/3.Swim/6.png"
-  ];
-
-  IMAGES_DEAD_POISONED_ANIMATION = [
-    "./img/1.Sharkie/6.dead/1.Poisoned/1.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/2.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/3.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/4.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/5.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/6.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/7.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/8.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/9.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/10.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/11.png",
-    "./img/1.Sharkie/6.dead/1.Poisoned/12.png"
-  ];
-
-  IMAGES_DEAD_POISONED = [
-    "./img/1.Sharkie/6.dead/1.Poisoned/12.png"
-  ];
-
-  IMAGES_HURT_POISONED = [
-    "./img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
-    "./img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
-    "./img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
-    "./img/1.Sharkie/5.Hurt/1.Poisoned/4.png"
-  ];
-
-  IMAGES_DEAD_SHOCK_ANIMATION = [
-    "./img/1.Sharkie/6.dead/2.Electro_shock/1.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/2.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/3.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/4.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/5.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/6.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/7.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/8.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/9.png",
-    "./img/1.Sharkie/6.dead/2.Electro_shock/10.png"
-  ];
-
-  IMAGES_DEAD_SHOCK = [
-    "./img/1.Sharkie/6.dead/2.Electro_shock/10.png"
-  ];
-
-  IMAGES_HURT_SHOCK = [
-    "./img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
-    "./img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
-    "./img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
-  ];
-
-  IMAGES_RANGE_ATTACK_POISON = [
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png"
-  ];
-
-  IMAGES_RANGE_ATTACK = [
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png",
-    "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png"
-  ];
-
-  IMAGES_MELEE_ATTACK = [
-    "./img/1.Sharkie/4.Attack/Fin slap/1.png",
-    "./img/1.Sharkie/4.Attack/Fin slap/2.png",
-    "./img/1.Sharkie/4.Attack/Fin slap/3.png",
-    "./img/1.Sharkie/4.Attack/Fin slap/4.png",
-    "./img/1.Sharkie/4.Attack/Fin slap/5.png",
-    "./img/1.Sharkie/4.Attack/Fin slap/6.png",
-    "./img/1.Sharkie/4.Attack/Fin slap/7.png",
-    "./img/1.Sharkie/4.Attack/Fin slap/8.png",
-  ];
-
-  IMAGES_IDLE = [
-    "./img/1.Sharkie/1.IDLE/1.png",
-    "./img/1.Sharkie/1.IDLE/2.png",
-    "./img/1.Sharkie/1.IDLE/3.png",
-    "./img/1.Sharkie/1.IDLE/4.png",
-    "./img/1.Sharkie/1.IDLE/5.png",
-    "./img/1.Sharkie/1.IDLE/6.png",
-    "./img/1.Sharkie/1.IDLE/7.png",
-    "./img/1.Sharkie/1.IDLE/8.png",
-    "./img/1.Sharkie/1.IDLE/9.png",
-    "./img/1.Sharkie/1.IDLE/10.png",
-    "./img/1.Sharkie/1.IDLE/11.png",
-    "./img/1.Sharkie/1.IDLE/12.png",
-    "./img/1.Sharkie/1.IDLE/13.png",
-    "./img/1.Sharkie/1.IDLE/14.png",
-    "./img/1.Sharkie/1.IDLE/15.png",
-    "./img/1.Sharkie/1.IDLE/16.png",
-    "./img/1.Sharkie/1.IDLE/17.png",
-    "./img/1.Sharkie/1.IDLE/18.png"
-  ];
-
-  IMAGES_IDLE_LONG = [
-    "./img/1.Sharkie/2.Long_IDLE/i1.png",
-    "./img/1.Sharkie/2.Long_IDLE/I2.png",
-    "./img/1.Sharkie/2.Long_IDLE/I3.png",
-    "./img/1.Sharkie/2.Long_IDLE/I4.png",
-    "./img/1.Sharkie/2.Long_IDLE/I5.png",
-    "./img/1.Sharkie/2.Long_IDLE/I6.png",
-    "./img/1.Sharkie/2.Long_IDLE/I7.png",
-    "./img/1.Sharkie/2.Long_IDLE/I8.png",
-    "./img/1.Sharkie/2.Long_IDLE/I9.png",
-    "./img/1.Sharkie/2.Long_IDLE/I10.png",
-    "./img/1.Sharkie/2.Long_IDLE/I11.png",
-    "./img/1.Sharkie/2.Long_IDLE/I12.png",
-    "./img/1.Sharkie/2.Long_IDLE/I13.png",
-    "./img/1.Sharkie/2.Long_IDLE/I14.png"
-  ];
-
   world;
-
 
   constructor() {
     super().loadeImage("./img/1.Sharkie/3.Swim/1.png");
-    this.loadImages(this.IMAGES_SWIMMING);
-    this.loadImages(this.IMAGES_DEAD_POISONED);
-    this.loadImages(this.IMAGES_DEAD_POISONED_ANIMATION);
-    this.loadImages(this.IMAGES_HURT_POISONED);
-    this.loadImages(this.IMAGES_DEAD_SHOCK);
-    this.loadImages(this.IMAGES_DEAD_SHOCK_ANIMATION);
-    this.loadImages(this.IMAGES_HURT_SHOCK);
-    this.loadImages(this.IMAGES_RANGE_ATTACK_POISON);
-    this.loadImages(this.IMAGES_RANGE_ATTACK);
-    this.loadImages(this.IMAGES_MELEE_ATTACK);
-    this.loadImages(this.IMAGES_IDLE);
-    this.loadImages(this.IMAGES_IDLE_LONG);
+    this.loadImages(IMAGES_SWIMMING);
+    this.loadImages(IMAGES_DEAD_POISONED);
+    this.loadImages(IMAGES_DEAD_POISONED_ANIMATION);
+    this.loadImages(IMAGES_HURT_POISONED);
+    this.loadImages(IMAGES_DEAD_SHOCK);
+    this.loadImages(IMAGES_DEAD_SHOCK_ANIMATION);
+    this.loadImages(IMAGES_HURT_SHOCK);
+    this.loadImages(IMAGES_RANGE_ATTACK_POISON);
+    this.loadImages(IMAGES_RANGE_ATTACK);
+    this.loadImages(IMAGES_MELEE_ATTACK);
+    this.loadImages(IMAGES_IDLE);
+    this.loadImages(IMAGES_IDLE_LONG);
     this.animate();
-
-
-
   }
 
   animate() {
@@ -339,15 +203,15 @@ class Character extends MovableObject {
     this.speed = 0;
     this.speedY = 0;
     if (deathReason == "poison") {
-      this.playAnimation(this.IMAGES_DEAD_POISONED_ANIMATION);
-      if (this.animationIndex == this.IMAGES_DEAD_POISONED_ANIMATION.length) {
+      this.playAnimation(IMAGES_DEAD_POISONED_ANIMATION);
+      if (this.animationIndex == IMAGES_DEAD_POISONED_ANIMATION.length) {
         this.animationIndex = 0;
         this.deathToPoison = false;
         this.hasDiedToPosion = true;
       }
     } else if (deathReason == "shock") {
-      this.playAnimation(this.IMAGES_DEAD_SHOCK_ANIMATION);
-      if (this.animationIndex == this.IMAGES_DEAD_SHOCK_ANIMATION.length) {
+      this.playAnimation(IMAGES_DEAD_SHOCK_ANIMATION);
+      if (this.animationIndex == IMAGES_DEAD_SHOCK_ANIMATION.length) {
         this.animationIndex = 0;
         this.deathToShock = false;
         this.hasDiedToShock = true;
@@ -362,10 +226,10 @@ class Character extends MovableObject {
    */
   triggerGameOver(deathReason) {
     if (deathReason == "poison") {
-      this.playAnimation(this.IMAGES_DEAD_POISONED);
+      this.playAnimation(IMAGES_DEAD_POISONED);
     }
     else if (deathReason == "shock") {
-      this.playAnimation(this.IMAGES_DEAD_SHOCK);
+      this.playAnimation(IMAGES_DEAD_SHOCK);
     }
     this.world.game_over_sound.play();
     setTimeout(() => {
@@ -428,11 +292,11 @@ class Character extends MovableObject {
    */
   hurtAnimation(hurtReason) {
     if (hurtReason == "poison") {
-      this.playAnimation(this.IMAGES_HURT_POISONED);
+      this.playAnimation(IMAGES_HURT_POISONED);
       this.world.poisoned_sound.play();
     }
     else if (hurtReason == "shock") {
-      this.playAnimation(this.IMAGES_HURT_SHOCK);
+      this.playAnimation(IMAGES_HURT_SHOCK);
       this.world.shock_sound.play();
     }
   }
@@ -445,7 +309,7 @@ class Character extends MovableObject {
   }
 
   movingAnimation() {
-    this.playAnimation(this.IMAGES_SWIMMING);
+    this.playAnimation(IMAGES_SWIMMING);
     this.lastMove = new Date().getTime();
   }
 
@@ -453,9 +317,9 @@ class Character extends MovableObject {
    * plays the melee attack animation only once
    */
   meleeAttack() {
-    this.playAnimation(this.IMAGES_MELEE_ATTACK)
+    this.playAnimation(IMAGES_MELEE_ATTACK)
     this.animationIndex++;
-    if (this.animationIndex == this.IMAGES_MELEE_ATTACK.length) {
+    if (this.animationIndex == IMAGES_MELEE_ATTACK.length) {
       this.animationIndex = 0;
       this.attackPossibleMelee = false;
     }
@@ -470,11 +334,11 @@ class Character extends MovableObject {
   rangeAttack() {
     let animationLength;
     if (this.hasPosion()) {
-      this.playAnimation(this.IMAGES_RANGE_ATTACK_POISON);
-      animationLength = this.IMAGES_RANGE_ATTACK_POISON.length;
+      this.playAnimation(IMAGES_RANGE_ATTACK_POISON);
+      animationLength = IMAGES_RANGE_ATTACK_POISON.length;
     } else {
-      this.playAnimation(this.IMAGES_RANGE_ATTACK);
-      animationLength = this.IMAGES_RANGE_ATTACK.length;
+      this.playAnimation(IMAGES_RANGE_ATTACK);
+      animationLength = IMAGES_RANGE_ATTACK.length;
     }
     this.animationIndex++;
     if (this.animationIndex == animationLength) {
@@ -487,13 +351,13 @@ class Character extends MovableObject {
   }
 
   idleAnimation() {
-    this.playAnimation(this.IMAGES_IDLE_LONG);
+    this.playAnimation(IMAGES_IDLE_LONG);
     this.world.background_sound.pause();
     this.world.idle_sound.play();
   }
 
   defaultAnimation() {
-    this.playAnimation(this.IMAGES_IDLE);
+    this.playAnimation(IMAGES_IDLE);
     if (!this.hadFirstContact) {
       this.world.background_sound.play();
     }
