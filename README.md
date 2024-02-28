@@ -4,7 +4,7 @@
 
   <p>Sharkie, is a Jump-and-Run game developed with an object-oriented approach running in your browser</p>
 
-👉 Live Demo: <a href='https://scholz-florian.com/Sharkie/'>Live Demo</a>
+👉 Live Demo: <a href='https://sharkie.scholz-florian.com/'>Live Demo</a>
 
 <h3>Key Features:</h3>
 
